@@ -15,18 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cs.model.Category;
 import com.cs.repository.CategoryRepository;
 
-/*
-@RestController
-@RequestMapping("/api")*/
 
- @Controller
- @RequestMapping("/admin")
- 
+@Controller
+@RequestMapping("/admin")
 public class CategoryController {
 	@Autowired
 	CategoryRepository rep;
 
-	@RequestMapping(value="/products",method = RequestMethod.GET)
+	@RequestMapping(value="/product",method = RequestMethod.GET)
 	public String showCateList(Model model) {
 	    model.addAttribute("categories", rep.findAll());
 	    return "admin/products";
