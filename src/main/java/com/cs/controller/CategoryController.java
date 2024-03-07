@@ -26,10 +26,10 @@ public class CategoryController {
 	@Autowired
 	CategoryRepository rep;
 
-	@RequestMapping(value="/categories",method = RequestMethod.GET)
+	@RequestMapping(value="/products",method = RequestMethod.GET)
 	public String showCateList(Model model) {
 	    model.addAttribute("categories", rep.findAll());
-	    return "categories";
+	    return "admin/products";
 	}
 	
 	/*
