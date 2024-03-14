@@ -39,4 +39,32 @@ public class CategoryRepository {
 			throw new RuntimeException("Error!!");	
 		}
 	}
+	
+	/***
+	 * 
+	 * @return select 1 
+	 */
+		
+	public Category findByID(int id) {
+		return db.queryForObject("select * from Category where CategoryID=?", new CategoryRowMapper(),
+				new Object[] { id });
+	}
+	
+//	public int deleteById(int id) {
+//		return db.update("delete from Category where CategoryID=?", new Object[] { id });
+//	}
+
+	public int insert(Category Category) {
+		return db.update("insert into Category ( CategoryName, DelStatus) " + "values( ?, ?)",
+				new Object[] { Category.getCategoryName(), 1 });
+	}
+
+	public int update(Category Category) {
+		return db.update("update Category " + " set CategoryName = ?, DelStatus = ?" + " where CategoryID = ?",
+				new Object[] { Category.getCategoryName(), 1, Category.getCategoryID() });
+	}
+	public int deleteById(Category Category, int id) {
+		return db.update("update Category " + " set CategoryName = ?, DelStatus = ?" + " where CategoryID = ?",
+				new Object[] { Category.getCategoryName(), 0, id });
+	}
 }
