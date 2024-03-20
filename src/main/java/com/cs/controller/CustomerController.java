@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 
 public class CustomerController {
-	@RequestMapping("")
+	@RequestMapping("/client")
 	public String index() {
 		
 		return "client/indexclient";
