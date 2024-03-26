@@ -13,8 +13,6 @@ import com.cs.repository.BrandRepository;
 
 public class BrandController {
 	@Autowired
-	@Autowired
-
 	BrandRepository rep;
 
 	@RequestMapping(value = "/product", method = RequestMethod.GET)
