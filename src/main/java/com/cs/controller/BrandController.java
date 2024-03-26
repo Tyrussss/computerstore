@@ -13,30 +13,34 @@ import com.cs.repository.BrandRepository;
 
 public class BrandController {
 	@Autowired
+	@Autowired
+
 	BrandRepository rep;
 
-	@RequestMapping(value="/product",method = RequestMethod.GET)
+	@RequestMapping(value = "/product", method = RequestMethod.GET)
 	public String showBrandList(Model model) {
-	    model.addAttribute("brands", rep.findAll());
-	    return "admin/products";
+		model.addAttribute("brands", rep.findAll());
+		return "admin/products";
 	}
-	
-	
+
 	@RequestMapping(value = "/brand/{id}", method = RequestMethod.GET)
 	public String getBrand(@PathVariable("id") int id, Model model) {
 		model.addAttribute("brands", rep.findByID(id));
-	    return "admin/brand/id";		
+		return "admin/brand/id";
 	}
+
 	@RequestMapping(value = "/brand", method = RequestMethod.POST)
 	public int saveBrand(@Validated @RequestBody Brand item) {
 		return rep.insert(item);
 	}
-	@RequestMapping(value = "/brand",method = RequestMethod.PUT)
+
+	@RequestMapping(value = "/brand", method = RequestMethod.PUT)
 	public int updateBrand(@Validated @RequestBody Brand item) {
 		return rep.update(item);
 	}
-	@RequestMapping(value = "/brand/{id}",method = RequestMethod.PUT)
-	public int deleteBrand(@Validated @RequestBody Brand item, @PathVariable("id")int id) {
+
+	@RequestMapping(value = "/brand/{id}", method = RequestMethod.PUT)
+	public int deleteBrand(@Validated @RequestBody Brand item, @PathVariable("id") int id) {
 		return rep.deleteById(item, id);
 	}
 }
