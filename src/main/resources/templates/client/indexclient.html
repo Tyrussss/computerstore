@@ -6,9 +6,10 @@
 	<style th:replace="common/client/head_tag"></style>
 </head>
 <body>
-	<div th:replace="common/client/conten_first"></div>
 
-	<div th:replace="common/client/conten_footer"></div>
+	<div th:replace="common/client/content_head"></div>
+	<div th:replace="common/client/content_body"></div>
+	<div th:replace="common/client/content_footer"></div>
 	<script>
 	var title=ducument.getElemenById("subtitle");
 	title.innerHTML="Product menagement";
