@@ -28,11 +28,11 @@ public class BrandRepository {
 	
 	/***
 	 * 
-	 * @return select table category
+	 * @return select table brand
 	 */
 	public List<Brand> findAll() {
 		try {
-			return db.query("select * from Category", new BrandRowMapper());
+			return db.query("select * from brand", new BrandRowMapper());
 		}catch(Exception ec){
 			ec.printStackTrace();
 			throw new RuntimeException("Error!!");	
@@ -59,7 +59,7 @@ public class BrandRepository {
 	}
 
 	public int update(Brand Brand) {
-		return db.update("update Brand " + " set CategoryName = ?, DelStatus = ?" + " where CategoryID = ?",
+		return db.update("update Brand " + " set BrandName = ?, DelStatus = ?" + " where BrandID = ?",
 				new Object[] { Brand.getBrandName(), 1, Brand.getBrandID() });
 	}
 	public int deleteById(Brand Brand, int id) {
