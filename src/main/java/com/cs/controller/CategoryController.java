@@ -14,35 +14,36 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.cs.model.Category;
 import com.cs.repository.CategoryRepository;
 
-
 @Controller
 @RequestMapping("/admin")
 public class CategoryController {
 	@Autowired
 	CategoryRepository rep;
 
-	@RequestMapping(value="/categories",method = RequestMethod.GET)
+	@RequestMapping(value = "/categories", method = RequestMethod.GET)
 	public String showCateList(Model model) {
-	    model.addAttribute("categories", rep.findAll());
-	    return "admin/products";
+		model.addAttribute("categories", rep.findAll());
+		return "admin/products";
 	}
-	
-	
+
 	@RequestMapping(value = "/categories/{id}", method = RequestMethod.GET)
 	public String getCategory(@PathVariable("id") int id, Model model) {
 		model.addAttribute("categories", rep.findByID(id));
-	    return "admin/categories/id";		
+		return "admin/categories/id";
 	}
+
 	@RequestMapping(value = "/categories", method = RequestMethod.POST)
 	public int saveCategory(@Validated @RequestBody Category item) {
 		return rep.insert(item);
 	}
-	@RequestMapping(value = "/categories",method = RequestMethod.PUT)
+
+	@RequestMapping(value = "/categories", method = RequestMethod.PUT)
 	public int updateCategory(@Validated @RequestBody Category item) {
 		return rep.update(item);
 	}
-	@RequestMapping(value = "/categories/{id}",method = RequestMethod.PUT)
-	public int deleteCategory(@Validated @RequestBody Category item, @PathVariable("id")int id) {
+
+	@RequestMapping(value = "/categories/{id}", method = RequestMethod.PUT)
+	public int deleteCategory(@Validated @RequestBody Category item, @PathVariable("id") int id) {
 		return rep.deleteById(item, id);
 	}
 }
