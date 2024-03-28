@@ -1,32 +1,79 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.thymeleaf.org/thymeleaf-extras-layout"
-    layout:decorate="~{client/indexclient}"
->
+	xmlns:layout="http://www.thymeleaf.org/thymeleaf-extras-layout"
+	layout:decorate="~{client/indexclient}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <style th:replace="/common/client/head_tag"></style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<title>Login</title>
+<style th:replace="/common/client/head_tag"></style> 
+<!-- <link type="text/css" rel="stylesheet" href="clic/css/loginstyle.css" /> -->
 </head>
 <body>
-    <header  th:replace="common/client/conten_first"></header>
-    <div layout:fragment="content" style="text-align: center;">
-        <form th:action="@{/login}" th:object="${loginForm}" method="post">
-            <input type="text"  value="Username" name="userName" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'userName';}"/><br>
-            <input type="password"  value="Password" name="password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'password';}"/>
-            <div class="remember">
-             <span class="checkbox1">
-                   <label class="checkbox"><input type="checkbox" name="" checked=""><i> </i>Remember me</label>
-             </span>
-             <div class="forgot">
-                 <h6><a href="#">Forgot Password?</a></h6>
-             </div>
-            <div class="clear"> </div>
-          </div>
-            <input type="submit" value="Login"></form>
-       
-    </div>
-    <footer   th:replace="common/client/conten_footer"></footer>
+	<header th:replace="common/client/content_head"></header>
+	<!-- <h2>Login </h2>
+	<p>Please input your username or login with social media</p> -->
+
+	<div class="container" layout:fragment="content"
+		style="text-align: center;">
+		<form th:action="@{/login}" th:object="${loginForm}" method="post">
+			<div class="row">
+				<h2 style="text-align: center">Login with Social Media or
+					Registered account</h2>
+				<div class="vl">
+					<span class="vl-innertext">or</span>
+				</div>
+
+				<div class="col">
+					<a href="#" class="fb btn"> <i class="fa fa-facebook fa-fw"></i>
+						Login with Facebook
+					</a> <a href="#" class="twitter btn"> <i
+						class="fa fa-twitter fa-fw"></i> Login with Twitter
+					</a> <a href="#" class="google btn"><i class="fa fa-google fa-fw">
+					</i> Login with Google+ </a>
+				</div>
+
+				<div class="col">
+					<div class="hide-md-lg">
+						<p>Or sign in with registered username</p>
+					</div>
+
+					<!-- <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required> -->
+					<input type="text" value="Username" name="username"
+						onfocus="this.value = '';"
+						onblur="if (this.value == '') {this.value = 'userName';}" /> <input
+						type="password" value="Password" name="password"
+						onfocus="this.value = '';"
+						onblur="if (this.value == '') {this.value = 'password';}" />
+					<div class="remember">
+						<span class="checkbox1"> <label class="checkbox"><input
+								type="checkbox" name="" checked=""><i> </i>Remember me</label>
+						</span>
+
+						<div class="clear"></div>
+					</div>
+
+					<input type="submit" value="Login">
+				</div>
+
+			</div>
+		</form>
+	</div>
+
+	<div class="bottom-container">
+		<div class="row">
+			<div class="col">
+				<a href="#" style="color: white" class="btn">Sign up</a>
+			</div>
+			<div class="col">
+				<a href="#" style="color: white" class="btn">Forgot password?</a>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="common/client/content_footer"></footer>
 </body>
 </html>

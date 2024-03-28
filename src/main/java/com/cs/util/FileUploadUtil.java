@@ -20,7 +20,7 @@ public class FileUploadUtil {
         String fileCode = "test";
          
         try (InputStream inputStream = multipartFile.getInputStream()) {
-            Path filePath = uploadPath.resolve(fileCode + "-" + fileName);
+            Path filePath = uploadPath.resolve(fileCode + "/" + fileName);
             Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ioe) {       
             throw new IOException("Could not save file: " + fileName, ioe);

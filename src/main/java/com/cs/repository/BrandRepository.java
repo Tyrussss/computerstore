@@ -32,7 +32,9 @@ public class BrandRepository {
 	 */
 	public List<Brand> findAll() {
 		try {
-			return db.query("select * from brand", new BrandRowMapper());
+
+			return db.query("select * from Brand", new BrandRowMapper());
+
 		}catch(Exception ec){
 			ec.printStackTrace();
 			throw new RuntimeException("Error!!");	
