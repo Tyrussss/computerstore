@@ -3,7 +3,7 @@ package com.cs.DAO;
 import com.cs.model.Brand;
 
 public class BrandDAO {
-	public static boolean newCategory(Brand Item) {
+	public static boolean newBrand(Brand Item) {
 		try {
 			
 			return true;
