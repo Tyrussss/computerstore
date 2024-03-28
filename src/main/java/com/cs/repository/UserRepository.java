@@ -9,32 +9,17 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.cs.model.User;
-<<<<<<< HEAD
-import com.cs.repository.UserRepository.UserRowMapper;
-=======
->>>>>>> a96ac8e8e2fbb64e8ba1f7e73289f1e78f48952d
 
 public class UserRepository {
 	@Autowired
 	JdbcTemplate db;
-<<<<<<< HEAD
-
-	class UserRowMapper implements RowMapper<User> {
-		@Override
-		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-			User item = new User();
-			item.setUserID(rs.getInt("userID"));
-			item.setUsername(rs.getString("username"));
-			
-			return item;
-=======
 	
 	class UserRowMapper implements RowMapper<User>{
 		@Override
 		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 			User user = new User();
 			user.setUserID(rs.getInt("UserID"));
-			user.setUsername (rs.getString("UserName"));
+			user.setUsername (rs.getString("Username"));
 			user.setPassword(rs.getString("Password"));
 			user.setEmail(rs.getString("Email"));
 			user.setFullName(rs.getString("FullName"));
@@ -48,23 +33,8 @@ public class UserRepository {
 	}
 	/***
 	 * 
-	 * @return select table brand
-	 */
-	public List<User> findAll(){
-		try {
-			return db.query("select * from user", new UserRowMapper());
-					
-		}catch (Exception ec) {
-			ec.printStackTrace();
-			throw new RuntimeException ("Error!!");
->>>>>>> a96ac8e8e2fbb64e8ba1f7e73289f1e78f48952d
-		}
-	}
-	
-	/***
-	 * 
-<<<<<<< HEAD
-	 * @return select table brand
+	 	
+	 * @return select table User
 	 */
 	public List<User> findAll() {
 		try {
@@ -76,7 +46,7 @@ public class UserRepository {
 			throw new RuntimeException("Error!!");	
 		}
 	}
-=======
+	/***
 	 * @return select 1 
 	 */
 	
@@ -95,5 +65,4 @@ public class UserRepository {
 				new Object[] {id});
 	}
 		
->>>>>>> a96ac8e8e2fbb64e8ba1f7e73289f1e78f48952d
 }
