@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <title>Shop</title>
+    <meta name="description" content/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/client_assets/img/icon/favicon.png}">
+
+    <link rel="stylesheet" th:href="@{/client_assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/slicknav.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/price_rangs.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/fontawesome-all.min.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/themify-icons.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/slick.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/nice-select.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/style.css}">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+    <link type="text/css" rel="stylesheet" th:href="@{/clic/css/bootstrap.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/clic/css/slick.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/clic/css/slick-theme.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/clic/css/nouislider.min.css}"/>
+    <link rel="stylesheet" th:href="@{/clic/css/font-awesome.min.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/clic/css/style.css}"/>
+
+    <style>
+        .add-to-cart-link {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #4CAF50; /* Green color, you can change this */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart-link:hover {
+            background-color: #45a049; /* Darker green color on hover */
+        }
+    </style>
+</head>
+<body>
+<header>
+    <!-- TOP HEADER -->
+    <div id="top-header">
+        <div class="container">
+            <ul class="header-links pull-left">
+                <li><a href="#"><i class="fa fa-phone"></i> +1 (949) 666-3839</a></li>
+                <li><a href="#"><i class="fa fa-envelope-o"></i> tyrvszx@gmail.com</a></li>
+                <li><a href="#"><i class="fa fa-map-marker"></i> 1738 Remy Martin Road</a></li>
+            </ul>
+            <ul class="header-links pull-right">
+                <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
+                <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- /TOP HEADER -->
+
+    <!-- MAIN HEADER -->
+    <div id="header">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <!-- LOGO -->
+                <div class="col-md-3">
+                    <div class="header-logo">
+                        <a href="#" class="logo">
+                            <img src="./clic/img/cslogo.png" alt="" style="max-width:180px">
+                        </a>
+                    </div>
+                </div>
+                <!-- /LOGO -->
+
+                <!-- SEARCH BAR -->
+                <div class="col-md-6">
+                    <div class="header-search">
+                        <form th:action="@{/client/products/find}" method="get">
+                            <select class="form-select form-control mb-4 col-4" name="categoryId" id="categoryId" aria-label="Default select example">
+                                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.categoryName}"></option>
+                            </select>
+                            <input class="input" placeholder="Tìm kiếm">
+                            <button class="search-btn">Tìm kiếm</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- /SEARCH BAR -->
+
+                <!-- ACCOUNT -->
+                <div class="col-md-3 clearfix">
+                    <div class="header-ctn">
+                        <!-- Wishlist -->
+                        <div>
+                            <a th:href="@{/client/products}">
+                                <i class="fa fa-heart-o"></i>
+                                <span>Xem sản phẩm</span>
+                            </a>
+                        </div>
+                        <!-- /Wishlist -->
+
+                        <!-- Cart -->
+                        <div class="dropdown">
+                            <a th:href="@{/client/cart}" aria-expanded="true">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>Giỏ hàng</span>
+                                <div class="qty">3</div>
+                            </a>
+                        </div>
+                        <!-- /Cart -->
+
+                        <!-- Menu Toogle -->
+                        <div class="menu-toggle">
+                            <a href="#">
+                                <i class="fa fa-bars"></i>
+                                <span>Menu</span>
+                            </a>
+                        </div>
+                        <!-- /Menu Toogle -->
+                    </div>
+                </div>
+                <!-- /ACCOUNT -->
+            </div>
+            <!-- row -->
+        </div>
+        <!-- container -->
+    </div>
+    <!-- /MAIN HEADER -->
+</header>
+<main>
+    <div class="hero-area section-bg2">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="slider-area">
+                        <div
+                                class="slider-height2 slider-bg4 d-flex align-items-center justify-content-center"
+                        >
+                            <div class="hero-caption hero-caption2">
+                                <h2>Category</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="listing-area pt-50 pb-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 col-md-4">
+                    <div class="category-listing mb-50">
+                        <div class="single-listing">
+                            <div class="select-Categories pb-30">
+
+                                <div class="select-job-items2 mb-30">
+                                    <div class="col-xl-12">
+                                        <input type="text" class="form-control" id="productName"
+                                               placeholder="Tên sản phẩm">
+                                    </div>
+                                </div>
+
+                                <div class="select-job-items2 mb-30">
+                                    <div class="col-xl-12">
+                                        <select class="form-select form-control mb-4 col-4" id="category"
+                                                aria-label="Default select example">
+                                            <option value="0">Loại sản phẩm</option>
+<!--                                            <option th:each="category : ${categories}" th:value="${category.id}"-->
+<!--                                                    th:utext="${category.categoryName}"/>-->
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="select-job-items2 mb-30">
+                                    <aside
+                                            class="left_widgets p_filter_widgets price_rangs_aside sidebar_box_shadow mb-40"
+                                    >
+                                        <div class="small-tittle">
+                                            <h4>Lọc theo giá</h4>
+                                        </div>
+                                        <div class="widgets_inner">
+                                            <div class="range_item">
+                                                <input type="text" class="js-range-slider" value/>
+                                                <div class="d-flex align-items-center">
+                                                    <div
+                                                            class="price_value d-flex justify-content-center"
+                                                    >
+                                                        <input
+                                                                type="text"
+                                                                class="js-input-from"
+                                                                id="saleStartPrice"
+                                                                value="0"
+                                                                readonly
+                                                        />
+                                                        <span>to</span>
+                                                        <input
+                                                                type="text"
+                                                                class="js-input-to"
+                                                                id="saleEndPrice"
+                                                                value="1000"
+                                                                readonly
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </aside>
+                                </div>
+
+                                <button id="btnSearch" onclick="searchCondition(0,12)" class="btn btn-primary">Tìm
+                                    kiếm
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-9 col-lg-8 col-md-8">
+                    <div class="latest-items latest-items2">
+                        <div class="row" id="productContainer">
+                            <div th:each="product : ${products}" class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                                <div class="properties pb-30">
+                                    <div class="properties-card">
+                                        <div class="properties-img">
+                                            <a href="#">
+                                                <img th:src="${product.image}" alt=""/>
+                                            </a>
+                                            <div class="socal_icon">
+                                                <form action="#" method="get">
+                                                    <input type="hidden" name="quantity" value="1" />
+                                                    <button class="add-to-cart-link">
+                                                        <i class="ti-shopping-cart"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <div class="properties-caption properties-caption2">
+                                                <h3>
+                                                    <a href="#" th:text="${product.name}"></a>
+                                                </h3>
+                                                <div class="properties-footer">
+                                                    <div class="price">
+                                                        <span th:text="${product.price} + ' VND'"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <nav aria-label="...">
+                            <ul class="pagination" id="pageId" style="float: right;">
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<div id="back-top">
+    <a class="wrapper" title="Go to Top" href="#">
+        <div class="arrows-container">
+            <div class="arrow arrow-one"></div>
+            <div class="arrow arrow-two"></div>
+        </div>
+    </a>
+</div>
+
+<script th:src="@{/client_assets/js/vendor/modernizr-3.5.0.min.js}"></script>
+<script th:src="@{/client_assets/js/vendor/jquery-1.12.4.min.js}"></script>
+<script th:src="@{/client_assets/js/popper.min.js}"></script>
+<script th:src="@{/client_assets/js/bootstrap.min.js}"></script>
+
+<script th:src="@{/client_assets/js/owl.carousel.min.js}"></script>
+<script th:src="@{/client_assets/js/slick.min.js}"></script>
+<script th:src="@{/client_assets/js/jquery.slicknav.min.js}"></script>
+
+<script th:src="@{/client_assets/js/wow.min.js}"></script>
+<script th:src="@{/client_assets/js/jquery.magnific-popup.js}"></script>
+<script th:src="@{/client_assets/js/jquery.nice-select.min.js}"></script>
+<script th:src="@{/client_assets/js/jquery.counterup.min.js}"></script>
+<script th:src="@{/client_assets/js/waypoints.min.js}"></script>
+<script th:src="@{/client_assets/js/price_rangs.js}"></script>
+
+<script th:src="@{/client_assets/js/contact.js}"></script>
+<script th:src="@{/client_assets/js/jquery.form.js}"></script>
+<script th:src="@{/client_assets/js/jquery.validate.min.js}"></script>
+<script th:src="@{/client_assets/js/mail-script.js}"></script>
+<script th:src="@{/client_assets/js/jquery.ajaxchimp.min.js}"></script>
+
+<script th:src="@{/client_assets/js/plugins.js}"></script>
+<script th:src="@{/client_assets/js/main.js}"></script>
+
+<script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"
+></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag("js", new Date());
+
+    gtag("config", "UA-23581568-13");
+</script>
+<script
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317"
+        integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA=="
+        data-cf-beacon='{"rayId":"84260611187e1fb6","version":"2023.10.0","token":"cd0b4b3a733644fc843ef0b185f98241"}'
+        crossorigin="anonymous"
+></script>
+</body>
+</html>

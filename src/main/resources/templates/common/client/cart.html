@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Shop</title>
+    <meta name="description" content />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/client_assets/img/icon/favicon.png}">
+
+    <link rel="stylesheet" th:href="@{/client_assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/slicknav.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/price_rangs.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/fontawesome-all.min.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/themify-icons.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/slick.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/nice-select.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/style.css}">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+    <link type="text/css" rel="stylesheet" th:href="@{/clic/css/bootstrap.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/clic/css/slick.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/clic/css/slick-theme.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{/clic/css/nouislider.min.css}"/>
+    <link rel="stylesheet" th:href="@{/clic/css/font-awesome.min.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/clic/css/style.css}"/>
+
+
+    <style>
+        .quantity-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .quantity-container .tru,
+        .quantity-container .cong {
+            flex: 0 0 auto;
+        }
+        .quantity-container .quantity-amount {
+            flex: 0 0 60px;
+        }
+    </style>
+
+</head>
+<body>
+<header>
+    <!-- <header th:replace = "common/client/content_head" ></header> -->
+
+                <!-- SEARCH BAR -->
+                <div class="col-md-6">
+                    <div class="header-search">
+                        <form th:action="@{/client/products/find}" method="get">
+                            <select class="form-select form-control mb-4 col-4" name="categoryId" id="categoryId" aria-label="Default select example">
+                                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.categoryName}"></option>
+                            </select>
+                            <input class="input" placeholder="Tìm kiếm">
+                            <button class="search-btn">Tìm kiếm</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- /SEARCH BAR -->
+
+                <!-- ACCOUNT -->
+                <div class="col-md-3 clearfix">
+                    <div class="header-ctn">
+                        <!-- Wishlist -->
+                        <div>
+                            <a th:href="@{/client/products}">
+                                <i class="fa fa-heart-o"></i>
+                                <span>Xem sản phẩm</span>
+                            </a>
+                        </div>
+                        <!-- /Wishlist -->
+
+                        <!-- Cart -->
+                        <div class="dropdown">
+                            <a th:href="@{/client/cart}" aria-expanded="true">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>Giỏ hàng</span>
+                                <div class="qty">3</div>
+                            </a>
+                        </div>
+                        <!-- /Cart -->
+
+                        <!-- Menu Toogle -->
+                        <div class="menu-toggle">
+                            <a href="#">
+                                <i class="fa fa-bars"></i>
+                                <span>Menu</span>
+                            </a>
+                        </div>
+                        <!-- /Menu Toogle -->
+                    </div>
+                </div>
+                <!-- /ACCOUNT -->
+            </div>
+            <!-- row -->
+        </div>
+        <!-- container -->
+    </div>
+    <!-- /MAIN HEADER -->
+</header>
+<main>
+    <div class="hero-area section-bg2">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="slider-area">
+                        <div
+                                class="slider-height2 slider-bg4 d-flex align-items-center justify-content-center"
+                        >
+                            <div class="hero-caption hero-caption2">
+                                <h2>Cart</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="cart_area">
+        <div class="container">
+            <div class="cart_inner">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+
+                            <th scope="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" id="selectAllCheckbox" onclick="toggleCheckboxes(this)" type="checkbox"
+                                           value="" >
+                                </div>
+                            </th>
+                            <th scope="col">Ảnh</th>
+                            <th scope="col">Sản phẩm</th>
+                            <th scope="col">Giá</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col">Thành tiền</th>
+                            <th scope="col">Xoá</th>
+                        </tr>
+                        </thead>
+                        <!-- Trong thẻ <tbody> của bảng -->
+                        <tbody th:each="product : ${products}">
+                        <input type="hidden" name="idGioHangChiTiet" th:value="${product.id}">
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                    <span class="id" hidden th:data-id="${product.id}"></span>
+                                    <span class="id-cart" hidden th:data-id="${product.cartId}"></span>
+                                    <input class="form-check-input" name="options[]" id="checkboxID" th:value="${product.id}" onchange="updatePrice(this)" type="checkbox">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="media product-thumbnail">
+                                    <div class="d-flex">
+                                        <!-- Thêm Thymeleaf để lấy đường dẫn hình ảnh từ sản phẩm -->
+                                        <img th:src="@{${product.thumbnail}}" alt="Product Image" />
+                                    </div>
+                                    <div class="media-body">
+                                        <!-- Hiển thị tên sản phẩm -->
+
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="product-name">
+                                <p th:text="${product.productName}"></p>
+                            </td>
+                            <td class="price" th:text="${#numbers.formatDecimal(product.priceOfOne, 0, 'POINT', 0, 'COMMA') + ' VND'}">
+                            </td>
+                            <input type="hidden" class="priceValue" th:value="${product.priceOfOne}">
+                            <td>
+                                <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px">
+                                    <div class="tru" onclick="handlerChange(this)">
+                                        <button class="btn btn-outline-black" type="button">&minus;</button>
+                                    </div>
+
+                                    <input
+                                            aria-describedby="button-addon1"
+                                            aria-label="Example text with button addon"
+                                            class="form-control text-center quantity-amount"
+                                            placeholder=""
+                                            th:value="${product.quantity}"
+                                            type="text"
+                                            name="soLuong"
+                                            onchange="handleChangeOfInput(this)"
+                                            style="width: 60px; margin: 0 5px; text-align: center; margin-top: 30px; margin-right: 50px; margin-bottom: 30px"
+                                    />
+
+                                    <div class="cong" onclick="handlerChange(this)">
+                                        <button class="btn btn-outline-black" type="button">&plus;</button>
+                                    </div>
+                                </div>
+
+
+                            </td>
+
+                            <td>
+                                <!-- Hiển thị tổng giá của sản phẩm (số lượng * giá) -->
+                                <h5 class="thanhtien" th:text="${#numbers.formatDecimal(product.totalPrice, 0, 'POINT', 0, 'COMMA') + ' VND'}"></h5>
+                            </td>
+                            <input type="hidden" class="thanhtienValue" th:value="${product.totalPrice}">
+                            <td>
+                                <button class="btn btn-black btn-sm delete-button confirmDelete" th:attr="data-id=${product.id}">
+                                    X
+                                </button>
+                            </td>
+
+                        </tr>
+                        </tbody>
+
+                    </table>
+                    <div class="checkout_btn_inner float-right">
+                        <a class="btn" th:href="@{/client/products}">Continue Shopping</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <div class="col-md-6 pl-5" style="margin-left: 330px;">
+            <div class="row justify-content-end">
+                <div class="col-md-7">
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <span class="text-black">Tổng tiền</span>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <strong class="text-black total">0</strong>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-black btn-lg py-3 btn-block" onclick="checkOut()">
+                                Mua hàng
+                            </button>
+
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel1">Thông báo</h5>
+                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Vui lòng chọn ít nhất một mục để tiếp tục.
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="quantityExceedErrorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel2">Lỗi Số Lượng</h5>
+                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p id="quantityExceedErrorMessage">Số lượng sản phẩm trong giỏ hàng đang vượt quá số lượng tồn kho.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+<!-- <footer th:replace = "common/client/content_footer" ></footer> -->
+    </section>
+</main>
+
+
+
+
+<script th:src="@{/client_assets/js/vendor/modernizr-3.5.0.min.js}"></script>
+<script th:src="@{/client_assets/js/vendor/jquery-1.12.4.min.js}"></script>
+<script th:src="@{/client_assets/js/popper.min.js}"></script>
+<script th:src="@{/client_assets/js/bootstrap.min.js}"></script>
+
+<script th:src="@{/client_assets/js/owl.carousel.min.js}"></script>
+<script th:src="@{/client_assets/js/slick.min.js}"></script>
+<script th:src="@{/client_assets/js/jquery.slicknav.min.js}"></script>
+
+<script th:src="@{/client_assets/js/wow.min.js}"></script>
+<script th:src="@{/client_assets/js/jquery.magnific-popup.js}"></script>
+<script th:src="@{/client_assets/js/jquery.nice-select.min.js}"></script>
+<script th:src="@{/client_assets/js/jquery.counterup.min.js}"></script>
+<script th:src="@{/client_assets/js/waypoints.min.js}"></script>
+<script th:src="@{/client_assets/js/price_rangs.js}"></script>
+
+<script th:src="@{/client_assets/js/contact.js}"></script>
+<script th:src="@{/client_assets/js/jquery.form.js}"></script>
+<script th:src="@{/client_assets/js/jquery.validate.min.js}"></script>
+<script th:src="@{/client_assets/js/mail-script.js}"></script>
+<script th:src="@{/client_assets/js/jquery.ajaxchimp.min.js}"></script>
+
+<script th:src="@{/client_assets/js/plugins.js}"></script>
+<script th:src="@{/client_assets/js/main.js}"></script>
+
+<script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"
+></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "UA-23581568-13");
+</script>
+<script
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317"
+        integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA=="
+        data-cf-beacon='{"rayId":"84261ac02d5d079f","version":"2023.10.0","token":"cd0b4b3a733644fc843ef0b185f98241"}'
+        crossorigin="anonymous"
+></script>
+</body>
+</html>
