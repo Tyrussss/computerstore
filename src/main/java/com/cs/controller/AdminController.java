@@ -1,12 +1,11 @@
 package com.cs.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cs.repository.UserRepository;
 
@@ -14,7 +13,7 @@ import com.cs.repository.UserRepository;
 @RequestMapping("/admin")
 
 public class AdminController {
-		
+	@Autowired
 	UserRepository userRep;
 	
 	@GetMapping("")
@@ -22,9 +21,9 @@ public class AdminController {
 		return "admin/ad_index";
 	}
 	
-	@GetMapping("/account")
+	@RequestMapping(value = "/account", method = RequestMethod.GET)
 	public String account(Model model) {
-		userRep = new UserRepository();
+		
 		model.addAttribute("user", userRep.findAll());
 		return "admin/account";
 	}
