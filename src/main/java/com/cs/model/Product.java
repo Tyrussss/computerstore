@@ -9,6 +9,7 @@ public class Product {
 	private int Price;
 	private int BrandID;
 	private int CategoryID;
+	//private Brand Brand;
 	
 	public Product() {
 		super();
