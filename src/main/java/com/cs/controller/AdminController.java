@@ -8,18 +8,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cs.repository.CategoryRepository;
 import com.cs.repository.UserRepository;
 
 @Controller
 @RequestMapping("/admin")
-@Repository("UserRepository")
 
 public class AdminController {
 		
 	UserRepository userRep;
-	@Autowired
-	CategoryRepository cateRep;
+	
 	@GetMapping("")
 	public String adindex() {
 		return "admin/ad_index";
@@ -27,8 +24,8 @@ public class AdminController {
 	
 	@GetMapping("/account")
 	public String account(Model model) {
-		//userRep = new UserRepository();
-		model.addAttribute("user", cateRep.findAll());
+		userRep = new UserRepository();
+		model.addAttribute("user", userRep.findAll());
 		return "admin/account";
 	}
 	
