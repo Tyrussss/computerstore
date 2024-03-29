@@ -49,4 +49,18 @@ public class ReviewRepository {
 		return db.queryForObject ("Select * from Review where ReviewID = ?", new ReviewRowMapper(),
 				new Object[] {id});
 	}
+	
+	public int insert (Review Review) {
+		return db.update("insert into Review(UserID, ProductID, ReviewContent,Repy)" + "values (?,?,?,?)",
+				new Object[] {Review.getUserID(), 1});
+				
+	}
+	public int update (Review Review) {
+		return db.update("update Review " + "set ReviewContent = ?, Reply = ?" + "where ReviewID = ?, UserID = ?, ProductID = ?",
+				new Object[] {Review.getReviewContent(),1,Review.getReviewID(),Review.getUserID(),Review.getProductID()});
+	}
+	public int deleteById(Review Review) {
+		return db.update("delete from Review where ReviewID = ?, UserID = ?",
+				new Object[] {Review.getReviewID(), Review.getUserID()});
+	}
 }

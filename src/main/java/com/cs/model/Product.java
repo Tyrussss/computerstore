@@ -9,6 +9,7 @@ public class Product {
 	private int Price;
 	private int BrandID;
 	private int CategoryID;
+	
 	public int getProductID() {
 		return ProductID;
 	}
