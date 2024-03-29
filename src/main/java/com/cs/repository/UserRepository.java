@@ -28,7 +28,7 @@ public class UserRepository {
 			user.setPhone(rs.getString("Phone"));
 			user.setAddress(rs.getString("Address"));
 			user.setRole (rs.getInt("Role"));
-			user.setNewsletter(rs.getInt("Newletter"));
+			user.setNewsletter(rs.getInt("Newsletter"));
 			user.setAvatar(rs.getString("Avatar"));
 			return user;
 		}
@@ -55,11 +55,11 @@ public class UserRepository {
 	 */
 	
 	public int insert (User User) {
-		return db.update("insert into User (Username, Password, Email, FullName, Phone, Address, Role, Newletter, Avartar)" + " values (?,?,?,?,?,?,?,?,?)",
+		return db.update("insert into User (Username, Password, Email, FullName, Phone, Address, Role, Newsletter, Avartar)" + " values (?,?,?,?,?,?,?,?,?)",
 				new Object[] {User.getUserID(),1});
 	}
 	public int update (User User) {
-		return db.update("update User " + " set Username = ?, Password = ?, Email = ?, FullName = ?, Phone = ?, Address = ?, Role = ?, Newletter = ?, Avatar = ?" + " where UserID = ?", 
+		return db.update("update User " + " set Username = ?, Password = ?, Email = ?, FullName = ?, Phone = ?, Address = ?, Role = ?, Newsletter = ?, Avatar = ?" + " where UserID = ?", 
 				new Object[] { User.getUsername(), 1, User.getUserID() });
 		
 	}
