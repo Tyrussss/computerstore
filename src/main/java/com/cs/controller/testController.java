@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cs.repository.BrandRepository;
 import com.cs.repository.CategoryRepository;
+import com.cs.repository.ProductRepository;
 import com.cs.repository.ReviewRepository;
 import com.cs.repository.UserRepository;
 
@@ -16,7 +17,7 @@ import com.cs.repository.UserRepository;
 
 public class testController {
 	@Autowired
-	UserRepository a;
+	ProductRepository a;
 	@RequestMapping("/test1")
 	public String index(Model model) {
 		//a = new CategoryRepository();

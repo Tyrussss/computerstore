@@ -27,6 +27,7 @@ public class ProductRepository {
 			item.setWarranty(rs.getInt("Warranty"));
 			item.setPrice(rs.getInt("Price"));
 			item.setBrandID(rs.getInt("BrandID"));
+			item.setCategoryID(rs.getInt("CategoryID"));
 			return item;
 		}
 	}
@@ -56,13 +57,13 @@ public class ProductRepository {
 		}
 		
 		public int insert (Product Product) {
-			return db.update("insert into Product ( ProductID,ProductName,ProductDetails,Stock,Warranty,Price,BrandID,CategoryID)" + "values( ?,?)",
+			return db.update("insert into Product ( ProductID,ProductName,ProductDetails,Stock,Warranty,Price,BrandID,CategoryID)" + "values( ?,?,?,?,?,?,?,?)",
 					new Object[] {Product.getProductName(),1});
 		}
 		
 		public int update (Product Product) {
 			return db.update("update Product "+"set ProductName = ?, ProductDetails = ?, Stock = ?, Warranty = ?, Price = ?" + "where ProductID = ?",
-					new Object[] {Product.getProductName(), 1, Product.getProductID() });
+					new Object[] {Product.getProductName(), Product.getProductDetails(),Product.getStock(), Product.getWarranty(), Product.getPrice(), Product.getProductID() });
 		}
 		
 		public int deleteById (Product Product, int id) {
