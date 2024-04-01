@@ -42,10 +42,7 @@ public class BrandRepository {
 		}
 	}
 	
-	/***
-	 * 
-	 * @return select 1 
-	 */
+	 
 		
 	public Brand findByID(int id) {
 		return db.queryForObject("select * from Brand where BrandID=?", new BrandRowMapper(),
