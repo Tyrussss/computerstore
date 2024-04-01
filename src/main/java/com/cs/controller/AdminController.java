@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.cs.repository.UserRepository;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("")
 
 public class AdminController {
 	@Autowired
