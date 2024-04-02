@@ -32,7 +32,7 @@ public class ClientController {
 
     @GetMapping("/products/find")
     public String findProducts(@RequestParam("categoryId") int ProductID, Model model) {
-        model.addAttribute("products", productRepository.findByID(ProductID));
+        model.addAttribute("products", productRepository.findAll());
         model.addAttribute("categories", cate.findAll());
 
         return "client/view-products";
