@@ -55,8 +55,8 @@ public class UserRepository {
 	 */
 	
 	public int insert (User User) {
-		return db.update("insert into User (UserID, Username, Password, Email, FullName, Phone, Address, Role, Newsletter, Avartar)" + " values (?,?,?,?,?,?,?,?,?)",
-				new Object[] {User.getUserID(), User.getUsername(),User.getPassword(),User.getEmail(),User.getFullName(),User.getPhone(),User.getAddress(),User.getRole(),User.getNewsletter(),User.getAvatar()  });
+		return db.update("insert into User ( Username, Password, Email, FullName, Phone, Address, Role, Newsletter, Avatar)" + " values (?,?,?,?,?,?,?,?,?)",
+				new Object[] {User.getUsername(),User.getPassword(),User.getEmail(),User.getFullName(),User.getPhone(),User.getAddress(),User.getRole(),User.getNewsletter(),User.getAvatar()  });
 	}
 	public int update (User User) {
 		return db.update("update User " + " set Username = ?, Password = ?, Email = ?, FullName = ?, Phone = ?, Address = ?, Role = ?, Newsletter = ?, Avatar = ?" + " where UserID = ?", 

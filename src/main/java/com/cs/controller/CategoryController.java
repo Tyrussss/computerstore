@@ -22,8 +22,8 @@ public class CategoryController {
 
 	@RequestMapping(value = "/categories", method = RequestMethod.GET)
 	public String showCateList(Model model) {
-		model.addAttribute("categories", rep.findAll());
-		return "admin/product";
+		model.addAttribute("category", new Category());
+		return "admin/register";
 	}
 
 	@RequestMapping(value = "/categories/{id}", method = RequestMethod.GET)
