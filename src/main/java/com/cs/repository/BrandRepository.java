@@ -34,7 +34,7 @@ public class BrandRepository {
 	public List<Brand> findAll() {
 		try {
 
-			return db.query("select * from Brand", new BrandRowMapper());
+			return db.query("select * from Brand where DelStatus = 1", new BrandRowMapper());
 
 		}catch(Exception ec){
 			ec.printStackTrace();

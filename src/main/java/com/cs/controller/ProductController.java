@@ -11,7 +11,7 @@ import com.cs.repository.CategoryRepository;
 import com.cs.repository.ProductRepository;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("")
 public class ProductController {
 	@Autowired
 	ProductRepository rep;

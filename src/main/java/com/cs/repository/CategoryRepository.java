@@ -33,7 +33,7 @@ public class CategoryRepository {
 	 */
 	public List<Category> findAll() {
 		try {
-			return db.query("select * from Category", new CategoryRowMapper());
+			return db.query("select * from Category where DelStatus = 1", new CategoryRowMapper());
 		}catch(Exception ec){
 			ec.printStackTrace();
 			throw new RuntimeException("Error!!");	
