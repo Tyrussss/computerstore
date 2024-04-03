@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>CategoryID</title>
+</head>
+<body>
+    <div align="center">
+        <h1>Enter New Category</h1>
+        <br />
+        <form action="#" th:action="@{save}"
+            method="post">
+  
+            <table border="0" cellpadding="10">
+                <!-- <tr>
+                    <td>CategoryID:</td>
+                    <td><input type="text" name="CategoryID" /></td>
+                </tr> -->
+                <tr>
+                    <td>CategoryName:</td>
+                    <td><input type="text" name="CategoryName" /></td>
+                </tr>
+                <tr>
+                    <td>DelStatus:</td>
+                    <td><input type="text" name="DelStatus" value = "1" disabled /></td>
+                </tr>                           
+                <tr>
+                    <td colspan="2"><button type="submit">Save</button> </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>

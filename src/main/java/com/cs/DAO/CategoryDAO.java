@@ -1,5 +1,7 @@
 package com.cs.DAO;
 
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+
 import com.cs.model.Category;
 
 public final class CategoryDAO {
@@ -12,4 +14,6 @@ public final class CategoryDAO {
 			return false;
 		}
 	}
+	
+	
 }

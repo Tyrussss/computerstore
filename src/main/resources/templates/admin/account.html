@@ -15,123 +15,171 @@
 					<option value="3">Merchant</option>
 					<option value="4">Customer</option>
 				</select>
-				
+				<table id="user" border=1 class="col-12 tm-block-col">
+					<thead>
+						<tr>
+							<th>Avatar</th>
+							<th>Username</th>
+							<th>Email</th>
+							<th>FullName</th>
+							<th>Phone</th>
+							<th>Address</th>
+							<th>Role</th>
+							<th>Newsletter</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:if="${user.empty}">
+							<td colspan="2">No Account Available</td>
+						</tr>
+						<tr th:each="user : ${user}">
+							<td><img th:src="@{'/adc/img/'+${(user.Avatar)}}"
+								alt="${user.Avatar}" width="100px"></td>
+							<td th:text="${user.Username}"></td>
+							<td th:text="${user.Email}"></td>
+							<td th:text="${user.FullName}"></td>
+							<td th:text="${user.Phone}"></td>
+							<td th:text="${user.Address}"></td>
+							<td th:text="${user.Role}"></td>
+							<td th:text="${user.Newsletter}"></td>
+						</tr>
+					</tbody>
+				</table>
 
-						<table id="user" border=1 class="col-12 tm-block-col">
-							<thead>
-								<tr>
-									<th>Avatar</th>
-									<th>Username</th>
-									<th>Email</th>
-									<th>FullName</th>
-									<th>Phone</th>
-									<th>Address</th>
-									<th>Role</th>
-									<th>Newsletter</th>
-
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:if="${user.empty}">
-									<td colspan="2">No Account Available</td>
-								</tr>
-								<tr th:each="user : ${user}">
-									<td>									
-										<img th:src="@{'/adc/img/'+${(user.Avatar)}}" alt="${user.Avatar}" width="100px">
-									</td>
-									<td th:text="${user.Username}"></td>
-									<td th:text="${user.Email}"></td>
-									<td th:text="${user.FullName}"></td>
-									<td th:text="${user.Phone}"></td>
-									<td th:text="${user.Address}"></td>
-									<td th:text="${user.Role}"></td>
-									<td th:text="${user.Newsletter}"></td>
-								</tr>
-							</tbody>
-						</table>
-					
 			</div>
 		</div>
 	</div>
 	<!-- row -->
 	<div class="row tm-content-row">
-		<form  class="tm-signup-form row" 
-					role="form"
-            		method="post"
-           	 		th:action="@{/register/save}"
-            		th:object="${userReg}">
-		<div class="tm-block-col tm-col-avatar">
-			<div class="tm-bg-primary-dark tm-block tm-block-avatar">
-				<h2 class="tm-block-title">Change Avatar</h2>
-				<div class="tm-avatar-container">
-					<img src="img/avatar.png" alt="Avatar"
-						class="tm-avatar img-fluid mb-4" /> <a href="#"
-						class="tm-avatar-delete-link"> <i
-						class="far fa-trash-alt tm-product-delete-icon"></i>
-					</a>
-				</div>
-				<button class="btn btn-primary btn-block text-uppercase">
-					Upload New Photo</button>
-			</div>
-		</div>
-		<div class="tm-block-col tm-col-account-settings">
-			<div class="tm-bg-primary-dark tm-block tm-block-settings">
-				<h2 class="tm-block-title">Account Settings</h2>
-				
+          <div class="tm-block-col tm-col-avatar">
+            <div class="tm-bg-primary-dark tm-block tm-block-avatar">
+              <h2 class="tm-block-title">Change Avatar</h2>
+              <div class="tm-avatar-container">
+                <img
+                  src="img/avatar.png"
+                  alt="Avatar"
+                  class="tm-avatar img-fluid mb-4"
+                />
+                <a href="#" class="tm-avatar-delete-link">
+                  <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                </a>
+              </div>
+              <button class="btn btn-primary btn-block text-uppercase">
+                Upload New Photo
+              </button>
+            </div>
+          </div>
+          <div class="tm-block-col tm-col-account-settings">
+            <div class="tm-bg-primary-dark tm-block tm-block-settings">
+              <h2 class="tm-block-title">Account Settings</h2>
+              <form action="" class="tm-signup-form row"
+              	role="form"
+              	method="post"
+                th:action="@{/admin/account/save}"
+              >
+                <div class="form-group col-lg-6">
+                  <label for="name">Account Name</label>
+                  <input 
+                    id="name"
+                    name="FullName"
+                    type="text"
+                    class="form-control validate"
+                  />
+                </div>
 					<div class="form-group col-lg-6">
-						<label for="name">Account Name</label> <input  id="name"
-							name="name" type="text" class="form-control validate" />
-					</div>
-					<div class="form-group col-lg-6">
-						<label for="username">Username</label> <input th:field = "*{Username}" id="username"
-							name="username" type="text" class="form-control validate" />
-					</div>
-					<div class="form-group col-lg-6">
-						<label for="password">Password</label> <input id="password"
-							name="password" type="password" class="form-control validate" /> 
-					</div>
-					<div class="form-group col-lg-6">
-						<label for="password2">Re-enter Password</label> <input 
-							id="password2" name="password2" type="password"
+						<label for="username">Username</label> <input
+							id="username" name="Username" type="text"
 							class="form-control validate" />
 					</div>
 					<div class="form-group col-lg-6">
-						<label for="email">Account Email</label> <input  id="email"
-							name="email" type="email" class="form-control validate" />
-					</div>
-					<div class="form-group col-lg-6">
-						<label for="phone">Phone</label> <input  id="phone" name="phone"
-							type="tel" class="form-control validate" />
-					</div>
-					<div class="form-group col-lg-6">
-						<label for="phone">Address</label> <input  id="phone" name="phone"
-							type="tel" class="form-control validate" />
-					<div class="form-group col-lg-6">		
-							<label>Role : </label>
-            					<select >
-                					<option th:each="p : ${listRole}" th:value="${p}" th:text="${p}"></option>
-            					</select>
-					</div>
-					<div class="form-group col-lg-6">
-						<label for="phone">Newsletter</label> <input th:field = "*{Role}"  id="phone" name="phone"
-							type="tel" class="form-control validate" />
-					</div>
-					<div class="form-group col-lg-6">
-						<label class="tm-hide-sm">&nbsp;</label>
-						<button type="submit"
-							class="btn btn-primary btn-block text-uppercase">
-							Update Your Profile</button>
-					</div>
-					<div class="col-12">
-						<button type="submit"
-							class="btn btn-primary btn-block text-uppercase">
-							Delete Your Account</button>
-					</div>
-				
-			</div>
-		</div>
-		</form>
-	</div>
+                  <label for="email">Account Email</label>
+                  <input 
+                    id="email"
+                    name="Email"
+                    type="email"
+                    class="form-control validate"
+                  />
+                </div>
+                <div class="form-group col-lg-6">
+                  <label for="password">Password</label>
+                  <input 
+                    id="password"
+                    name="Password"
+                    type="password"
+                    class="form-control validate"
+                  />
+                </div>
+                <div class="form-group col-lg-6">
+                  <label for="password2">Re-enter Password</label>
+                  <input 
+                    id="password2"
+                    name="password2"
+                    type="password"
+                    class="form-control validate"
+                  />
+                </div>
+                <div class="form-group col-lg-6">
+                  <label for="phone">Phone</label>
+                  <input 
+                    id="phone"
+                    name="Phone"
+                    type="tel"
+                    class="form-control validate"
+                  />
+                </div>
+                <div class="form-group col-lg-6">		
+            		<label>Role : </label>
+                    <select >
+                        <option th:each="p : ${listRole}" th:value="${p}" th:text="${p}"></option>
+                    </select>
+        		</div>
+        		<div class="form-group col-lg-6">
+        			<label for="newsletter">Newsletter</label>
+            		<input id="newsletter" type="checkbox" name="Newsletter"  />
+            		
+        		</div>
+        		<div class="form-group col-lg-6">
+                  <label for="phone">Address</label>
+                  <input 
+                    id="Address"
+                    name="Address"
+                    type="tel"
+                    class="form-control validate"
+                  />
+                </div>
+                <div class="form-group col-lg-6">
+                  
+                </div>
+                <div class="form-group col-lg-6">
+                  <label class="tm-hide-sm">&nbsp;</label>
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-block text-uppercase"
+                  >
+                    Cancel
+                  </button>
+                </div>
+                <div class="form-group col-lg-6">
+                  <label class="tm-hide-sm">&nbsp;</label>
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-block text-uppercase"
+                  >
+                    Update Your Profile
+                  </button>
+                </div>
+                <div class="col-12">
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-block text-uppercase"
+                  >
+                    Create Your Account
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
 </div>
 <div th:replace="common/admin/content_footer_admin"></div>
 <script>
