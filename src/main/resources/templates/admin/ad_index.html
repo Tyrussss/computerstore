@@ -6,4 +6,20 @@
 	<script>
 	var title=ducument.getElemenById("subtitle");
 	title.innerHTML="Product menagement";
+	
+	// Define a function to handle right-click events
+	function disableRightClick(event) {
+	    // Check if the event is a right-click
+	    if (event.button == 2) {
+	        // Prevent the default right-click behavior
+	        event.preventDefault();
+	        // Optionally, you can display a custom message or perform other actions
+	        // alert("Right-clicking is disabled on this website.");
+	        // You can also redirect the user to another page
+	        window.location.href = "http://localhost:8080/admin";
+	    }
+	}
+
+	// Add an event listener to the document to listen for right-click events
+	document.addEventListener('contextmenu', disableRightClick);
 	</script>

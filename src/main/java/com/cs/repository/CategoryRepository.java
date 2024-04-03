@@ -7,7 +7,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+
 
 import com.cs.model.Category;
 
@@ -54,6 +56,8 @@ public class CategoryRepository {
 //		return db.update("delete from Category where CategoryID=?", new Object[] { id });
 //	}
 
+	
+	
 	public int insert(Category Category) {
 		return db.update("insert into Category ( CategoryName, DelStatus) " + "values( ?, ?)",
 				new Object[] { Category.getCategoryName(), 1 });
@@ -66,5 +70,6 @@ public class CategoryRepository {
 	public int deleteById(Category Category, int id) {
 		return db.update("update Category " + " set CategoryName = ?, DelStatus = ?" + " where CategoryID = ?",
 				new Object[] { Category.getCategoryName(), 0, id });
-	}
+	}	
+	
 }

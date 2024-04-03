@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cs.model.User;
 import com.cs.model.UserReg;
+import com.cs.repository.UserRegRepository;
 import com.cs.repository.UserRepository;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/admin")
@@ -21,6 +24,7 @@ import com.cs.repository.UserRepository;
 public class AdminController {
 	@Autowired
 	UserRepository userRep;
+	UserRegRepository userRegRep;
 	
 	@GetMapping("")
 	public String adindex() {
@@ -31,31 +35,55 @@ public class AdminController {
 	public String account(Model model) {
 		
 		model.addAttribute("user", userRep.findAll());
-		model.addAttribute("userReg", new UserReg());
-		
+				
 		List<String> listRole = Arrays.asList("Admin", "Customer", "Subcriber");
         model.addAttribute("listRole", listRole);
 		return "admin/account";
 	}
-	@GetMapping("/register")
+	@GetMapping("/account/register")
     public String showForm(Model model) {
         
-        model.addAttribute("user", new User());
-         
-        List<String> listRole = Arrays.asList("Admin", "Customer", "Subcriber");
-        model.addAttribute("listRole", listRole);
-		return "admin/account";
-    }
-	
-	@PostMapping("/register/save")
-    public String saveForm(Model model, User user) {
-        
-        model.addAttribute("user", userRep.insert(user));
+        model.addAttribute("userReg", new UserReg());
          
         List<String> listRole = Arrays.asList("Admin", "Customer", "Subcriber");
         model.addAttribute("listRole", listRole);
 		return "admin/register";
     }
 	
+	/* <--- user register---> */
+	@PostMapping("/account/save")
+    public String saveForm(Model model, User user, HttpServletRequest request) {
+        
+        userRep.insert(user);        
+        
+		return "admin/account";
+    }
 	
+	/* <--- admin create---> */
+	@PostMapping("/account/create")
+    public String create(Model model, UserReg userReg, HttpServletRequest request) {
+		/*
+		 * userReg = new UserReg(); String avatar = "avatar.png";
+		 * userReg.setUsername(request.getParameter("username"));
+		 * userReg.setEmail(request.getParameter("email"));
+		 * userReg.setFullName(request.getParameter("name"));
+		 * userReg.setAvatar(request.getParameter("avatar"));
+		 */
+        userRegRep.insert(userReg);
+         
+        List<String> listRole = Arrays.asList("Admin", "Customer", "Subcriber");
+        model.addAttribute("listRole", listRole);
+		return "admin/account";
+    }
+	
+	/* <--- user subscribe---> */
+	@PostMapping("/account/subscriber")
+    public String subscribe(Model model, UserReg userReg, HttpServletRequest request) {
+        
+        userRegRep.insert(userReg);
+         
+        List<String> listRole = Arrays.asList("Admin", "Customer", "Subscriber");
+        model.addAttribute("listRole", listRole);
+		return "admin/register";
+    }
 }
