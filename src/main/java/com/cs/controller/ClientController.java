@@ -2,6 +2,9 @@ package com.cs.controller;
 
 
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,8 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cs.model.UserReg;
 import com.cs.repository.CategoryRepository;
 import com.cs.repository.ProductRepository;
+import com.cs.repository.UserRegRepository;
 
 @Controller
 @RequestMapping("")
@@ -20,6 +25,8 @@ public class ClientController {
     private ProductRepository productRepository;
     
     private CategoryRepository cate;
+    @Autowired
+    private UserRegRepository userRegRep;
    
 
     @GetMapping("/products")
@@ -50,5 +57,15 @@ public class ClientController {
         model.addAttribute("categories", cate.findAll());
 
         return "client/checkout";
+    }
+    
+    @GetMapping("/register")
+    public String clientReg(Model model, UserReg userReg) {
+        model.addAttribute("userReg", userRegRep.findAll());
+
+        
+        List<String> listRole = Arrays.asList("Admin", "Customer", "Subcriber");
+        model.addAttribute("listRole", listRole);
+		return "client/clicregister";
     }
 }

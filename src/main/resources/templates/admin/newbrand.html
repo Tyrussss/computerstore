@@ -1,7 +1,7 @@
 <style th:replace="common/admin/head_admin"></style>
 <div th:replace="common/admin/content_first_admin"></div>
     <div align="center">
-        <h1>Enter New Category</h1>
+        <h1>Enter New Brand</h1>
         <br />
         <form action="#" th:action="@{save}"
             method="post">
@@ -12,7 +12,7 @@
                     <td><input type="text" name="CategoryID" /></td>
                 </tr> -->
                 <tr>
-                    <td>CategoryName:</td>
+                    <td>BrandName:</td>
                     <td><input type="text" name="CategoryName" /></td>
                 </tr>
                 <tr>
@@ -27,5 +27,5 @@
     </div>
 <div th:replace="common/admin/content_footer_admin"></div>
 <script>
-		document.title = "Category Management";
+		document.title = "Brand Management";
 	</script>

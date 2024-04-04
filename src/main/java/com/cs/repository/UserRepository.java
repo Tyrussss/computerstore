@@ -68,5 +68,10 @@ public class UserRepository {
 		return db.update("delete from User where UserID = ?",
 				new Object[] {id});
 	}
+	
+	public int subscribe (User User) {
+		return db.update("insert into User ( Email, Role, Newsletter)" + " values (?,?,?)",
+				new Object[] {User.getEmail(), 2, true });
+	}
 		
 }
