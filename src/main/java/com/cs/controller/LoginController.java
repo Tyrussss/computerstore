@@ -24,7 +24,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute(name = "loginForm") User user, Model model, HttpSession session, HttpServletRequest request) {
+    public String login(@ModelAttribute(name = "login") User user, Model model, HttpSession session, HttpServletRequest request) {
         String username = user.getUsername();
         String password = user.getPassword();
         String name = user.getFullName();
@@ -34,7 +34,11 @@ public class LoginController {
             model.addAttribute("username", username);
             model.addAttribute("name", name);
             session.setAttribute("role", role);
-            return (role.equals("1")) ? "/admin/ad_index" : "/client/indexclient";
+			/*
+			 * if(role.equals("1")) { return "/admin/ad_index"; } else { return
+			 * "/client/indexclient"; }
+			 */
+           return (role.equals("1")) ? "/admin/ad_index" : "/client/indexclient";
         } else {
             model.addAttribute("error", "Incorrect UserName & Password");
             return "/client/login";

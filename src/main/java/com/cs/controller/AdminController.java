@@ -77,13 +77,11 @@ public class AdminController {
     }
 	
 	/* <--- user subscribe---> */
-	@PostMapping("/account/subscriber")
-    public String subscribe(Model model, UserReg userReg, HttpServletRequest request) {
+	@PostMapping("/account/subscribe")
+	public String subscribe(Model model, User user, HttpServletRequest request) {
         
-        userRegRep.insert(userReg);
-         
-        List<String> listRole = Arrays.asList("Admin", "Customer", "Subscriber");
-        model.addAttribute("listRole", listRole);
-		return "admin/register";
+        userRep.subscribe(user);        
+        
+		return "redirect:/";
     }
 }
