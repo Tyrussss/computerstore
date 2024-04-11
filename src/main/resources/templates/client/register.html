@@ -3,60 +3,20 @@
 <div th:replace="common/admin/content_first_admin"></div>
 
 <div class="container mt-5">
-	<div class="row tm-content-row">
-		<div class="col-12 tm-block-col">
-			<div class="tm-bg-primary-dark tm-block tm-block-h-auto">
-				<h2 class="tm-block-title">List of Accounts</h2>
-				<p class="text-white">Accounts</p>
-				<select class="custom-select">
-					<option value="0">All Account</option>
-					<option value="1">Admin</option>
-					<option value="2">Editor</option>
-					<option value="3">Merchant</option>
-					<option value="4">Customer</option>
-				</select>
-				<table id="user" border=1 class="col-12 tm-block-col">
-					<thead>
-						<tr>
-							<th>Avatar</th>
-							<th>Username</th>
-							<th>Email</th>
-							<th>FullName</th>
-							<th>Phone</th>
-							<th>Address</th>
-							<th>Role</th>
-							<th>Newsletter</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:if="${user.empty}">
-							<td colspan="2">No Account Available</td>
-						</tr>
-						<tr th:each="user : ${user}">
-							<td><img th:src="@{'/adc/img/'+${(user.Avatar)}}"
-								alt="${user.Avatar}" width="100px"></td>
-							<td th:text="${user.Username}"></td>
-							<td th:text="${user.Email}"></td>
-							<td th:text="${user.FullName}"></td>
-							<td th:text="${user.Phone}"></td>
-							<td th:text="${user.Address}"></td>
-							<td th:text="${user.Role}"></td>
-							<td th:text="${user.Newsletter}"></td>
-						</tr>
-					</tbody>
-				</table>
-
-			</div>
-		</div>
-	</div>
+	
 	<!-- row -->
-	<!-- <div class="row tm-content-row">
+	<form role="form"
+          method="post"
+          th:action="@{/register/save}"
+    >
+	<div class="row tm-content-row" 
+             						th:object="${userReg}">
           <div class="tm-block-col tm-col-avatar">
             <div class="tm-bg-primary-dark tm-block tm-block-avatar">
               <h2 class="tm-block-title">Change Avatar</h2>
               <div class="tm-avatar-container">
                 <img
-                  src="img/avatar.png"
+                  src="/adc/img/Phong1.png"
                   alt="Avatar"
                   class="tm-avatar img-fluid mb-4"
                 />
@@ -72,39 +32,40 @@
           <div class="tm-block-col tm-col-account-settings">
             <div class="tm-bg-primary-dark tm-block tm-block-settings">
               <h2 class="tm-block-title">Account Settings</h2>
-              <form action="" class="tm-signup-form row"
+              <!-- <form action="" class="tm-signup-form row"
               	role="form"
               	method="post"
-                th:action="@{/admin/account/save}"
-              >
+                th:action="@{/register/save}"
+              > -->
+              <div class="tm-signup-form row">
                 <div class="form-group col-lg-6">
                   <label for="name">Account Name</label>
-                  <input 
+                  <input th:field="*{FullName}"
                     id="name"
-                    name="FullName"
+                    name="name"
                     type="text"
                     class="form-control validate"
                   />
                 </div>
 					<div class="form-group col-lg-6">
 						<label for="username">Username</label> <input
-							id="username" name="Username" type="text"
+							th:field="*{Username}" id="username" name="Username" type="text"
 							class="form-control validate" />
 					</div>
 					<div class="form-group col-lg-6">
                   <label for="email">Account Email</label>
-                  <input 
+                  <input th:field="*{Email}"
                     id="email"
-                    name="Email"
+                    name="email"
                     type="email"
                     class="form-control validate"
                   />
                 </div>
                 <div class="form-group col-lg-6">
                   <label for="password">Password</label>
-                  <input 
+                  <input th:field="*{Password}"
                     id="password"
-                    name="Password"
+                    name="password"
                     type="password"
                     class="form-control validate"
                   />
@@ -120,9 +81,9 @@
                 </div>
                 <div class="form-group col-lg-6">
                   <label for="phone">Phone</label>
-                  <input 
+                  <input th:field="*{Phone}"
                     id="phone"
-                    name="Phone"
+                    name="phone"
                     type="tel"
                     class="form-control validate"
                   />
@@ -130,19 +91,19 @@
                 <div class="form-group col-lg-6">		
             		<label>Role : </label>
                     <select >
-                        <option th:each="p : ${listRole}" th:value="${p}" th:text="${p}"></option>
+                        <option th:each="role : ${listRole}" th:value="${role}" th:text="${role}" th:selected="${role == 'Customer'}" disabled></option>
                     </select>
         		</div>
         		<div class="form-group col-lg-6">
         			<label for="newsletter">Newsletter</label>
-            		<input id="newsletter" type="checkbox" name="Newsletter"  />
+            		<input id="newsletter" type="checkbox" name="newsletter" th:checked="*{Newsletter}" />
             		
         		</div>
         		<div class="form-group col-lg-6">
                   <label for="phone">Address</label>
-                  <input 
-                    id="Address"
-                    name="Address"
+                  <input th:field="*{Address}"
+                    id="phone"
+                    name="phone"
                     type="tel"
                     class="form-control validate"
                   />
@@ -153,7 +114,7 @@
                 <div class="form-group col-lg-6">
                   <label class="tm-hide-sm">&nbsp;</label>
                   <button
-                    type="submit"
+                    type="reset"
                     class="btn btn-primary btn-block text-uppercase"
                   >
                     Cancel
@@ -176,12 +137,13 @@
                     Create Your Account
                   </button>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
-        </div> -->
+        </div>
+        </form>
 </div>
 <div th:replace="common/admin/content_footer_admin"></div>
 <script>
-		document.title = "Account Management";
+		document.title = "Register a new account";
 	</script>

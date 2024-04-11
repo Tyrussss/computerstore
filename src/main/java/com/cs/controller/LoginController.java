@@ -38,7 +38,7 @@ public class LoginController {
 			 * if(role.equals("1")) { return "/admin/ad_index"; } else { return
 			 * "/client/indexclient"; }
 			 */
-           return (role.equals("1")) ? "/admin/ad_index" : "/client/indexclient";
+           return (role.equals("1")) ? "redirect:/admin/ad_index" : "redirect:/client/indexclient";
         } else {
             model.addAttribute("error", "Incorrect UserName & Password");
             return "/client/login";

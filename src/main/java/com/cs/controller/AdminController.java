@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cs.model.User;
 import com.cs.model.UserReg;
@@ -44,10 +46,11 @@ public class AdminController {
     public String showForm(Model model) {
         
         model.addAttribute("userReg", new UserReg());
+        
          
         List<String> listRole = Arrays.asList("Admin", "Customer", "Subcriber");
         model.addAttribute("listRole", listRole);
-		return "admin/register";
+		return "client/register";
     }
 	
 	/* <--- user register---> */
@@ -84,4 +87,14 @@ public class AdminController {
         
 		return "redirect:/";
     }
+	
+	@GetMapping("/account/edit")
+    public String showForm(@RequestParam("id") int id,
+    	    @ModelAttribute("category") User user) {
+    		user.setUserID(id);
+    		userRep.update(user);
+    	
+    		return "client/edituser";
+    }
+	
 }
