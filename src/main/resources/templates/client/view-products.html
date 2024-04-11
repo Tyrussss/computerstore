@@ -85,7 +85,7 @@
                     <div class="header-search">
                         <form th:action="@{/client/products/find}" method="get">
                             <select class="form-select form-control mb-4 col-4" name="categoryId" id="categoryId" aria-label="Default select example">
-                                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.categoryName}"></option>
+                                <option th:each="category : ${categories}" th:value="${category.CategoryID}" th:text="${category.CategoryName}"></option>
                             </select>
                             <input class="input" placeholder="Tìm kiếm">
                             <button class="search-btn">Tìm kiếm</button>

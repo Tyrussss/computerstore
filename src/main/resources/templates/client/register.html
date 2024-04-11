@@ -1,11 +1,14 @@
 
-<style th:replace="common/client/head_tag"></style>
-<div th:replace="common/client/content_head"></div>
-	
+<style th:replace="common/admin/head_admin"></style>
+<div th:replace="common/admin/content_first_admin"></div>
 
-<!-- <div class="container mt-5">
+<div class="container mt-5">
 	
-	row
+	<!-- row -->
+	<form role="form"
+          method="post"
+          th:action="@{/register/save}"
+    >
 	<div class="row tm-content-row" 
              						th:object="${userReg}">
           <div class="tm-block-col tm-col-avatar">
@@ -13,7 +16,7 @@
               <h2 class="tm-block-title">Change Avatar</h2>
               <div class="tm-avatar-container">
                 <img
-                  src="img/avatar.png"
+                  src="/adc/img/Phong1.png"
                   alt="Avatar"
                   class="tm-avatar img-fluid mb-4"
                 />
@@ -29,11 +32,12 @@
           <div class="tm-block-col tm-col-account-settings">
             <div class="tm-bg-primary-dark tm-block tm-block-settings">
               <h2 class="tm-block-title">Account Settings</h2>
-              <form action="" class="tm-signup-form row"
+              <!-- <form action="" class="tm-signup-form row"
               	role="form"
               	method="post"
                 th:action="@{/register/save}"
-              >
+              > -->
+              <div class="tm-signup-form row">
                 <div class="form-group col-lg-6">
                   <label for="name">Account Name</label>
                   <input th:field="*{FullName}"
@@ -45,7 +49,7 @@
                 </div>
 					<div class="form-group col-lg-6">
 						<label for="username">Username</label> <input
-							th:field="*{Username}" id="username" name="username" type="text"
+							th:field="*{Username}" id="username" name="Username" type="text"
 							class="form-control validate" />
 					</div>
 					<div class="form-group col-lg-6">
@@ -87,7 +91,7 @@
                 <div class="form-group col-lg-6">		
             		<label>Role : </label>
                     <select >
-                        <option th:each="p : ${listRole}" th:value="${p}" th:text="${p}" value="Customer" name="Role" disabled></option>
+                        <option th:each="role : ${listRole}" th:value="${role}" th:text="${role}" th:selected="${role == 'Customer'}" disabled></option>
                     </select>
         		</div>
         		<div class="form-group col-lg-6">
@@ -110,7 +114,7 @@
                 <div class="form-group col-lg-6">
                   <label class="tm-hide-sm">&nbsp;</label>
                   <button
-                    type="submit"
+                    type="reset"
                     class="btn btn-primary btn-block text-uppercase"
                   >
                     Cancel
@@ -133,14 +137,13 @@
                     Create Your Account
                   </button>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
-</div> -->
-<!-- <div th:replace="common/client/content_body"></div> -->
-	<div th:replace="common/client/content_footer"></div>
-	
+        </form>
+</div>
+<div th:replace="common/admin/content_footer_admin"></div>
 <script>
 		document.title = "Register a new account";
 	</script>
