@@ -21,9 +21,9 @@ import com.cs.repository.UserRegRepository;
 @RequestMapping("")
 public class ClientController {
 
-    
+    @Autowired
     private ProductRepository productRepository;
-    
+    @Autowired
     private CategoryRepository cate;
     @Autowired
     private UserRegRepository userRegRep;
@@ -66,6 +66,6 @@ public class ClientController {
         
         List<String> listRole = Arrays.asList("Admin", "Customer", "Subcriber");
         model.addAttribute("listRole", listRole);
-		return "client/clicregister";
+		return "client/register";
     }
 }
