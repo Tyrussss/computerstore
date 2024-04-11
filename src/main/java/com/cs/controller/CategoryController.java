@@ -35,17 +35,16 @@ public class CategoryController {
 		return "admin/categories/id";
 	}
 	
-	@GetMapping("/new")
-    public String showAddForm(Model model) {
-        model.addAttribute("category", new Category());
-        return "admin/newcate";
-    }
+	/*
+	 * @GetMapping("/new") public String showAddForm(Model model) {
+	 * model.addAttribute("category", new Category()); return "admin/newcate"; }
+	 */
 
-	@PostMapping("/save")
-    public String addCategory(@ModelAttribute("category") Category category) {
-        rep.insert(category);
-        return "redirect:/admin/category";
-    }
+	/*
+	 * @PostMapping("/save") public String addCategory(@ModelAttribute("category")
+	 * Category category) { rep.insert(category); return "redirect:/admin/category";
+	 * }
+	 */
 	/*
 	 * @RequestMapping(value = "/new", method = RequestMethod.GET) public String
 	 * saveForm(Model model) { Category cate = new Category();

@@ -52,7 +52,7 @@
             </div>
             <!-- table container -->
             <a
-              href="add-product.html"
+              href="/admin/product/new"
               class="btn btn-primary btn-block text-uppercase mb-3">Add new product</a>
             
           </div>
@@ -71,9 +71,10 @@
               </table>
             </div>
             <!-- table container -->
-            <button class="btn btn-primary btn-block text-uppercase mb-3">
-              Add new category
-            </button>
+            <a
+              href="/admin/category/new"
+              class="btn btn-primary btn-block text-uppercase mb-3">Add new category</a>
+           
           
           <hr color=yellow >
          <!-- <div class="tm-bg-primary-dark tm-block tm-block-product-categories">-->
@@ -89,15 +90,15 @@
               </table>
             </div>
             <!-- table container -->
-            <button class="btn btn-primary btn-block text-uppercase mb-3">
-              Add new category
-            </button>
+            <a
+              href="/admin/brand/new"
+              class="btn btn-primary btn-block text-uppercase mb-3">Add new brand</a>
+            
          
         </div>
       </div>
       </div>
       <div th:replace="common/admin/content_footer_admin"></div>
 	<script>
-	var title=ducument.getElemenById("subtitle");
-	title.innerHTML="Product management";
+		document.title = "Account Management";
 	</script>
