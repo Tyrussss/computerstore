@@ -26,6 +26,8 @@
 							<th>Address</th>
 							<th>Role</th>
 							<th>Newsletter</th>
+							<th> </th>
+							<th> </th>
 						</tr>
 					</thead>
 					<tbody>
@@ -42,6 +44,10 @@
 							<td th:text="${user.Address}"></td>
 							<td th:text="${user.Role}"></td>
 							<td th:text="${user.Newsletter}"></td>
+							
+                          	<td><a th:href="@{/admin/edit/{id}(id=${user.UserID})}">Edit</a></td>
+                    		<td><a th:href="@{/admin/delete/{id}(id=${user.UserID})}">Delete</a></td>
+                        
 						</tr>
 					</tbody>
 				</table>
