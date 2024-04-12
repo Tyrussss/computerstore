@@ -3,6 +3,7 @@ package com.cs.repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -72,6 +73,16 @@ public class UserRepository {
 	public int subscribe (User User) {
 		return db.update("insert into User ( Email, Role, Newsletter)" + " values (?,?,?)",
 				new Object[] {User.getEmail(), 2, true });
+	}
+	public User findByID(int id) {
+		try {
+
+			return db.queryForObject("select * from User where UserID = ?", new UserRowMapper(), new Object[] { id });
+
+		}catch(Exception ec){
+			ec.printStackTrace();
+			throw new RuntimeException("Error!!");	
+		}
 	}
 		
 }

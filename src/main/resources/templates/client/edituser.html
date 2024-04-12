@@ -7,29 +7,36 @@
 	<!-- row -->
 	<form role="form"
           method="post"
-          th:action="@{/register/save}"
+          th:action="@{/admin/edit}"
+          th:object="${user}"
+          enctype="multipart/form-data"
     >
-	<div class="row tm-content-row" 
-             						th:object="${userReg}">
-          <div class="tm-block-col tm-col-avatar">
-            <div class="tm-bg-primary-dark tm-block tm-block-avatar">
-              <h2 class="tm-block-title">Change Avatar</h2>
-              <div class="tm-avatar-container">
-                <img
-                  src="img/avatar.png"
-                  alt="Avatar"
-                  class="tm-avatar img-fluid mb-4"
-                />
-                <a href="#" class="tm-avatar-delete-link">
-                  <i class="far fa-trash-alt tm-product-delete-icon"></i>
-                </a>
-              </div>
-              <button class="btn btn-primary btn-block text-uppercase">
-                Upload New Photo
-              </button>
-            </div>
-          </div>
-          <div class="tm-block-col tm-col-account-settings">
+	<div class="row tm-content-row">
+			<div class="tm-block-col tm-col-avatar">
+				<div class="tm-bg-primary-dark tm-block tm-block-avatar">
+					<h2 class="tm-block-title">Change Avatar</h2>
+
+					<form action="/admin/uploadImage" method="post"
+						enctype="multipart/form-data">
+
+						<div class="tm-avatar-container">
+							<img th:src="@{'/adc/img/'+${(user.Avatar)}}" alt="Avatar"
+								class="tm-avatar img-fluid mb-4" /> <a
+								href="#" class="tm-avatar-delete-link"> <i
+								class="far fa-trash-alt tm-product-delete-icon"></i>
+							</a>
+						</div>
+
+						<label for="imageFile">Image:</label> <input type="file"
+							id="imageFile" name="imageFile" accept="image/*">
+
+						<button type="submit"
+							class="btn btn-primary btn-block text-uppercase">Upload
+							New Photo</button>
+					</form>
+				</div>
+			</div>
+			<div class="tm-block-col tm-col-account-settings">
             <div class="tm-bg-primary-dark tm-block tm-block-settings">
               <h2 class="tm-block-title">Account Settings</h2>
               <!-- <form action="" class="tm-signup-form row"
@@ -41,8 +48,8 @@
                 <div class="form-group col-lg-6">
                   <label for="name">Account Name</label>
                   <input th:field="*{FullName}"
-                    id="name"
-                    name="name"
+                    id="Name"
+                    name="FullName"
                     type="text"
                     class="form-control validate"
                   />
@@ -56,7 +63,7 @@
                   <label for="email">Account Email</label>
                   <input th:field="*{Email}"
                     id="email"
-                    name="email"
+                    name="Email"
                     type="email"
                     class="form-control validate"
                   />
@@ -83,7 +90,7 @@
                   <label for="phone">Phone</label>
                   <input th:field="*{Phone}"
                     id="phone"
-                    name="phone"
+                    name="Phone"
                     type="tel"
                     class="form-control validate"
                   />
@@ -129,14 +136,7 @@
                     Update Your Profile
                   </button>
                 </div>
-                <div class="col-12">
-                  <button
-                    type="submit"
-                    class="btn btn-primary btn-block text-uppercase"
-                  >
-                    Create Your Account
-                  </button>
-                </div>
+                
               </div>
             </div>
           </div>
