@@ -133,6 +133,12 @@ public class AdminController {
         return "redirect:/admin/account"; // Redirect to user list page
     }
     
+    @PostMapping("/edit/save")  // Assuming form submits to /edit
+    public String updateU(@ModelAttribute User user) {    	
+        userRep.update(user);  // Saves the updated user object
+        return "redirect:/admin/account"; // Redirect to user list page
+    }
+    
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") int id, Model model) {
         User user = userRep.findByID(id);
