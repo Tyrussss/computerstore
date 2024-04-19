@@ -9,7 +9,16 @@ public class Product {
 	private int Price;
 	private int BrandID;
 	private int CategoryID;
-	
+	private String Image;
+
+	public String getImage() {
+		return Image;
+	}
+
+	public void setImage(String image) {
+		Image = image;
+	}
+
 	public int getProductID() {
 		return ProductID;
 	}
