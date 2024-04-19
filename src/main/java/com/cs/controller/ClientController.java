@@ -78,8 +78,10 @@ public class ClientController {
 
     @GetMapping("/cart") // Ánh xạ yêu cầu GET đến "/cart" đến phương thức xử lý cart
     public String cart(HttpSession session, Model model) { // Phương thức xử lý cho "/cart"
-        Integer userId = (Integer) session.getAttribute("userId");
-        List<Cart> carts = cartRepository.findByUserID(userId);
+    	
+        Integer UserID = (Integer) session.getAttribute("UserID");
+        
+        List<Cart> carts = cartRepository.findByUserID(UserID);
         model.addAttribute("carts", carts); // Thêm danh sách cart vào model
         return "client/cart"; // Trả về view "cart" trong thư mục client
     }

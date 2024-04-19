@@ -55,9 +55,9 @@ public class CartRepository {
 					new Object[] { id });
 		}
 
-		public List<Cart> findByUserID(int userId) {
+		public List<Cart> findByUserID(int UserID) {
 			return db.query("SELECT c.CartID as CartID, c.ProductID  as ProductID, c.UserID as UserID, " +
-					"c.Quantity as Quantity, c.Price as Price, c.TotalPrice as TotalPrice, p.ProductName as ProductName FROM Cart c INNER JOIN Product p ON c.ProductID = p.ProductID WHERE UserID=?", new CartRowMapper(), userId);
+					"c.Quantity as Quantity, c.Price as Price, c.TotalPrice as TotalPrice, p.ProductName as ProductName FROM Cart c INNER JOIN Product p ON c.ProductID = p.ProductID WHERE UserID=?", new CartRowMapper(), UserID);
 		}
 
 
