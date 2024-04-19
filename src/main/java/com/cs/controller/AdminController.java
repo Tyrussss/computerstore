@@ -25,6 +25,7 @@ import com.cs.model.UserReg;
 import com.cs.repository.UserRegRepository;
 import com.cs.repository.UserRepository;
 import com.cs.util.FileUploadUtil;
+import com.cs.util.ImageService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -169,7 +170,25 @@ public class AdminController {
         // user.setImagePath(fileCode); // Adjust based on your data structure
         userRep.update(user); // If updating user object with image info
 
-        return "redirect:/users"; // Redirect to user list page (adjust as needed)
+        return "redirect:/admin/account"; // Redirect to user list page (adjust as needed)
+    }
+    
+    @Autowired
+    private ImageService imgServ; // Service for image saving logic
+
+    @GetMapping("/upload")
+    public String uploadForm(@ModelAttribute User user) {
+    	return "/client/success";
+    }
+    @PostMapping("/upload")
+    public String uploadImg(@ModelAttribute User user, @RequestParam("imageFile") MultipartFile imageFile) {
+    	try {
+			imgServ.saveImg(user, imageFile);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+      return "redirect:/client/success"; // Redirect to success page
     }
 	
 }
