@@ -35,12 +35,12 @@
                     <td th:text="${products.BrandID}" ></td>
                     <td th:text="${products.CategoryID}" ></td> 
 	                <td>
-		                <a href="#" >
+		                <a th:href="@{/admin/product/edit/{id}(id=${products.ProductID})}" >
 		                     <i class="fa fa-user-edit"></i>
 		                 </a>  
 	                </td>
 	               <td>
-	                     <a href="#">
+	                     <a href="/product/detele">
 	                      <i class="fa fa-trash"></i>
 	                     </a>
 	                </td>
