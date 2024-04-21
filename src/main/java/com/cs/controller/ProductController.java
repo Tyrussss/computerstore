@@ -21,6 +21,8 @@ import com.cs.repository.BrandRepository;
 import com.cs.repository.CategoryRepository;
 import com.cs.repository.ProductRepository;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 
 
 
@@ -35,20 +37,20 @@ public class ProductController {
 	BrandRepository brcep;
 	@GetMapping("/product")
 	public String index (Model model ) {
-		model.addAttribute("product", rep.findAll());
+		model.addAttribute("products", rep.findAll());
 		model.addAttribute("category", carep.findAll());
 		model.addAttribute("brand", brcep.findAll());
 		return "/admin/product";
 	}
 	@GetMapping("/product/new")
     public String newProduct(Model model) {
-        model.addAttribute("user", new Product());
+        model.addAttribute("product", new Product());
        
         return "/admin/newproduct";
     }
 
     @PostMapping("/product/save")
-    public String createProduct(@ModelAttribute Product product) {
+    public String createProduct(Model model, Product product, HttpServletRequest request) {
         rep.insert(product);
         return "redirect:/admin/product";
     }
@@ -62,15 +64,20 @@ public class ProductController {
         return "admin/editproduct";
     }
     
-    @PostMapping("/product/edit")
-    public String editProduct(@ModelAttribute Product product) {
-        rep.update(product);
-        return "redirect:/admin/product";
+	/*
+	 * @PostMapping("/product/edit") public String editProduct(@ModelAttribute
+	 * Product product) { rep.update(product); return "redirect:/admin/product"; }
+	 */
+    
+    @PostMapping ("/product/edit/save")
+    public String updateProduct (@ModelAttribute Product product) {    	
+        rep.update(product);  // Saves the updated user object
+        return "redirect:/admin/product"; // Redirect to user list page)
     }
 	
-	  @GetMapping("/prodcut/delete") 
-	  public String deleteDelete(@PathVariable int id) { 
-		  rep.deleteById(null, id); 
+	  @GetMapping("/product/delete/{id}") 
+	  public String deleteProduct(@PathVariable int id) { 
+		  rep.deleteById( id); 
 		  return "redirect:/admin/product"; }
 	 
     
