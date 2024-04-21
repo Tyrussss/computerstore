@@ -62,5 +62,10 @@ public class ProductImageRepository {
 		return db.update("update ProductImage" + "set Image = ?, Main = ?, ProductID = ? ",
 				new Object[] {ProductImage.getImage(), ProductImage.getMain(), ProductImage.getProductID()});
 	}
+
+	public ProductImage findFirstImageByProductID(int productID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 
