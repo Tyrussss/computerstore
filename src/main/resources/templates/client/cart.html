@@ -148,13 +148,13 @@
                         </thead>
                         <!-- Trong thẻ <tbody> của bảng -->
                         <tbody th:each="product : ${products}">
-                        <input type="hidden" name="idGioHangChiTiet" th:value="${product.id}">
+                        <input type="hidden" name="idGioHangChiTiet" th:value="${product.CartID}">
                         <tr>
                             <td>
                                 <div class="form-check">
-                                    <span class="id" hidden th:data-id="${product.id}"></span>
-                                    <span class="id-cart" hidden th:data-id="${product.cartId}"></span>
-                                    <input class="form-check-input" name="options[]" id="checkboxID" th:value="${product.id}" onchange="updatePrice(this)" type="checkbox">
+                                    <span class="id" hidden th:data-id="${product.CartID}"></span>
+                                    <span class="id-cart" hidden th:data-id="${product.CartID}"></span>
+                                    <input class="form-check-input" name="options[]" id="checkboxID" th:value="${product.CartID}" onchange="updatePrice(this)" type="checkbox">
                                 </div>
                             </td>
                             <td>
@@ -170,11 +170,11 @@
                                 </div>
                             </td>
                             <td class="product-name">
-                                <p th:text="${product.productName}"></p>
+                                <p th:text="${product.ProductName}"></p>
                             </td>
                             <td class="price" th:text="${#numbers.formatDecimal(product.priceOfOne, 0, 'POINT', 0, 'COMMA') + ' VND'}">
                             </td>
-                            <input type="hidden" class="priceValue" th:value="${product.priceOfOne}">
+                            <input type="hidden" class="priceValue" th:value="${product.Price}">
                             <td>
                                 <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px">
                                     <div class="tru" onclick="handlerChange(this)">
@@ -186,7 +186,7 @@
                                             aria-label="Example text with button addon"
                                             class="form-control text-center quantity-amount"
                                             placeholder=""
-                                            th:value="${product.quantity}"
+                                            th:value="${product.Quantity}"
                                             type="text"
                                             name="soLuong"
                                             onchange="handleChangeOfInput(this)"
@@ -203,11 +203,11 @@
 
                             <td>
                                 <!-- Hiển thị tổng giá của sản phẩm (số lượng * giá) -->
-                                <h5 class="thanhtien" th:text="${#numbers.formatDecimal(product.totalPrice, 0, 'POINT', 0, 'COMMA') + ' VND'}"></h5>
+                                <h5 class="thanhtien" th:text="${#numbers.formatDecimal(product.TotalPrice, 0, 'POINT', 0, 'COMMA') + ' VND'}"></h5>
                             </td>
-                            <input type="hidden" class="thanhtienValue" th:value="${product.totalPrice}">
+                            <input type="hidden" class="thanhtienValue" th:value="${product.TotalPrice}">
                             <td>
-                                <button class="btn btn-black btn-sm delete-button confirmDelete" th:attr="data-id=${product.id}">
+                                <button class="btn btn-black btn-sm delete-button confirmDelete" th:attr="data-id=${product.CartID}">
                                     X
                                 </button>
                             </td>
@@ -217,7 +217,7 @@
 
                     </table>
                     <div class="checkout_btn_inner float-right">
-                        <a class="btn" th:href="@{/client/products}">Continue Shopping</a>
+                        <a class="btn" th:href="@{/products}">Continue Shopping</a>
                     </div>
                 </div>
             </div>

@@ -15,8 +15,20 @@
 			<div class="tm-block-col tm-col-avatar">
 				<div class="tm-bg-primary-dark tm-block tm-block-avatar">
 					<h2 class="tm-block-title">Change Avatar</h2>
+					<div class="tm-avatar-container">
+							<img th:src="@{'/adc/img/'+${(user.Avatar)}}" alt="Avatar"
+								class="tm-avatar img-fluid mb-4" />			
+								<input type="hidden" th:field="*{Avatar}">
+								 <a
+								href="#" class="tm-avatar-delete-link"> <i
+								class="far fa-trash-alt tm-product-delete-icon"></i>
+							</a>
+						</div>
+					
+					<label for="imageFile">Avatar:</label>
+    				<input type="file" id="imageFile" name="Avatar">
 
-					<form action="/admin/uploadImage" method="post"
+					<!-- <form action="/admin/uploadImage" method="post"
 						enctype="multipart/form-data">
 
 						<div class="tm-avatar-container">
@@ -35,7 +47,7 @@
 						<button type="submit"
 							class="btn btn-primary btn-block text-uppercase">Upload
 							New Photo</button>
-					</form>
+					</form> -->
 				</div>
 			</div>
 			<div class="tm-block-col tm-col-account-settings">

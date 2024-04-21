@@ -84,5 +84,38 @@ public class UserRepository {
 			throw new RuntimeException("Error!!");	
 		}
 	}
+	
+	public User findByUserPw(String username, String password) {
+		try {
+
+			return db.queryForObject("select * from User where Username = ? and Password = ?", new UserRowMapper(), new Object[] { username, password });
+
+		}catch(Exception ec){
+			ec.printStackTrace();
+			throw new RuntimeException("Error!!");	
+		}
+	}
+	
+	public int findEmail(String email) {
+		try {
+			String sql = "SELECT COUNT(*) FROM User WHERE Email = ?";
+	        int count = db.queryForObject(sql, new Object[]{email}, Integer.class);
+			
+			return count;
+		}catch(Exception ec){
+			ec.printStackTrace();
+			throw new RuntimeException("Error!!");	
+		}
+	}
+	public User findIDByEmail(String email) {
+		try {
+
+			return db.queryForObject("select * from User where Email = ?", new UserRowMapper(), new Object[] { email });
+
+		}catch(Exception ec){
+			ec.printStackTrace();
+			throw new RuntimeException("Error!!");	
+		}
+	}
 		
 }

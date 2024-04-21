@@ -108,7 +108,7 @@
 
                         <!-- Cart -->
                         <div class="dropdown">
-                            <a th:href="@{/client/cart}" aria-expanded="true">
+                            <a th:href="@{/cart}" aria-expanded="true">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>Giỏ hàng</span>
                                 <div class="qty">3</div>
@@ -232,11 +232,11 @@
                                     <div class="properties-card">
                                         <div class="properties-img">
                                             <a href="#">
-                                                <img th:src="${product.image}" alt=""/>
+                                                <img th:src="${product.image}" width="150" height="150" alt=""/>
                                             </a>
                                             <div class="socal_icon">
-                                                <form action="#" method="get">
-                                                    <input type="hidden" name="quantity" value="1" />
+                                                <form th:action="@{/addToCart}" method="get">
+                                                    <input type="hidden" name="productId" th:value="${product.ProductID}" />
                                                     <button class="add-to-cart-link">
                                                         <i class="ti-shopping-cart"></i>
                                                     </button>
@@ -244,11 +244,11 @@
                                             </div>
                                             <div class="properties-caption properties-caption2">
                                                 <h3>
-                                                    <a href="#" th:text="${product.name}"></a>
+                                                    <a href="#" th:text="${product.ProductName}"></a>
                                                 </h3>
                                                 <div class="properties-footer">
                                                     <div class="price">
-                                                        <span th:text="${product.price} + ' VND'"></span>
+                                                        <span th:text="${product.Price} + ' VND'"></span>
                                                     </div>
                                                 </div>
                                             </div>

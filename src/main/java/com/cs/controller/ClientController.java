@@ -104,7 +104,7 @@ public class ClientController {
 
     @GetMapping("/addToCart")
     public String addToCart(HttpSession session,  @ModelAttribute("productId") Integer productId) {
-        Integer userId = (Integer) session.getAttribute("userId");
+        Integer userId = (Integer) session.getAttribute("UserID");
         Cart cart = new Cart();
         Product product = productRepository.findByID(productId);
         cart.setProductID(productId);

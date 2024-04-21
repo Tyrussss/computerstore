@@ -36,6 +36,8 @@ public class AdminController {
 	@Autowired
 	UserRepository userRep;
 	UserRegRepository userRegRep;
+	@Autowired
+	private FileUploadUtil fileUploadUtil;
 	
 	@GetMapping("")
 	public String adindex() {
@@ -71,21 +73,52 @@ public class AdminController {
 		return "admin/account";
     }
 	
+	@PostMapping("/register/save")
+    public String saveUser(Model model, User user, HttpServletRequest request) {
+        
+        userRep.insert(user);        
+        
+		return "redirect:/login";
+    }
+	
 	/* <--- admin create---> */
 	@PostMapping("/account/create")
-    public String create(Model model, UserReg userReg, HttpServletRequest request) {
-		/*
-		 * userReg = new UserReg(); String avatar = "avatar.png";
-		 * userReg.setUsername(request.getParameter("username"));
-		 * userReg.setEmail(request.getParameter("email"));
-		 * userReg.setFullName(request.getParameter("name"));
-		 * userReg.setAvatar(request.getParameter("avatar"));
-		 */
-        userRegRep.insert(userReg);
-         
-        List<String> listRole = Arrays.asList("Admin", "Customer", "Subcriber");
-        model.addAttribute("listRole", listRole);
-		return "admin/account";
+    public String create(@RequestParam("imageFile") MultipartFile file, Model model, User user, HttpServletRequest request) {
+		String fileName = file.getOriginalFilename();
+        String message;
+
+        try {
+            String fileCode = "avatar"; // Or replace with dynamic code generation
+            String filePath = fileUploadUtil.saveFile(Paths.get("static/client/img/"), fileName, file, fileCode);
+            message = "Image uploaded successfully: " + fileName;
+        } catch (IOException e) {
+            message = "Error uploading image: " + e.getMessage();
+            e.printStackTrace();
+        }        
+        model.addAttribute("message", message);        
+        
+        String email = request.getParameter("Email"); // Access form field value
+        
+        
+        int count = userRep.findEmail(email);
+        
+        if (count > 0) {
+            message = "This email exists in the database.";
+            User subscriber = userRep.findIDByEmail(email);
+            model.addAttribute("UserID", subscriber.getUserID());
+            model.addAttribute("Email", subscriber.getEmail());
+            model.addAttribute("Role", 0);
+            model.addAttribute("Avatar", fileName);
+            
+            userRep.update(user);
+            
+        } else {
+            message = "Field value does not exist in the database.";
+            model.addAttribute("Avatar", fileName);
+            userRep.insert(user);
+        } 
+               
+        return "redirect:/login";
     }
 	
 	/* <--- user subscribe---> */
@@ -141,8 +174,21 @@ public class AdminController {
     }
     
     @GetMapping("/edit/{id}")
-    public String showUpdateForm(@PathVariable("id") int id, Model model) {
+    public String showUpdateForm(@PathVariable("id") int id, Model model, @RequestParam("imageFile") MultipartFile file) {
         User user = userRep.findByID(id);
+        String fileName = file.getOriginalFilename();
+        String message;
+
+        try {
+            String fileCode = "avatar"; // Or replace with dynamic code generation
+            String filePath = fileUploadUtil.saveFile(Paths.get("static/client/img/"), fileName, file, fileCode);
+            message = "Image uploaded successfully: " + fileName;
+        } catch (IOException e) {
+            message = "Error uploading image: " + e.getMessage();
+            e.printStackTrace();
+        }
+
+        model.addAttribute("message", message);
         
         model.addAttribute("user", user);
         return "client/edituser";

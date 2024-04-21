@@ -30,7 +30,7 @@ public class ProductController {
 	BrandRepository brcep;
 	@GetMapping("/product")
 	public String index (Model model ) {
-		model.addAttribute("product", rep.findAll());
+		model.addAttribute("product", rep.findAll()); //product list 
 		model.addAttribute("category", carep.findAll());
 		model.addAttribute("brand", brcep.findAll());
 		return "/admin/product";

@@ -4,8 +4,8 @@ public class OrderDetail {
 	private int OrderID;
 	private int ProductID;
 	private int Quantity;
-	private String SubTotal;
-	private String Total;
+	private float SubTotal;
+	private float Total;
 	private float Price;
 	private int DiscountID;
 	private boolean PaymentStatus;
@@ -27,16 +27,16 @@ public class OrderDetail {
 	public void setQuantity(int quantity) {
 		Quantity = quantity;
 	}
-	public String getSubTotal() {
+	public float getSubTotal() {
 		return SubTotal;
 	}
-	public void setSubTotal(String subTotal) {
+	public void setSubTotal(float subTotal) {
 		SubTotal = subTotal;
 	}
-	public String getTotal() {
+	public float getTotal() {
 		return Total;
 	}
-	public void setTotal(String total) {
+	public void setTotal(float total) {
 		Total = total;
 	}
 	public float getPrice() {

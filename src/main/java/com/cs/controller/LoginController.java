@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.cs.model.User;
+import com.cs.repository.UserRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -17,28 +18,35 @@ import jakarta.servlet.http.HttpSession;
 public class LoginController {
 	@Autowired
     private JdbcTemplate jdbcTemplate;
+	@Autowired
+	private UserRepository userRep;
 
     @GetMapping("/login")
     public String showLogin() {
-        return "client/login"; // Trả về trang đăng nhập
+        return "client/login"; 
     }
 
     @PostMapping("/login")
     public String login(@ModelAttribute(name = "login") User user, Model model, HttpSession session, HttpServletRequest request) {
+        
         String username = user.getUsername();
         String password = user.getPassword();
-        String name = user.getFullName();
-
+        
+        User u = userRep.findByUserPw(username, password);
+        model.addAttribute("loggeduser", u);        
         String role = checkUserRole(username, password);
         if (role != null) {
-            model.addAttribute("username", username);
-            model.addAttribute("name", name);
-            session.setAttribute("role", role);
+            model.addAttribute("username", u.getUsername());
+            model.addAttribute("FullName", u.getFullName());
+            session.setAttribute("UserID", u.getUserID());
+            session.setAttribute("Username", u.getUsername());
+            session.setAttribute("name", u.getFullName());
+            session.setAttribute("role", u.getRole());
 			/*
 			 * if(role.equals("1")) { return "/admin/ad_index"; } else { return
 			 * "/client/indexclient"; }
 			 */
-           return (role.equals("1")) ? "redirect:/admin/" : "redirect:/";
+           return (role.equals("1")) ? "redirect:/admin" : "redirect:/logged";
         } else {
             model.addAttribute("error", "Incorrect UserName & Password");
             return "/client/login";
@@ -56,7 +64,7 @@ public class LoginController {
     @PostMapping("/logout")
     public String logoutPost(HttpSession session) {
         session.invalidate();
-        return "/client/login";
+        return "/login";
     }
 
     // Phương thức kiểm tra thông tin đăng nhập
