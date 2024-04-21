@@ -62,12 +62,12 @@ public class ProductRepository {
 		}
 		
 		public int update (Product Product) {
-			return db.update("update Product "+"set ProductName = ?, ProductDetails = ?, Stock = ?, Warranty = ?, Price = ?" + "where ProductID = ?",
+			return db.update("update Product "+"set ProductName = ?, ProductDetails = ?, Stock = ?, Warranty = ?, Price = ? " + "where ProductID = ?",
 					new Object[] {Product.getProductName(), Product.getProductDetails(),Product.getStock(), Product.getWarranty(), Product.getPrice(), Product.getProductID() });
 		}
 		
-		public int deleteById (Product Product, int id) {
-			return db.update("delete from Product where Product ID=?", new Object[] {id});
+		public int deleteById(int id) {
+		return db.update("delete from Product where ProductID = ?", new Object[] { id });
 		}
 	
 }

@@ -18,11 +18,11 @@ import com.cs.repository.UserRepository;
 public class testController {
 	@Autowired
 	ProductRepository a;
-	@RequestMapping("/test1")
+	@RequestMapping("/test")
 	public String index(Model model) {
 		//a = new CategoryRepository();
 		model.addAttribute("test ", a.findAll() );
-		return "test";
+		return "/client/productdetail";
 	}
 	
 }

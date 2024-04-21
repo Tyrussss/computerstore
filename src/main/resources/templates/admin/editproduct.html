@@ -1,0 +1,54 @@
+
+	<style th:replace="common/admin/head_admin"></style>
+	<div th:replace="common/admin/content_first_admin"></div>
+	<div align="center">
+        <h1>Edit Product Info</h1>
+        <br />
+        <form th:action="@{/admin/product/edit/save}"
+            	method="post" 
+            	th:object= "${product}">
+            
+  		<input type="hidden" th:field="*{ProductID}" />
+            <table border="0" cellpadding="10">
+                <tr>
+                    <td>ProductID:</td>
+                    <td><input disabled type="text" name="ProductName" th:field="*{ProductID}" /></td>
+                </tr>
+                <tr>
+                    <td>ProductName:</td>
+                    <td><input type="text" name="ProductName" th:field="*{ProductName}"/> </td>
+                </tr>
+                <tr>
+                    <td>ProductDetails:</td>
+                    <td><input type="text" name="ProductDetails" th:field="*{ProductDetails}" /></td>
+                </tr>  
+                <tr>
+                    <td>Stock:</td>
+                    <td><input type="text" name="Stock" th:field="*{Stock}"  /></td>
+                </tr>  
+                <tr>
+                    <td>Warranty:</td>
+                    <td><input type="text" name="Warranty" th:field="*{Warranty}" /></td>
+                </tr>  
+                <tr>
+                    <td>Price:</td>
+                    <td><input type="text" name="Price"  th:field="*{Price}"/></td>
+                </tr>      
+                <tr>
+                    <td>BrandID:</td>
+                    <td><input disabled type="text" name="BrandID"  th:field="*{BrandID}" /></td>
+                </tr>     
+                <tr>
+                    <td>CategoryID:</td>
+                    <td><input disabled type="text" name="CategoryID" th:field="*{CategoryID}" /></td>
+                </tr>                
+                <tr>
+                    <td colspan="2"><button type="submit">Update product</button> </td>
+                </tr>
+            </table>
+        </form>
+   </div>
+     <div th:replace="common/admin/content_footer_admin"></div>
+	<script>
+		document.title = "Account Management";
+	</script>

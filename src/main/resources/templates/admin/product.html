@@ -22,25 +22,25 @@
                     <th scope="col">&nbsp;</th>
                   </tr>
                 </thead>
-                <tbody th:each="products : ${product}">
+                <tbody th:each="product : ${products}">
                   <tr>
                     
                     
-                    <td th:text="${products.ProductID}" class="tm-product-name"></td>
-                    <td th:text="${products.ProductName}" ></td>
-                    <td th:text="${products.ProductDetails}" ></td>
-                    <td th:text="${products.Stock}" ></td>
-                    <td th:text="${products.Warranty}" ></td>
-                    <td th:text="${products.Price}" ></td>
-                    <td th:text="${products.BrandID}" ></td>
-                    <td th:text="${products.CategoryID}" ></td> 
+                    <td th:text="${product.ProductID}" class="tm-product-name"></td>
+                    <td th:text="${product.ProductName}" ></td>
+                    <td th:text="${product.ProductDetails}" ></td>
+                    <td th:text="${product.Stock}" ></td>
+                    <td th:text="${product.Warranty}" ></td>
+                    <td th:text="${product.Price}" ></td>
+                    <td th:text="${product.BrandID}" ></td>
+                    <td th:text="${product.CategoryID}" ></td> 
 	                <td>
-		                <a href="#" >
+		                <a th:href="@{/admin/product/edit/{id}(id=${product.ProductID})}" >
 		                     <i class="fa fa-user-edit"></i>
 		                 </a>  
 	                </td>
 	               <td>
-	                     <a href="#">
+	                     <a th:href="@{/admin/product/delete/{id} (id = ${product.ProductID})}">
 	                      <i class="fa fa-trash"></i>
 	                     </a>
 	                </td>
