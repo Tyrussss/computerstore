@@ -66,60 +66,156 @@ public class AdminController {
 	
 	/* <--- user register---> */
 	@PostMapping("/account/save")
-    public String saveForm(Model model, User user, HttpServletRequest request) {
+    public String saveForm(@RequestParam("Avatar") MultipartFile file,Model model, User user, HttpServletRequest request) {
         
         userRep.insert(user);        
         
 		return "admin/account";
     }
 	
+	/*
+	 * @PostMapping("/register/save") public String saveUser(Model model, User user,
+	 * HttpServletRequest request) {
+	 * 
+	 * userRep.insert(user);
+	 * 
+	 * return "redirect:/login"; }
+	 */
+	@GetMapping("/account/reg")
+    public String show(Model model) {       
+		return "client/clientreg";
+    }
+	
 	@PostMapping("/register/save")
-    public String saveUser(Model model, User user, HttpServletRequest request) {
-        
-        userRep.insert(user);        
-        
-		return "redirect:/login";
+    public String saveUser(@RequestParam("avatar") MultipartFile file,
+                           @RequestParam("username") String username,
+                           @RequestParam("email") String email,
+                           @RequestParam("password") String password,
+                           @RequestParam("fullName") String fullName,
+                           @RequestParam("phone") String phone,
+                           @RequestParam("role") int role,
+                           Model model) {
+
+        String fileName = file.getOriginalFilename();
+
+        try {
+            // Save the file with its original name in the specified folder
+            String uploadDir = "src/main/resources/static/clic/img/";
+            FileUploadUtil.saveFile(Paths.get(uploadDir), fileName, file);
+            
+            // Create a new user object and set its attributes
+            User user = new User();
+            user.setUsername(username);
+            user.setEmail(email);
+            user.setPassword(password);
+            user.setFullName(fullName);
+            user.setPhone(phone);
+            user.setAvatar(fileName);
+            user.setRole(role);
+            
+            // Save user details in database
+            userRep.insert(user);
+            
+            model.addAttribute("message", "User registered successfully.");
+        } catch (IOException e) {
+            model.addAttribute("message", "Error registering user: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return "redirect:/login";
     }
 	
 	/* <--- admin create---> */
 	@PostMapping("/account/create")
-    public String create(@RequestParam("imageFile") MultipartFile file, Model model, User user, HttpServletRequest request) {
-		String fileName = file.getOriginalFilename();
+    public String create(@RequestParam("avatar") MultipartFile file, @ModelAttribute User user, Model model) {
+        String fileName = file.getOriginalFilename();
         String message;
-
+        
         try {
-            String fileCode = "avatar"; // Or replace with dynamic code generation
-            String filePath = fileUploadUtil.saveFile(Paths.get("static/client/img/"), fileName, file, fileCode);
-            message = "Image uploaded successfully: " + fileName;
-        } catch (IOException e) {
-            message = "Error uploading image: " + e.getMessage();
-            e.printStackTrace();
-        }        
-        model.addAttribute("message", message);        
-        
-        String email = request.getParameter("Email"); // Access form field value
-        
-        
-        int count = userRep.findEmail(email);
-        
-        if (count > 0) {
-            message = "This email exists in the database.";
-            User subscriber = userRep.findIDByEmail(email);
-            model.addAttribute("UserID", subscriber.getUserID());
-            model.addAttribute("Email", subscriber.getEmail());
-            model.addAttribute("Role", 0);
-            model.addAttribute("Avatar", fileName);
-            
-            userRep.update(user);
-            
-        } else {
-            message = "Field value does not exist in the database.";
-            model.addAttribute("Avatar", fileName);
+            // Save the file with its original name in the specified folder
+            String uploadDir = "src/main/resources/static/clic/img/";
+            FileUploadUtil.saveFile(Paths.get(uploadDir), fileName, file);
+            user.setAvatar(fileName);
+            model.addAttribute(user);
+            // Save user details in database
             userRep.insert(user);
-        } 
-               
+            
+            model.addAttribute("message", "User registered successfully.");
+        } catch (IOException e) {
+            model.addAttribute("message", "Error registering user: " + e.getMessage());
+            e.printStackTrace();
+        }
+
         return "redirect:/login";
+
+		/*
+		 * try { // Save the file with its original name in the specified folder String
+		 * uploadDir = "src/static/clic/img/";
+		 * FileUploadUtil.saveFile(Paths.get(uploadDir), fileName, file, "avatar");
+		 * user.setAvatar(fileName); // Set the Avatar field with the original file name
+		 * message = "Image uploaded successfully: " + fileName; } catch (IOException e)
+		 * { message = "Error uploading image: " + e.getMessage(); e.printStackTrace();
+		 * }
+		 * 
+		 * model.addAttribute("message", message);
+		 * 
+		 * String email = user.getEmail(); // Access email from the user object
+		 * 
+		 * int count = userRep.findEmail(email);
+		 * 
+		 * if (count > 0) { message = "This email exists in the database."; User
+		 * existingUser = userRep.findIDByEmail(email);
+		 * existingUser.setUsername(user.getUsername());
+		 * existingUser.setPassword(user.getPassword());
+		 * existingUser.setFullName(user.getFullName());
+		 * existingUser.setPhone(user.getPhone()); existingUser.setRole(user.getRole());
+		 * existingUser.setNewsletter(user.getNewsletter());
+		 * existingUser.setAddress(user.getAddress());
+		 * existingUser.setAvatar(user.getAvatar());
+		 * 
+		 * userRep.update(existingUser);
+		 * 
+		 * model.addAttribute("UserID", existingUser.getUserID());
+		 * model.addAttribute("Email", existingUser.getEmail());
+		 * model.addAttribute("Role", 0); model.addAttribute("Avatar",
+		 * existingUser.getAvatar()); } else { message =
+		 * "Email does not exist in the database."; userRep.insert(user); }
+		 * 
+		 * return "redirect:/login";
+		 */
     }
+	
+	
+	
+	/*
+	 * @PostMapping("/account/create") public String create(@RequestParam("Avatar")
+	 * MultipartFile file, Model model, User user, HttpServletRequest request) {
+	 * String fileName = file.getOriginalFilename(); String message;
+	 * 
+	 * try { String fileCode = "avatar"; // Or replace with dynamic code generation
+	 * String filePath =
+	 * fileUploadUtil.saveFile(Paths.get("src/static/client/img/"), fileName, file,
+	 * fileCode); message = "Image uploaded successfully: " + fileName; } catch
+	 * (IOException e) { message = "Error uploading image: " + e.getMessage();
+	 * e.printStackTrace(); } model.addAttribute("message", message);
+	 * 
+	 * String email = request.getParameter("Email"); // Access form field value
+	 * 
+	 * 
+	 * int count = userRep.findEmail(email);
+	 * 
+	 * if (count > 0) { message = "This email exists in the database."; User
+	 * subscriber = userRep.findIDByEmail(email); model.addAttribute("UserID",
+	 * subscriber.getUserID()); model.addAttribute("Email", subscriber.getEmail());
+	 * model.addAttribute("Role", 0); model.addAttribute("Avatar", fileName);
+	 * 
+	 * userRep.update(user);
+	 * 
+	 * } else { message = "Field value does not exist in the database.";
+	 * model.addAttribute("Avatar", fileName); userRep.insert(user); }
+	 * 
+	 * return "redirect:/login"; }
+	 */
 	
 	/* <--- user subscribe---> */
 	@PostMapping("/account/subscribe")
@@ -158,7 +254,7 @@ public class AdminController {
         String fileCode = "avatar/" + user.getUserID() + "_avatar"; // Consider using a more robust file code generation
 
         Path uploadPath = Paths.get("static/client/img/"); // Modify if needed
-        FileUploadUtil.saveFile(uploadPath, fileName, imageFile, fileCode);
+        FileUploadUtil.saveFile(uploadPath, fileName, imageFile);
 
         // Update user object with image path or code (optional)
         // user.setImagePath(fileCode); // Adjust based on your data structure
@@ -182,7 +278,7 @@ public class AdminController {
 
         try {
             String fileCode = "avatar"; // Or replace with dynamic code generation
-            String filePath = fileUploadUtil.saveFile(Paths.get("static/client/img/"), fileName, file, fileCode);
+            String filePath = fileUploadUtil.saveFile(Paths.get("static/client/img/"), fileName, file);
             message = "Image uploaded successfully: " + fileName;
         } catch (IOException e) {
             message = "Error uploading image: " + e.getMessage();
@@ -211,7 +307,7 @@ public class AdminController {
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }
-        FileUploadUtil.saveFile(uploadPath, fileName, imageFile, fileCode);
+        FileUploadUtil.saveFile(uploadPath, fileName, imageFile);
 
         // Update user object with image path or code (optional)
         // user.setImagePath(fileCode); // Adjust based on your data structure

@@ -35,7 +35,7 @@
 							<td colspan="2">No Account Available</td>
 						</tr>
 						<tr th:each="user : ${user}">
-							<td><img th:src="@{'/adc/img/'+${(user.Avatar)}}"
+							<td><img th:src="@{'/clic/img/'+${(user.Avatar)}}"
 								alt="${user.Avatar}" width="100px"></td>
 							<td th:text="${user.Username}"></td>
 							<td th:text="${user.Email}"></td>

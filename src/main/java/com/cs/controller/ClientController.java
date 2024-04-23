@@ -1,9 +1,11 @@
 package com.cs.controller; // Gói chứa các lớp điều khiển của ứng dụng
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -13,11 +15,15 @@ import java.util.*;
 import com.cs.config.VNPayConfig;
 import com.cs.model.*;
 import com.cs.repository.*;
+import com.cs.util.FileUploadUtil;
+
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired; // Nhập gói org.springframework.beans.factory.annotation.Autowired để sử dụng chú thích @Autowired
 import org.springframework.stereotype.Controller; // Nhập gói org.springframework.stereotype.Controller để đánh dấu lớp này là một controller trong Spring
 import org.springframework.ui.Model; // Nhập gói org.springframework.ui.Model để sử dụng đối tượng Model trong Spring MVC
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Controller // Đánh dấu lớp này là một controller trong Spring MVC
@@ -49,7 +55,60 @@ public class ClientController {
     private CategoryRepository cate; // Repository cho danh mục
     @Autowired // Chú thích @Autowired để tiêm các dependency vào các trường của lớp
     private UserRegRepository userRegRep; // Repository cho việc đăng ký người dùng
+    
+    
+    
+    @PostMapping("/account/register")
+    public String registerUser(@ModelAttribute User user, @RequestParam("avatar") MultipartFile avatarFile, Model model) {
+        if (avatarFile.isEmpty()) {
+            model.addAttribute("message", "Please select a file to upload.");
+            return "register";
+        }
 
+        if (!avatarFile.getContentType().startsWith("image")) {
+            model.addAttribute("message", "Please upload an image file.");
+            return "register";
+        }
+
+        try {
+            String fileName = FileUploadUtil.saveFile(Paths.get("src/static/clic/img/"), avatarFile.getOriginalFilename(), avatarFile);
+            
+            user.setAvatar(fileName); // Set the avatar file name to the user object
+            userRepository.insert(user); // Assuming you have a service method to handle user registration
+            model.addAttribute("message", "User registered successfully.");
+        } catch (IOException e) {
+            model.addAttribute("message", "Error registering user: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return "redirect:/login";
+    }
+	/*
+	 * public String registerUser(@Valid @ModelAttribute User user, BindingResult
+	 * bindingResult, @RequestParam("avatar") MultipartFile avatarFile, Model model)
+	 * {
+	 * 
+	 * if (bindingResult.hasErrors()) { System.out.println("Binding Errors: " +
+	 * bindingResult.getAllErrors()); return "register"; // Return to the
+	 * registration page with an error message } String fileName =
+	 * avatarFile.getOriginalFilename();
+	 * 
+	 * try { String uploadDir = "src/main/resources/static/clic/img/"; String
+	 * savedFileName = FileUploadUtil.saveFile(Paths.get(uploadDir), fileName,
+	 * file);
+	 * 
+	 * // Set the avatar file name in the user object user.setAvatar(savedFileName);
+	 * 
+	 * // Save user details in database userRepository.insert(user);
+	 * 
+	 * model.addAttribute("message", "User registered successfully."); } catch
+	 * (IOException e) { model.addAttribute("message", "Error registering user: " +
+	 * e.getMessage()); e.printStackTrace(); return "admin/register"; // Return to
+	 * the registration page with an error message }
+	 * 
+	 * return "redirect:/login"; }
+	 */
+    
     @GetMapping("/products") // Ánh xạ yêu cầu GET đến "/products" đến phương thức xử lý products
     public String products(Model model) { // Phương thức xử lý cho "/products"
         List<Product> products = productRepository.findAll();
