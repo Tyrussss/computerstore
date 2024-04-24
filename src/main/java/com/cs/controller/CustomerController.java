@@ -32,15 +32,15 @@ public class CustomerController {
 	@RequestMapping("")
 	public String index(HttpSession session, Model model, User user) {
 		System.out.println(session.getAttribute("userID"));
-		List<ProductDTO> top2Products = rep.findTop2Products();
-        model.addAttribute("top2Products", top2Products);
+		List<ProductDTO> top5Products = rep.findTop5Products();
+        model.addAttribute("top5Products", top5Products);
 		return "client/indexclient";
 	}
 	
-	@GetMapping("/logged")
-	public String logged_index() {
+	@GetMapping("/quickview")
+	public String quickview() {
 		
-		return "client/customer_index";
+		return "client/productdetail";
 	}	
 	
 	@PostMapping("/register")
