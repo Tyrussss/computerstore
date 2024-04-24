@@ -314,6 +314,57 @@
          box-shadow: 0 0 0 0 transparent
       }
    }
+   /* Thiết lập CSS cho form */
+#commentForm {
+	max-width: 600px;
+	margin: 0 auto;
+}
+
+input[type="text"], textarea {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 15px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-sizing: border-box;
+}
+
+textarea {
+	height: 150px;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.site-btn {
+	background-color: #4CAF50;
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.site-btn:hover {
+	background-color: #45a049;
+}
+
+/* Thiết lập CSS cho cột trong form */
+.col-lg-4, .col-md-4 {
+	float: left;
+	width: 33.33%;
+	padding: 0 15px;
+	box-sizing: border-box;
+}
+
+/* Clear float sau mỗi hàng */
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+</style>
 </style>
 
 <!-- NAVIGATION -->
@@ -1021,6 +1072,36 @@
 								<input class="input" type="email" name="Email" placeholder="Enter Your Email">
 								<button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
 							</form>
+							<!-- row -->
+			<div class="row">
+				<div class="col-md-12">
+					<div class="newsletter">
+						<p>
+							Sign Up for the <strong>NEWSLETTER</strong>
+						</p>
+						<form action="https://formsubmit.co/your@email.com" method="POST" />
+						<!-- Các trường dữ liệu của form -->
+							<div class="row">
+								<div class="col-lg-4 col-md-4">
+									<input type="text" placeholder="Full Name" name="Name"
+										id="name">
+								</div>
+								<div class="col-lg-4 col-md-4">
+									<input type="text" placeholder="Your Email" name="Email"
+										id="email">
+								</div>
+								<div class="col-lg-4 col-md-4">
+									<input type="text" placeholder="Hotline"
+										name="Phone" id="phone">
+								</div>
+								<div class="col-lg-12 text-center">
+									<textarea placeholder="Send" name="Message" id="message"></textarea>
+									<button type="submit" class="site-btn">Submit</button>
+								</div>
+							</div>
+						</form>
+						
+
 							<ul class="newsletter-follow">
 								<li>
 									<a href="#"><i class="fa fa-facebook"></i></a>
