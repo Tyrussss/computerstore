@@ -85,8 +85,9 @@
 							Hi, <span th:text="${session.fullName}"></span>
 						</button>
 						<div class="dropdown-content">
-							<a href="/profile">Profile</a> <a href="/settings">Settings</a> <a
-								class="dropdown-item" href="/logout">Logout</a>
+							<a th:href="@{/profile/{id}(id=${session.UserID})}">Profile</a> 
+							<a th:href="@{/settings/{id}(id=${user.UserID})}">Settings</a> 
+							<a class="dropdown-item" th:href="@{/logout}">Logout</a>
 						</div>
 					</div>
 				</li>

@@ -1,7 +1,7 @@
-<style th:replace="common/client/head_tag"></style>
-<div th:replace="common/client/content_head"></div>
+<style th:replace="/common/client/head_tag"></style>
+<div th:replace="/common/client/content_head"></div>
 	
-
+<div class="container">
 <form action="/register" method="post" enctype="multipart/form-data">
     <!-- Username -->
     <div class="form-group">
@@ -66,4 +66,5 @@
     <!-- Submit Button -->
     <button type="submit" class="btn btn-primary">Register</button>
 </form>
-<div th:replace="common/client/content_footer"></div>
+</div>
+<div th:replace="/common/client/content_footer"></div>

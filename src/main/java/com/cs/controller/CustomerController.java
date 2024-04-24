@@ -8,12 +8,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.cs.model.Product;
 import com.cs.model.ProductDTO;
 import com.cs.model.User;
 import com.cs.repository.BrandRepository;
@@ -46,6 +48,14 @@ public class CustomerController {
 	public String register() {		
 		return "client/register";
 	}	
+	@GetMapping("/profile/{id}")
+	public String editU(@PathVariable("id") int id, Model model) {	
+		User user = userRepository.findByID(id);
+		model.addAttribute("user",user);
+		return "client/edituser";
+	}	
+	
+	
 	@PostMapping("/register")
     public String registerUser(@ModelAttribute User user,
                                @RequestParam("regAvatar") MultipartFile avatarFile,
