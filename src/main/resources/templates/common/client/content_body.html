@@ -425,7 +425,7 @@
 								<div id="tab1" class="tab-pane active">
 									<div class="products-slick" data-nav="#slick-nav-1">
 										<!-- product -->
-										<div class="product">
+										<div class="product" th:each="product : ${top2Products}">
 											<div class="product-img">
 												<img src="clic/img/product01.png" alt="">
 												
@@ -434,7 +434,7 @@
 													<span class="new">NEW</span>
 												</div>
 											</div>
-											<div class="product-body" th:each="product : ${top2Products}">
+											<div class="product-body" >
 												<p class="product-category" th:text="'Category: ' + ${product.categoryName}" ></p>
 												<h3 class="product-name"><a href="#" th:text="'Brand: ' + ${product.brandName}"></a></h3>
 												<h4 class="product-price" th:text="'Price: ' + ${product.price}"> <del class="product-old-price">$990.00</del></h4>
