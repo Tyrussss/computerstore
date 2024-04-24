@@ -37,11 +37,12 @@ public class LoginController {
         if (authenticatedUser != null) {
         	
         	// Add authenticatedUser object to the session
-            session.setAttribute("authenticatedUser", authenticatedUser);
+            model.addAttribute("authenticatedUser", authenticatedUser);
             // Add user details to the session        	
             session.setAttribute("UserID", authenticatedUser.getUserID());
             session.setAttribute("username", authenticatedUser.getUsername());
             session.setAttribute("fullName", authenticatedUser.getFullName());
+            session.setAttribute("avatar", authenticatedUser.getAvatar());
             
             int role = authenticatedUser.getRole();
 

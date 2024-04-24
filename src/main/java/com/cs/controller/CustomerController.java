@@ -33,6 +33,7 @@ public class CustomerController {
 	
 	@RequestMapping("")
 	public String index(HttpSession session, Model model, User user) {
+		
 		System.out.println(session.getAttribute("userID"));
 		List<ProductDTO> top5Products = rep.findTop5Products();
         model.addAttribute("top5Products", top5Products);
