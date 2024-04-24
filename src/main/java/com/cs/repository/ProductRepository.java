@@ -13,6 +13,8 @@ import org.springframework.stereotype.Repository;
 import com.cs.model.Brand;
 import com.cs.model.Category;
 import com.cs.model.Product;
+import com.cs.model.ProductDTO;
+import com.cs.repository.ProductRepository.ProductDTORowMapper;
 @Repository
 public class ProductRepository {
 	@Autowired
@@ -89,6 +91,31 @@ public class ProductRepository {
 		
 		public int deleteById(int id) {
 		return db.update("delete from Product where ProductID = ?", new Object[] { id });
+		}
+		public class ProductDTORowMapper implements RowMapper<ProductDTO> {
+			 @Override
+			 public ProductDTO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				 ProductDTO productDTO = new ProductDTO();
+			     productDTO.setProductID(rs.getInt("ProductID"));
+			     productDTO.setProductName(rs.getString("ProductName"));
+			     productDTO.setProductDetails(rs.getString("ProductDetails"));
+			     productDTO.setStock(rs.getInt("Stock"));
+			     productDTO.setWarranty(rs.getInt("Warranty"));
+			     productDTO.setPrice(rs.getInt("Price"));
+			     productDTO.setBrandName(rs.getString("BrandName"));
+			     productDTO.setCategoryName(rs.getString("CategoryName"));
+			     return productDTO;
+			 }
+			}
+
+		public List<ProductDTO> findTop2Products() {
+		    String sql = "SELECT p.*, b.BrandName, c.CategoryName " +
+		                 "FROM product p " +
+		                 "INNER JOIN brand b ON p.BrandID = b.BrandID " +
+		                 "INNER JOIN category c ON p.CategoryID = c.CategoryID " +
+		                 "ORDER BY p.ProductID DESC " +
+		                 "LIMIT 2";
+		    return db.query(sql, new ProductDTORowMapper());
 		}
 
 		

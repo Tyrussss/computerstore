@@ -1,6 +1,7 @@
 package com.cs.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.cs.model.ProductDTO;
 import com.cs.model.User;
+import com.cs.repository.BrandRepository;
+import com.cs.repository.CategoryRepository;
+import com.cs.repository.ProductRepository;
 import com.cs.repository.UserRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -75,5 +80,19 @@ public class CustomerController {
 
         return "redirect:/";
     }
+    @Autowired
+	ProductRepository rep;
+	@Autowired
+	CategoryRepository carep;
+	@Autowired
+	BrandRepository brcep;
+	@GetMapping("/top")
+	
+		public String home(Model model) {
+	        List<ProductDTO> top2Products = rep.findTop2Products();
+	        model.addAttribute("top2Products", top2Products);
+	        return "client/indexclient";
+	    }
+		
 }
 
