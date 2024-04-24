@@ -1,118 +1,64 @@
+<form action="/register" method="post" enctype="multipart/form-data">
+    <!-- Username -->
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" name="username" required>
+    </div>
 
-<style th:replace="common/admin/head_admin"></style>
-<div th:replace="common/admin/content_first_admin"></div>
-<script th:inline="javascript">
-        function previewImage(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    document.getElementById('preview').src = e.target.result;
-                    document.getElementById('preview').style.display = 'block';
-                }
-                
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-    </script>
+    <!-- Password -->
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+    </div>
 
+    <!-- Email -->
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+    </div>
 
-<div class="container mt-5">
+    <!-- Full Name -->
+    <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input type="text" class="form-control" id="fullName" name="fullName" required>
+    </div>
 
-	<!-- row -->
-	<form role="form" method="post" th:object="${user}" th:action="@{/admin/account/create}" enctype="multipart/form-data">
-		<div class="row tm-content-row">
-			<div class="tm-block-col tm-col-avatar">
-				<div class="tm-bg-primary-dark tm-block tm-block-avatar">
-					<h2 class="tm-block-title">Change Avatar</h2>
-					
-					<!-- <img  class="tm-avatar img-fluid mb-4"  id="preview" src="#" alt="Image Preview" width="200" style="display:none;" />	
-						<input type="file" class="form-control-file" id="avatar" name="avatar" accept="image/*"/>					
-					</div>
-					<label for="Avatar">Avatar:</label>  -->
-					<div class="tm-avatar-container">				
-						<img  class="tm-avatar img-fluid mb-4"  id="preview" src="#" alt="Image Preview" width="200" style="display:none;" />						
-					</div>
-					<label for="Avatar">Avatar:</label> <input type="file" th:name="Avatar" accept="image/*" onchange="previewImage(this)">
-					
-				</div>
-			</div>
-			<div class="tm-block-col tm-col-account-settings">
-				<div class="tm-bg-primary-dark tm-block tm-block-settings">
-					<h2 class="tm-block-title">Account Settings</h2>
-					
-					<div class="tm-signup-form row">
-						
-						<div class="form-group col-lg-6">
-							<label for="name">Account Name</label> 
-							<input id="fullName" name="FullName" type="text" class="form-control validate" />
-						</div>
-						<div class="form-group col-lg-6">
-							<label for="username">Username</label> <input
-								 id="username" name="Username" type="text"
-								class="form-control validate" />
-						</div>
-						<div class="form-group col-lg-6">
-							<label for="email">Account Email</label> <input
-								 id="email" name="Email" type="email"
-								class="form-control validate" />
-						</div>
-						<div class="form-group col-lg-6">
-							<label for="password">Password</label> <input
-								id="password" name="Password"
-								type="password" class="form-control validate" />
-						</div>
+    <!-- Phone -->
+    <div class="form-group">
+        <label for="phone">Phone</label>
+        <input type="text" class="form-control" id="phone" name="phone">
+    </div>
 
-						<div class="form-group col-lg-6">
-							<label for="phone">Phone</label> 
-							<input id="phone" name="Phone" type="tel" class="form-control validate" />
-						</div>
+    <!-- Address -->
+    <div class="form-group">
+        <label for="address">Address</label>
+        <textarea class="form-control" id="address" name="address" rows="3"></textarea>
+    </div>
 
-						<div class="form-group col-lg-6">
-							<label for="password2">Re-enter Password</label> <input
-								id="password2" name="password2" type="password"
-								class="form-control validate" />
-						</div>
-						<div class="form-group col-lg-6">
-							<label>Role : </label> <select>
-								<option th:each="role : ${listRole}" th:value="${role}"
-									th:text="${ role}" th:selected="${role == 'Customer'}" disabled></option>
-							</select>
-						</div>
-						<div class="form-group col-lg-6">
-							<label for="newsletter">Newsletter</label> <input id="newsletter"
-								type="checkbox" name="Newsletter" />
+    <!-- Role -->
+    <div class="form-group">
+        <label for="role">Role</label>
+        <select class="form-control" id="role" name="role">
+            <option value="1">Admin</option>
+            <option value="2">User</option>
+        </select>
+    </div>
 
-						</div>
-						<div class="form-group col-lg-6">
-							<label for="address">Address</label> <input 
-								id="address" name="Address" type="text" class="form-control validate" />
-						</div>
-						<div class="form-group col-lg-6"></div>
-						<div class="form-group col-lg-3">
-							<label class="tm-hide-sm">&nbsp;</label>
-							<button type="reset"
-								class="btn btn-primary btn-block text-uppercase">
-								Cancel</button>
-						</div>
-						<div class="form-group col-lg-9">
-							<label class="tm-hide-sm">&nbsp;</label>
-							<button type="submit"
-								class="btn btn-primary btn-block text-uppercase">
-								Register Your Account</button>
-						</div>
-						<!-- <div class="col-12">
-							<button type="submit"
-								class="btn btn-primary btn-block text-uppercase">
-								Register Your Account</button>
-						</div> -->
-					</div>
-				</div>
-			</div>
-		</div>
-	</form>
-</div>
-<div th:replace="common/admin/content_footer_admin"></div>
-<script>
-		document.title = "Register a new account";
-	</script>
+    <!-- Newsletter -->
+    <div class="form-group">
+        <label for="newsletter">Newsletter</label>
+        <select class="form-control" id="newsletter" name="newsletter">
+            <option value="1">Subscribe</option>
+            <option value="0">Unsubscribe</option>
+        </select>
+    </div>
+
+    <!-- Avatar -->
+    <div class="form-group">
+        <label for="avatar">Avatar</label>
+        <input type="file" class="form-control-file" id="avatar" name="regAvatar" accept="image/*" required>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>

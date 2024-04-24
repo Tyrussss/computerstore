@@ -127,24 +127,11 @@ public class AdminController {
 	
 	/* <--- admin create---> */
 	@PostMapping("/account/create")
-    public String create(@RequestParam("avatar") MultipartFile file, @ModelAttribute User user, Model model) {
-        String fileName = file.getOriginalFilename();
-        String message;
+    public String create(Model model) {
         
-        try {
-            // Save the file with its original name in the specified folder
-            String uploadDir = "src/main/resources/static/clic/img/";
-            FileUploadUtil.saveFile(Paths.get(uploadDir), fileName, file);
-            user.setAvatar(fileName);
-            model.addAttribute(user);
-            // Save user details in database
-            userRep.insert(user);
             
             model.addAttribute("message", "User registered successfully.");
-        } catch (IOException e) {
-            model.addAttribute("message", "Error registering user: " + e.getMessage());
-            e.printStackTrace();
-        }
+         
 
         return "redirect:/login";
 

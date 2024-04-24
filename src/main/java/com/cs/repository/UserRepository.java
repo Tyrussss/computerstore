@@ -84,6 +84,23 @@ public class UserRepository {
 			return user;
 		}
 	}
+	
+	
+
+	public void registerUser(User user) {
+        String sql = "INSERT INTO users (username, password, email, fullname, phone, address, role, newsletter, avatar) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        db.update(sql, user.getUsername(), user.getPassword(), user.getEmail(), user.getFullName(),
+                user.getPhone(), user.getAddress(), user.getRole(), user.getNewsletter(), user.getAvatar());
+    }
+
+    public void updateUser(User user) {
+        String sql = "UPDATE users SET username = ?, password = ?, email = ?, fullname = ?, phone = ?, address = ?, " +
+                     "role = ?, newsletter = ?, avatar = ? WHERE userID = ?";
+        db.update(sql, user.getUsername(), user.getPassword(), user.getEmail(), user.getFullName(),
+                user.getPhone(), user.getAddress(), user.getRole(), user.getNewsletter(), user.getAvatar(),
+                user.getUserID());
+    }
 
 	/***
 	 * 
