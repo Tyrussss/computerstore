@@ -57,45 +57,7 @@ public class ClientController {
     
     
     
-    @PostMapping("/register")
-    public String registerUser(@ModelAttribute User user,
-                               @RequestParam("regAvatar") MultipartFile avatarFile,
-                               RedirectAttributes redirectAttributes) {
-
-        try {
-            String avatar = userRepository.saveAvatar(avatarFile);
-            user.setAvatar(avatar);
-
-            userRepository.registerUser(user);
-
-            redirectAttributes.addFlashAttribute("successMessage", "User registered successfully!");
-        } catch (IOException e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Failed to register user: " + e.getMessage());
-        }
-
-        return "redirect:/register";
-    }
-
-    @PostMapping("/edit")
-    public String editUser(@ModelAttribute User user,
-                           @RequestParam("editAvatar") MultipartFile avatarFile,
-                           RedirectAttributes redirectAttributes) {
-
-        try {
-            if (!avatarFile.isEmpty()) {
-                String avatar = userRepository.saveAvatar(avatarFile);
-                user.setAvatar(avatar);
-            }
-
-            userRepository.updateUser(user);
-
-            redirectAttributes.addFlashAttribute("successMessage", "User updated successfully!");
-        } catch (IOException e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Failed to update user: " + e.getMessage());
-        }
-
-        return "redirect:/";
-    }
+   
     @PostMapping("/account/register")
     public String registerUser(@ModelAttribute User user, @RequestParam("avatar") MultipartFile avatarFile, Model model) {
         if (avatarFile.isEmpty()) {
@@ -324,7 +286,7 @@ public class ClientController {
     
     @GetMapping("/register") // Ánh xạ yêu cầu GET đến "/register" đến phương thức xử lý clientReg
     public String clientReg(Model model, UserReg userReg) { // Phương thức xử lý cho "/register"
-        model.addAttribute("userReg", userRegRep.findAll()); // Lấy danh sách người dùng đã đăng ký và thêm vào model
+        model.addAttribute("userReg", userRep.findAll()); // Lấy danh sách người dùng đã đăng ký và thêm vào model
         
         List<String> listRole = Arrays.asList("Admin", "Customer", "Subscriber"); // Tạo danh sách vai trò
         model.addAttribute("listRole", listRole); // Thêm danh sách vai trò vào model
