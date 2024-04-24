@@ -38,11 +38,14 @@ public class CustomerController {
 	}
 	
 	@GetMapping("/quickview")
-	public String quickview() {
-		
+	public String quickview() {		
 		return "client/productdetail";
 	}	
 	
+	@GetMapping("/register")
+	public String register() {		
+		return "client/register";
+	}	
 	@PostMapping("/register")
     public String registerUser(@ModelAttribute User user,
                                @RequestParam("regAvatar") MultipartFile avatarFile,
