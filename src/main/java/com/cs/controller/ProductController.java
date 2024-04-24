@@ -1,5 +1,6 @@
 package com.cs.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,11 +45,14 @@ public class ProductController {
 	}
 	@GetMapping("/product/new")
     public String newProduct(Model model) {
-        model.addAttribute("product", new Product());
-       
+		
+        model.addAttribute("products", rep.findAll());
+		model.addAttribute("categories", carep.findAll());
+		model.addAttribute("brands", brcep.findAll());
         return "/admin/newproduct";
     }
-
+	
+	
     @PostMapping("/product/save")
     public String createProduct(Model model, Product product, HttpServletRequest request) {
         rep.insert(product);
@@ -57,18 +61,23 @@ public class ProductController {
     
 	
     @GetMapping("product/edit/{id}")
-    public String showUpdateForm(@PathVariable("id") int id, Model model) {
-        Product product = rep.findByID(id);
-        
-        model.addAttribute("product", product);
-        return "admin/editproduct";
-    }
-    
+	
+	  public String showUpdateForm(@PathVariable("id") int id, Model model) {
+	  Product product = rep.findByID(id); 
+	  model.addAttribute("products",rep.findAll()); 
+	  model.addAttribute("categories", carep.findAll());
+	  model.addAttribute("product", product);
+	  return "admin/editproduct"; }
+	 
 	/*
-	 * @PostMapping("/product/edit") public String editProduct(@ModelAttribute
-	 * Product product) { rep.update(product); return "redirect:/admin/product"; }
+	 * public String showUpdateForm(@PathVariable("id") int id, Model model) {
+	 * Product product = rep.findById(id); List<Category> categories =
+	 * carep.findAll(); List<Brand> brands = brcep.findAll();
+	 * model.addAttribute("product", product); model.addAttribute("categories",
+	 * categories); model.addAttribute("brands", brands); return
+	 * "/admin/editproduct"; }
 	 */
-    
+
     @PostMapping ("/product/edit/save")
     public String updateProduct (@ModelAttribute Product product) {    	
         rep.update(product);  // Saves the updated user object
@@ -81,13 +90,7 @@ public class ProductController {
 		  return "redirect:/admin/product"; }
 	 
     
-	/*
-	 * @DeleteMapping("/product/delete") public ResponseEntity<Void>
-	 * deleteProduct(@PathVariable int id) { int result = rep.deleteById(null, id);
-	 * 
-	 * (result > 0) { return ResponseEntity.noContent().build(); } else { return
-	 * ResponseEntity.notFound().build(); } }
-	 */
+	
     @GetMapping("/brand/new")
     	public String newBrand (Model model) {
     		model.addAttribute ("brand", new Brand());

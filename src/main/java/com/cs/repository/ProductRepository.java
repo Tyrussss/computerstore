@@ -10,6 +10,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.cs.model.Brand;
+import com.cs.model.Category;
 import com.cs.model.Product;
 @Repository
 public class ProductRepository {
@@ -28,6 +30,8 @@ public class ProductRepository {
 			item.setPrice(rs.getInt("Price"));
 			item.setBrandID(rs.getInt("BrandID"));
 			item.setCategoryID(rs.getInt("CategoryID"));
+			
+			
 			return item;
 		}
 	}
@@ -46,15 +50,32 @@ public class ProductRepository {
 			}
 			
 		}
+
+		/*
+		 * public List<Product> findTop4(){ try { return
+		 * db.query("select top 4 from product", new ProductRowMapper());
+		 * 
+		 * }catch (Exception ec) { ec.printStackTrace(); throw new
+		 * RuntimeException("Error!!");
+		 * 
+		 * }
+		 * 
+		 * }
+		 */
+		
+		 
+
+		
 		/***
 		 * 
 		 * @return select 1 
 		 */
 		
-		public Product findByID(int id) {
-			return db.queryForObject("select * from Product where ProductID=?", new ProductRowMapper(),
-					new Object[] { id });
-		}
+		
+		  public Product findByID(int id) { return
+		  db.queryForObject("select * from Product where ProductID=?", new
+		  ProductRowMapper(), new Object[] { id }); }
+		 
 		
 		public int insert (Product Product) {
 			return db.update("insert into Product ( ProductID,ProductName,ProductDetails,Stock,Warranty,Price,BrandID,CategoryID)" + "values( ?,?,?,?,?,?,?,?)",
@@ -69,5 +90,6 @@ public class ProductRepository {
 		public int deleteById(int id) {
 		return db.update("delete from Product where ProductID = ?", new Object[] { id });
 		}
-	
+
+		
 }

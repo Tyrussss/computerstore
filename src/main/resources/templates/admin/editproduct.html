@@ -10,10 +10,7 @@
             
   		<input type="hidden" th:field="*{ProductID}" />
             <table border="0" cellpadding="10">
-                <tr>
-                    <td>ProductID:</td>
-                    <td><input disabled type="text" name="ProductName" th:field="*{ProductID}" /></td>
-                </tr>
+                
                 <tr>
                     <td>ProductName:</td>
                     <td><input type="text" name="ProductName" th:field="*{ProductName}"/> </td>
@@ -33,15 +30,8 @@
                 <tr>
                     <td>Price:</td>
                     <td><input type="text" name="Price"  th:field="*{Price}"/></td>
-                </tr>      
-                <tr>
-                    <td>BrandID:</td>
-                    <td><input disabled type="text" name="BrandID"  th:field="*{BrandID}" /></td>
-                </tr>     
-                <tr>
-                    <td>CategoryID:</td>
-                    <td><input disabled type="text" name="CategoryID" th:field="*{CategoryID}" /></td>
-                </tr>                
+                </tr> 
+                              
                 <tr>
                     <td colspan="2"><button type="submit">Update product</button> </td>
                 </tr>

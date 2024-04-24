@@ -42,7 +42,9 @@ public class BrandRepository {
 		}
 	}
 	
-	 
+	public String findBrandNameByBrandID(int brandID) {
+	    return db.queryForObject("SELECT BrandName FROM Brand WHERE BrandID = ?", String.class, brandID);
+	}
 		
 	public Brand findByID(int id) {
 		return db.queryForObject("select * from Brand where BrandID=?", new BrandRowMapper(),

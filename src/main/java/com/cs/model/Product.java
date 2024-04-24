@@ -10,6 +10,14 @@ public class Product {
 	private int BrandID;
 	private int CategoryID;
 	private String Image;
+	
+	
+
+
+	
+
+
+	
 
 	public String getImage() {
 		return Image;

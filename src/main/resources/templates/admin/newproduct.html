@@ -34,11 +34,18 @@
                 </tr>      
                <tr>
                     <td>BrandID:</td>
-                    <td><input  type="text" name="BrandID"   /></td>
+                    <td>
+                    <select name= "BrandID">
+                    <option th:each="brand : ${brands}" th:value= "${brand.BrandID}" th:text="${brand.BrandName}"> </option></td>
+                    </select>
                 </tr>     
                 <tr>
                     <td>CategoryID:</td>
-                    <td><input  type="text" name="CategoryID"  /></td>
+                    <td>
+                    <select name= "CategoryID">
+                    <option th:each="category : ${categories}" th:value= "${category.CategoryID}" th:text="${category.CategoryName}"> </option></td>
+                    </select>
+                    </td>
                 </tr>                
                 <tr>
                     <td colspan="2"><button type="submit">Save</button> </td>
