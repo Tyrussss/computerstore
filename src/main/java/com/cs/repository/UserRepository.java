@@ -110,7 +110,7 @@ public class UserRepository {
         String sql = "INSERT INTO User (username, password, email, fullname, phone, address, role, newsletter, avatar) " +
                      "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         db.update(sql, user.getUsername(), user.getPassword(), user.getEmail(), user.getFullName(),
-                user.getPhone(), user.getAddress(), user.getRole(), user.getNewsletter(), user.getAvatar());
+                user.getPhone(), user.getAddress(), 0, user.getNewsletter(), user.getAvatar());
     }
 
     public void updateUser(User user) {
