@@ -70,7 +70,7 @@
 
 
 	<div id="top-header" th:if="${session.role != null}">
-		<div class="container">
+		<div class="container" >
 			<ul class="header-links pull-left">
 				<li><a href="/"><i class="fa fa-phone"></i> +1 949 666-3839</a></li>
 				<li><a href="/"><i class="fa fa-envelope-o"></i>
@@ -78,15 +78,17 @@
 				<li><a href="/"><i class="fa fa-map-marker"></i> 1738
 						RemyMartin</a></li>
 			</ul>
-			<ul class="header-links pull-right">
-				<li>
-					<div class="dropdown" style="float: right;">
+			
+			<ul class="header-links pull-right" th:object="${authenticatedUser}">
+				<!-- <li><img  th:src="@{'clic/img/' + ${session.avatar}}" alt="${session.avatar}" width="50px"></li> -->
+				<li>					
+					<div class="dropdown" style="float: right;">						
 						<button class="dropbtn">
 							Hi, <span th:text="${session.fullName}"></span>
 						</button>
 						<div class="dropdown-content">
 							<a th:href="@{/profile/{id}(id=${session.UserID})}">Profile</a> 
-							<a th:href="@{/settings/{id}(id=${user.UserID})}">Settings</a> 
+							<a th:href="@{/settings/{id}(id=${session.UserID})}">Settings</a> 
 							<a class="dropdown-item" th:href="@{/logout}">Logout</a>
 						</div>
 					</div>
@@ -97,3 +99,4 @@
 
 
 </header>
+
