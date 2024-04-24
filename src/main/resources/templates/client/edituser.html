@@ -1,67 +1,72 @@
-<form action="/edit" method="post" enctype="multipart/form-data">
-    <!-- UserID -->
-    <input type="hidden" name="userID" th:value="*{userID}">
-
-    <!-- Username -->
-    <div class="form-group">
-        <label for="editUsername">Username</label>
-        <input type="text" class="form-control" id="editUsername" name="username" th:value="*{username}" required>
-    </div>
-
-    <!-- Password -->
-    <div class="form-group">
-        <label for="editPassword">Password</label>
-        <input type="password" class="form-control" id="editPassword" name="password">
-    </div>
-
-    <!-- Email -->
-    <div class="form-group">
-        <label for="editEmail">Email</label>
-        <input type="email" class="form-control" id="editEmail" name="email" th:value="*{email}" required>
-    </div>
-
-    <!-- Full Name -->
-    <div class="form-group">
-        <label for="editFullName">Full Name</label>
-        <input type="text" class="form-control" id="editFullName" name="fullName" th:value="*{fullName}" required>
-    </div>
-
-    <!-- Phone -->
-    <div class="form-group">
-        <label for="editPhone">Phone</label>
-        <input type="text" class="form-control" id="editPhone" name="phone" th:value="*{phone}">
-    </div>
-
-    <!-- Address -->
-    <div class="form-group">
-        <label for="editAddress">Address</label>
-        <textarea class="form-control" id="editAddress" name="address" rows="3" th:text="*{address}"></textarea>
-    </div>
-
-    <!-- Role -->
-    <div class="form-group">
-        <label for="editRole">Role</label>
-        <select class="form-control" id="editRole" name="role">
-            <option value="1" th:selected="*{role == 1}">Admin</option>
-            <option value="2" th:selected="*{role == 2}">User</option>
-        </select>
-    </div>
-
-    <!-- Newsletter -->
-    <div class="form-group">
-        <label for="editNewsletter">Newsletter</label>
-        <select class="form-control" id="editNewsletter" name="newsletter">
-            <option value="1" th:selected="*{newsletter == 1}">Subscribe</option>
-            <option value="0" th:selected="*{newsletter == 0}">Unsubscribe</option>
-        </select>
-    </div>
-
-    <!-- Avatar -->
-    <div class="form-group">
-        <label for="editAvatar">Avatar</label>
-        <input type="file" class="form-control-file" id="editAvatar" name="editAvatar" accept="image/*">
-    </div>
-
-    <!-- Submit Button -->
-    <button type="submit" class="btn btn-primary">Update</button>
-</form>
+<style th:replace="/common/client/head_tag"></style>
+<div th:replace="/common/client/content_head"></div>
+<div class="container">
+	<form action="/edit " th:object= "${user}" method="post" enctype="multipart/form-data">
+	    <!-- UserID -->
+	    <input type="hidden" name="userID" th:value="*{userID}">
+	
+	    <!-- Username -->
+	    <div class="form-group">
+	        <label for="editUsername">Username</label>
+	        <input type="text" class="form-control" id="editUsername" name="username" th:value="*{username}" required>
+	    </div>
+	
+	    <!-- Password -->
+	    <div class="form-group">
+	        <label for="editPassword">Password</label>
+	        <input type="password" class="form-control" id="editPassword" name="password">
+	    </div>
+	
+	    <!-- Email -->
+	    <div class="form-group">
+	        <label for="editEmail">Email</label>
+	        <input type="email" class="form-control" id="editEmail" name="email" th:value="*{email}" required>
+	    </div>
+	
+	    <!-- Full Name -->
+	    <div class="form-group">
+	        <label for="editFullName">Full Name</label>
+	        <input type="text" class="form-control" id="editFullName" name="fullName" th:value="*{fullName}" required>
+	    </div>
+	
+	    <!-- Phone -->
+	    <div class="form-group">
+	        <label for="editPhone">Phone</label>
+	        <input type="text" class="form-control" id="editPhone" name="phone" th:value="*{phone}">
+	    </div>
+	
+	    <!-- Address -->
+	    <div class="form-group">
+	        <label for="editAddress">Address</label>
+	        <textarea class="form-control" id="editAddress" name="address" rows="3" th:text="*{address}"></textarea>
+	    </div>
+	
+	    <!-- Role -->
+	    <!-- <div class="form-group">
+	        <label for="editRole">Role</label>
+	        <select class="form-control" id="editRole" name="role">
+	            <option value="1" th:selected="*{role == 1}">Admin</option>
+	            <option value="2" th:selected="*{role == 2}">User</option>
+	        </select>
+	    </div> -->
+	
+	    <!-- Newsletter -->
+	    <div class="form-group">
+	        <label for="editNewsletter">Newsletter</label>
+	        <select class="form-control" id="editNewsletter" name="newsletter">
+	            <option value="1" th:selected="*{newsletter == 1}">Subscribe</option>
+	            <option value="0" th:selected="*{newsletter == 0}">Unsubscribe</option>
+	        </select>
+	    </div>
+	
+	    <!-- Avatar -->
+	    <div class="form-group">
+	        <label for="editAvatar">Avatar</label>
+	        <input type="file" class="form-control-file" id="editAvatar" name="editAvatar" accept="image/*">
+	    </div>
+	
+	    <!-- Submit Button -->
+	    <button type="submit" class="btn btn-primary">Update</button>
+	</form>
+</div>
+<div th:replace="/common/client/content_footer"></div>
