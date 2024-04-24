@@ -32,6 +32,8 @@ public class CustomerController {
 	@RequestMapping("")
 	public String index(HttpSession session, Model model, User user) {
 		System.out.println(session.getAttribute("userID"));
+		List<ProductDTO> top2Products = rep.findTop2Products();
+        model.addAttribute("top2Products", top2Products);
 		return "client/indexclient";
 	}
 	
@@ -89,8 +91,7 @@ public class CustomerController {
 	@GetMapping("/top")
 	
 		public String home(Model model) {
-	        List<ProductDTO> top2Products = rep.findTop2Products();
-	        model.addAttribute("top2Products", top2Products);
+	        
 	        return "client/indexclient";
 	    }
 		

@@ -284,12 +284,15 @@ public class ClientController {
         return "redirect:/after-checkout";
     }
     
-    @GetMapping("/register") // Ánh xạ yêu cầu GET đến "/register" đến phương thức xử lý clientReg
-    public String clientReg(Model model, UserReg userReg) { // Phương thức xử lý cho "/register"
-        model.addAttribute("userReg", userRep.findAll()); // Lấy danh sách người dùng đã đăng ký và thêm vào model
-        
-        List<String> listRole = Arrays.asList("Admin", "Customer", "Subscriber"); // Tạo danh sách vai trò
-        model.addAttribute("listRole", listRole); // Thêm danh sách vai trò vào model
-        return "client/register"; // Trả về view "register" trong thư mục client
-    }
+	/*
+	 * @GetMapping("/register") // Ánh xạ yêu cầu GET đến "/register" đến phương
+	 * thức xử lý clientReg public String clientReg(Model model, UserReg userReg) {
+	 * // Phương thức xử lý cho "/register" model.addAttribute("userReg",
+	 * userRep.findAll()); // Lấy danh sách người dùng đã đăng ký và thêm vào model
+	 * 
+	 * List<String> listRole = Arrays.asList("Admin", "Customer", "Subscriber"); //
+	 * Tạo danh sách vai trò model.addAttribute("listRole", listRole); // Thêm danh
+	 * sách vai trò vào model return "client/register"; // Trả về view "register"
+	 * trong thư mục client }
+	 */
 }
