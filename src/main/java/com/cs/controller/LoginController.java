@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.cs.model.User;
+import com.cs.repository.UserRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -17,14 +18,43 @@ import jakarta.servlet.http.HttpSession;
 public class LoginController {
 	@Autowired
     private JdbcTemplate jdbcTemplate;
+	@Autowired
+	private UserRepository userRepository;
 
     @GetMapping("/login")
-    public String showLogin() {
-        return "client/login"; // Trả về trang đăng nhập
+    public String showLogin(User user, Model model, HttpSession session, HttpServletRequest request) {
+        return "client/login";
     }
-
+    
     @PostMapping("/login")
     public String login(@ModelAttribute(name = "login") User user, Model model, HttpSession session, HttpServletRequest request) {
+        String username = user.getUsername();
+        String password = user.getPassword();
+
+        // Validate user credentials and fetch user details
+        User authenticatedUser = userRepository.authenticateUser(username, password);
+
+        if (authenticatedUser != null) {
+        	
+        	// Add authenticatedUser object to the session
+            session.setAttribute("authenticatedUser", authenticatedUser);
+            // Add user details to the session        	
+            session.setAttribute("UserID", authenticatedUser.getUserID());
+            session.setAttribute("username", authenticatedUser.getUsername());
+            session.setAttribute("fullName", authenticatedUser.getFullName());
+            
+            int role = authenticatedUser.getRole();
+
+            session.setAttribute("role", role);
+
+            return (role == 1) ? "redirect:/admin" : "redirect:/";
+        } else {
+            model.addAttribute("error", "Incorrect Username & Password");
+            return "/client/login";
+        }
+    }
+    @PostMapping("/loginA")
+    public String loginA(@ModelAttribute(name = "login") User user, Model model, HttpSession session, HttpServletRequest request) {
         String username = user.getUsername();
         String password = user.getPassword();
         String name = user.getFullName();

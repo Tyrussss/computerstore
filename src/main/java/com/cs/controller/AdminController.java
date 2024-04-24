@@ -34,8 +34,8 @@ import jakarta.servlet.http.HttpServletRequest;
 
 public class AdminController {
 	@Autowired
-	UserRepository userRep;
-	UserRegRepository userRegRep;
+	UserRepository userRepository;
+	
 	@Autowired
 	private FileUploadUtil fileUploadUtil;
 	
@@ -47,7 +47,7 @@ public class AdminController {
 	@RequestMapping(value = "/account", method = RequestMethod.GET)
 	public String account(Model model) {
 		
-		model.addAttribute("user", userRep.findAll());
+		model.addAttribute("user", userRepository.findAll());
 				
 		List<String> listRole = Arrays.asList("Admin", "Customer", "Subcriber");
         model.addAttribute("listRole", listRole);
@@ -68,7 +68,7 @@ public class AdminController {
 	@PostMapping("/account/save")
     public String saveForm(@RequestParam("Avatar") MultipartFile file,Model model, User user, HttpServletRequest request) {
         
-        userRep.insert(user);        
+		userRepository.insert(user);        
         
 		return "admin/account";
     }
@@ -114,7 +114,7 @@ public class AdminController {
             user.setRole(role);
             
             // Save user details in database
-            userRep.insert(user);
+            userRepository.insert(user);
             
             model.addAttribute("message", "User registered successfully.");
         } catch (IOException e) {
@@ -208,7 +208,7 @@ public class AdminController {
 	@PostMapping("/account/subscribe")
 	public String subscribe(Model model, User user, HttpServletRequest request) {
         
-        userRep.subscribe(user);        
+		userRepository.subscribe(user);        
         
 		return "redirect:/";
     }
@@ -247,19 +247,19 @@ public class AdminController {
         // user.setImagePath(fileCode); // Adjust based on your data structure
         
     	
-        userRep.update(user);  // Saves the updated user object
+        userRepository.update(user);  // Saves the updated user object
         return "redirect:/admin/account"; // Redirect to user list page
     }
     
     @PostMapping("/edit/save")  // Assuming form submits to /edit
     public String updateU(@ModelAttribute User user) {    	
-        userRep.update(user);  // Saves the updated user object
+    	userRepository.update(user);  // Saves the updated user object
         return "redirect:/admin/account"; // Redirect to user list page
     }
     
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") int id, Model model, @RequestParam("imageFile") MultipartFile file) {
-        User user = userRep.findByID(id);
+        User user = userRepository.findByID(id);
         String fileName = file.getOriginalFilename();
         String message;
 
@@ -298,7 +298,7 @@ public class AdminController {
 
         // Update user object with image path or code (optional)
         // user.setImagePath(fileCode); // Adjust based on your data structure
-        userRep.update(user); // If updating user object with image info
+        userRepository.update(user); // If updating user object with image info
 
         return "redirect:/admin/account"; // Redirect to user list page (adjust as needed)
     }

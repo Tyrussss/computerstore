@@ -1,14 +1,19 @@
 package com.cs.repository;
 
+import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cs.model.User;
 
@@ -85,7 +90,22 @@ public class UserRepository {
 		}
 	}
 	
-	
+	public String saveAvatar(MultipartFile file) throws IOException {
+        String sql = "INSERT INTO avatars (filename, content_type, data) VALUES (?, ?, ?)";
+        String fileName = Objects.requireNonNull(file.getOriginalFilename());
+        String contentType = file.getContentType();
+        byte[] data = file.getBytes();
+
+        db.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, fileName);
+            ps.setString(2, contentType);
+            ps.setBytes(3, data);
+            return ps;
+        });
+
+        return fileName; // Return file name or any other identifier
+    }
 
 	public void registerUser(User user) {
         String sql = "INSERT INTO users (username, password, email, fullname, phone, address, role, newsletter, avatar) " +
@@ -100,6 +120,11 @@ public class UserRepository {
         db.update(sql, user.getUsername(), user.getPassword(), user.getEmail(), user.getFullName(),
                 user.getPhone(), user.getAddress(), user.getRole(), user.getNewsletter(), user.getAvatar(),
                 user.getUserID());
+    }
+    
+    public User authenticateUser(String username, String password) {
+        String sql = "SELECT * FROM User WHERE username = ? AND password = ?";
+        return db.queryForObject(sql, new Object[]{username, password}, new UserRowMapper());
     }
 
 	/***
