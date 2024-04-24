@@ -108,13 +108,13 @@ public class ProductRepository {
 			 }
 			}
 
-		public List<ProductDTO> findTop2Products() {
+		public List<ProductDTO> findTop5Products() {
 		    String sql = "SELECT p.*, b.BrandName, c.CategoryName " +
 		                 "FROM product p " +
 		                 "INNER JOIN brand b ON p.BrandID = b.BrandID " +
 		                 "INNER JOIN category c ON p.CategoryID = c.CategoryID " +
 		                 "ORDER BY p.ProductID DESC " +
-		                 "LIMIT 2";
+		                 "LIMIT 5";
 		    return db.query(sql, new ProductDTORowMapper());
 		}
 

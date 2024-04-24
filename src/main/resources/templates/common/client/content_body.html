@@ -425,7 +425,7 @@
 								<div id="tab1" class="tab-pane active">
 									<div class="products-slick" data-nav="#slick-nav-1">
 										<!-- product -->
-										<div class="product" th:each="product : ${top2Products}">
+										<div class="product" th:each="product : ${top5Products}">
 											<div class="product-img">
 												<img src="clic/img/product01.png" alt="">
 												
@@ -448,7 +448,8 @@
 												<div class="product-btns">
 													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
 													<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-													<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+													<a href="/quickview" class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></a>
+
 												</div>
 											</div>
 											<div class="add-to-cart">
