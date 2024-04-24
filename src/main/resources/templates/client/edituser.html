@@ -1,173 +1,67 @@
+<form action="/edit" method="post" enctype="multipart/form-data">
+    <!-- UserID -->
+    <input type="hidden" name="userID" th:value="*{userID}">
 
-<style th:replace="common/admin/head_admin"></style>
-<div th:replace="common/admin/content_first_admin"></div>
+    <!-- Username -->
+    <div class="form-group">
+        <label for="editUsername">Username</label>
+        <input type="text" class="form-control" id="editUsername" name="username" th:value="*{username}" required>
+    </div>
 
-<div class="container mt-5">
-	
-	<!-- row -->
-	<form role="form"
-          method="post"
-          th:action="@{/admin/edit/save}"
-          th:object="${user}"
-          enctype="multipart/form-data"
-    >
-	<div class="row tm-content-row">
-			<div class="tm-block-col tm-col-avatar">
-				<div class="tm-bg-primary-dark tm-block tm-block-avatar">
-					<h2 class="tm-block-title">Change Avatar</h2>
-					<div class="tm-avatar-container">
-							<img th:src="@{'/adc/img/'+${(user.Avatar)}}" alt="Avatar"
-								class="tm-avatar img-fluid mb-4" />			
-								<input type="hidden" th:field="*{Avatar}">
-								 <a
-								href="#" class="tm-avatar-delete-link"> <i
-								class="far fa-trash-alt tm-product-delete-icon"></i>
-							</a>
-						</div>
-					
-					<label for="imageFile">Avatar:</label>
-    				<input type="file" id="imageFile" name="Avatar">
+    <!-- Password -->
+    <div class="form-group">
+        <label for="editPassword">Password</label>
+        <input type="password" class="form-control" id="editPassword" name="password">
+    </div>
 
-					<!-- <form action="/admin/uploadImage" method="post"
-						enctype="multipart/form-data">
+    <!-- Email -->
+    <div class="form-group">
+        <label for="editEmail">Email</label>
+        <input type="email" class="form-control" id="editEmail" name="email" th:value="*{email}" required>
+    </div>
 
-						<div class="tm-avatar-container">
-							<img th:src="@{'/adc/img/'+${(user.Avatar)}}" alt="Avatar"
-								class="tm-avatar img-fluid mb-4" />			
-								<input type="hidden" th:field="*{Avatar}">
-								 <a
-								href="#" class="tm-avatar-delete-link"> <i
-								class="far fa-trash-alt tm-product-delete-icon"></i>
-							</a>
-						</div>
+    <!-- Full Name -->
+    <div class="form-group">
+        <label for="editFullName">Full Name</label>
+        <input type="text" class="form-control" id="editFullName" name="fullName" th:value="*{fullName}" required>
+    </div>
 
-						<label for="imageFile">Image:</label> <input type="image"
-							id="imageFile" name="imageFile" accept="image/*"  th:field="*{Avatar}">
+    <!-- Phone -->
+    <div class="form-group">
+        <label for="editPhone">Phone</label>
+        <input type="text" class="form-control" id="editPhone" name="phone" th:value="*{phone}">
+    </div>
 
-						<button type="submit"
-							class="btn btn-primary btn-block text-uppercase">Upload
-							New Photo</button>
-					</form> -->
-				</div>
-			</div>
-			<div class="tm-block-col tm-col-account-settings">
-            <div class="tm-bg-primary-dark tm-block tm-block-settings">
-              <h2 class="tm-block-title">Account Settings</h2>
-              <!-- <form action="" class="tm-signup-form row"
-              	role="form"
-              	method="post"
-                th:action="@{/register/save}"
-              > -->
-              <input type="hidden" th:field="*{UserID}" />
-              
-              <!-- <div class="form-group col-lg-6">
-                	<label th:text="FullName" th:for="FullName"></label>  
-            		<input type="text" th:field="*{FullName}" class="form-control validate"/>                  
-                </div>
-					<div class="form-group col-lg-6">
-						<label th:text="Username" th:for="Username"></label>  
-            			<input type="text" th:field="*{Username}" class="form-control validate"/>						
-					</div> -->
-              <div class="tm-signup-form row">
-                <div class="form-group col-lg-6">
-                  <label for="name">Account Name</label>
-                  <input  
-                    id="Name"
-                    name="FullName"
-                    type="text"
-                    class="form-control validate"
-                  />
-                </div>
-					<div class="form-group col-lg-6">
-						<label for="username">Username</label> <input
-							th:field="*{Username}" id="username" name="Username" type="text"
-							class="form-control validate" />
-					</div>
-					<div class="form-group col-lg-6">
-                  <label for="email">Account Email</label>
-                  <input th:field="*{Email}"
-                    id="email"
-                    name="Email"
-                    type="email"
-                    class="form-control validate"
-                  />
-                </div>
-                <div class="form-group col-lg-6">
-                  <label for="password">Password</label>
-                  <input th:field="*{Password}"
-                    id="password"
-                    name="password"
-                    type="password"
-                    class="form-control validate"
-                  />
-                </div>
-                <div class="form-group col-lg-6">
-                  <label for="password2">Re-enter Password</label>
-                  <input 
-                    id="password2"
-                    name="password2"
-                    type="password"
-                    class="form-control validate"
-                  />
-                </div>
-                <div class="form-group col-lg-6">
-                  <label for="phone">Phone</label>
-                  <input th:field="*{Phone}"
-                    id="phone"
-                    name="Phone"
-                    type="tel"
-                    class="form-control validate"
-                  />
-                </div>
-                <div class="form-group col-lg-6">		
-            		<label>Role : </label>
-                    <select >
-                        <option th:each="p : ${listRole}" th:value="${p}" th:text="${p}"></option>
-                    </select>
-        		</div>
-        		<div class="form-group col-lg-6">
-        			<label for="newsletter">Newsletter</label>
-            		<input id="newsletter" type="checkbox" name="Newsletter" th:checked="*{Newsletter}" />
-            		
-        		</div>
-        		<div class="form-group col-lg-6">
-                  <label for="phone">Address</label>
-                  <input th:field="*{Address}"
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    class="form-control validate"
-                  />
-                </div>
-                <div class="form-group col-lg-6">
-                  
-                </div>
-                <div class="form-group col-lg-6">
-                  <label class="tm-hide-sm">&nbsp;</label>
-                  <button
-                    type="reset"
-                    class="btn btn-primary btn-block text-uppercase"
-                  >
-                    Cancel
-                  </button>
-                </div>
-                <div class="form-group col-lg-6">
-                  <label class="tm-hide-sm">&nbsp;</label>
-                  <button
-                    type="submit"
-                    class="btn btn-primary btn-block text-uppercase"
-                  >
-                    Update Your Profile
-                  </button>
-                </div>
-                
-              </div>
-            </div>
-          </div>
-        </div> 
-        </form>
-</div>
-<div th:replace="common/admin/content_footer_admin"></div>
-<script>
-		document.title = "Edit account";
-	</script>
+    <!-- Address -->
+    <div class="form-group">
+        <label for="editAddress">Address</label>
+        <textarea class="form-control" id="editAddress" name="address" rows="3" th:text="*{address}"></textarea>
+    </div>
+
+    <!-- Role -->
+    <div class="form-group">
+        <label for="editRole">Role</label>
+        <select class="form-control" id="editRole" name="role">
+            <option value="1" th:selected="*{role == 1}">Admin</option>
+            <option value="2" th:selected="*{role == 2}">User</option>
+        </select>
+    </div>
+
+    <!-- Newsletter -->
+    <div class="form-group">
+        <label for="editNewsletter">Newsletter</label>
+        <select class="form-control" id="editNewsletter" name="newsletter">
+            <option value="1" th:selected="*{newsletter == 1}">Subscribe</option>
+            <option value="0" th:selected="*{newsletter == 0}">Unsubscribe</option>
+        </select>
+    </div>
+
+    <!-- Avatar -->
+    <div class="form-group">
+        <label for="editAvatar">Avatar</label>
+        <input type="file" class="form-control-file" id="editAvatar" name="editAvatar" accept="image/*">
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>

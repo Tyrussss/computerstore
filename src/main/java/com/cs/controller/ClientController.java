@@ -24,6 +24,7 @@ import org.springframework.ui.Model; // Nhập gói org.springframework.ui.Model
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller // Đánh dấu lớp này là một controller trong Spring MVC
@@ -53,11 +54,48 @@ public class ClientController {
 
     @Autowired // Chú thích @Autowired để tiêm các dependency vào các trường của lớp
     private CategoryRepository cate; // Repository cho danh mục
-    @Autowired // Chú thích @Autowired để tiêm các dependency vào các trường của lớp
-    private UserRegRepository userRegRep; // Repository cho việc đăng ký người dùng
     
     
     
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute User user,
+                               @RequestParam("regAvatar") MultipartFile avatarFile,
+                               RedirectAttributes redirectAttributes) {
+
+        try {
+            String avatar = userRepository.saveAvatar(avatarFile);
+            user.setAvatar(avatar);
+
+            userRepository.registerUser(user);
+
+            redirectAttributes.addFlashAttribute("successMessage", "User registered successfully!");
+        } catch (IOException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Failed to register user: " + e.getMessage());
+        }
+
+        return "redirect:/register";
+    }
+
+    @PostMapping("/edit")
+    public String editUser(@ModelAttribute User user,
+                           @RequestParam("editAvatar") MultipartFile avatarFile,
+                           RedirectAttributes redirectAttributes) {
+
+        try {
+            if (!avatarFile.isEmpty()) {
+                String avatar = userRepository.saveAvatar(avatarFile);
+                user.setAvatar(avatar);
+            }
+
+            userRepository.updateUser(user);
+
+            redirectAttributes.addFlashAttribute("successMessage", "User updated successfully!");
+        } catch (IOException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Failed to update user: " + e.getMessage());
+        }
+
+        return "redirect:/";
+    }
     @PostMapping("/account/register")
     public String registerUser(@ModelAttribute User user, @RequestParam("avatar") MultipartFile avatarFile, Model model) {
         if (avatarFile.isEmpty()) {

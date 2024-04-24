@@ -31,7 +31,7 @@ public class UploadController {
 
         try {
             String fileCode = "avatar"; // Or replace with dynamic code generation
-            String filePath = fileUploadUtil.saveFile(Paths.get("src/static/clic/img/"), fileName, file, fileCode);
+            String filePath = fileUploadUtil.saveFile(Paths.get("src/static/clic/img/"), fileName, file);
             message = "Image uploaded successfully: " + fileName;
         } catch (IOException e) {
             message = "Error uploading image: " + e.getMessage();
