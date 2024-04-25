@@ -71,7 +71,7 @@
 
 	<div id="top-header" th:if="${session.role != null}">
 		<div class="container" >
-			<ul class="header-links pull-left">
+			<ul class="header-links pull-left" align-items: center;>
 				<li><a href="/"><i class="fa fa-phone"></i> +1 949 666-3839</a></li>
 				<li><a href="/"><i class="fa fa-envelope-o"></i>
 						cat@dog.com</a></li>
@@ -84,7 +84,7 @@
 				<li>					
 					<div class="dropdown" style="float: right;">						
 						<button class="dropbtn">
-							Hi, <span th:text="${session.fullName}"></span>
+							Hi, <span th:text="${session.fullName}"></span> <span><img  th:src="'/clic/img/' + ${session.avatar}" alt="${session.avatar}" width="30px"></span>
 						</button>
 						<div class="dropdown-content">
 							<a th:href="@{/profile/{id}(id=${session.UserID})}">Profile</a> 

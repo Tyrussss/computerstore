@@ -13,8 +13,12 @@
     <div class="form-group">
         <label for="password">Password</label>
         <input type="password" class="form-control" id="password" name="password" required>
-    </div>
-
+    </div>	
+    <div class="form-group">
+    	<label for="confirmPassword">Repeat Password</label>
+    	<input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+    	<small class="text-danger" id="passwordError" style="display:none;">Passwords do not match</small>
+	</div>
     <!-- Email -->
     <div class="form-group">
         <label for="email">Email</label>
@@ -40,34 +44,77 @@
     </div>
 
     <!-- Role -->
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label for="role">Role</label>
         <select class="form-control" id="role" name="role">
             <option value="1">Admin</option>
             <option value="2">User</option>
         </select>
-    </div>
+    </div> -->
 
     <!-- Newsletter -->
-    <div class="form-group">
-        <label for="newsletter">Newsletter</label>
-        <select class="form-control" id="newsletter" name="newsletter">
-            <option value="1">Subscribe</option>
-            <option value="0">Unsubscribe</option>
-        </select>
-    </div>
+	<div class="form-group">
+	    <label for="newsletter">Newsletter</label>
+	    <div class="form-check">
+	        <input class="form-check-input" type="checkbox" id="newsletter" name="newsletter" value="1" checked>
+	        <label class="form-check-label" for="newsletter">
+	            Subscribe
+	        </label>
+	    </div>
+	</div>
+
 
     <!-- Avatar -->
-    <div class="form-group">
-        <label for="avatar">Avatar</label>
-        <input type="file" class="form-control-file" id="avatar" name="regAvatar" accept="image/*" required>
-    </div>
+	<div class="form-group">
+	    <label for="avatar">Avatar</label>
+	    <input type="file" class="form-control-file" id="avatar" name="regAvatar" accept="image/*" required>
+	    <img id="avatarPreview" src="#" alt="Avatar Preview" style="display:none; max-width: 100px; margin-top: 10px;">
+	</div>
 
     <!-- Submit Button -->
     <button type="submit" class="btn btn-primary">Register</button>
 </form>
 </div>
 <div th:replace="/common/client/content_footer"></div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const password = document.getElementById("password");
+        const confirmPassword = document.getElementById("confirmPassword");
+        const passwordError = document.getElementById("passwordError");
+
+        confirmPassword.addEventListener("input", function() {
+            if (password.value !== confirmPassword.value) {
+                passwordError.style.display = "block";
+            } else {
+                passwordError.style.display = "none";
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const avatarInput = document.getElementById("avatar");
+        const avatarPreview = document.getElementById("avatarPreview");
+
+        avatarInput.addEventListener("change", function() {
+            const file = this.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.addEventListener("load", function() {
+                    avatarPreview.setAttribute("src", this.result);
+                    avatarPreview.style.display = "block";
+                });
+
+                reader.readAsDataURL(file);
+            } else {
+                avatarPreview.setAttribute("src", "#");
+                avatarPreview.style.display = "none";
+            }
+        });
+    });
+</script>
 <script>
 	var title=ducument.getElemenById("subtitle");
 	title.innerHTML="Register a new account";

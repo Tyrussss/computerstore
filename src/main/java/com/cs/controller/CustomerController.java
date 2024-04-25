@@ -53,28 +53,45 @@ public class CustomerController {
 	public String editU(@PathVariable("id") int id, Model model) {	
 		User user = userRepository.findByID(id);
 		model.addAttribute("user",user);
-		return "client/edituser";
-	}	
-	
+		return "/client/edituser";
+	}		
 	
 	@PostMapping("/register")
-    public String registerUser(@ModelAttribute User user,
-                               @RequestParam("regAvatar") MultipartFile avatarFile,
-                               RedirectAttributes redirectAttributes) {
+	public String registerUser(@ModelAttribute User user,
+	                           @RequestParam("regAvatar") MultipartFile avatarFile,
+	                           @RequestParam("email") String email,
+	                           RedirectAttributes redirectAttributes) {
 
-        try {
-            String avatar = userRepository.saveAvatar(avatarFile);
-            user.setAvatar(avatar);
+	    try {
+	        String avatar = userRepository.saveAvatar(avatarFile);
+	        user.setAvatar(avatar);
 
-            userRepository.registerUser(user);
+	        // Check if the email exists in the database
+	        int isPresent = userRepository.findEmail(email);
 
-            redirectAttributes.addFlashAttribute("successMessage", "User registered successfully!");
-        } catch (IOException e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Failed to register user: " + e.getMessage());
-        }
+	        if (isPresent != 0) {
+	        	 User existingUser = userRepository.findByEmail(email);
+	            // Update the existing user entity with new details
+	            existingUser.setUsername(user.getUsername());
+	            existingUser.setPassword(user.getPassword());
+	            existingUser.setFullName(user.getFullName());
+	            existingUser.setPhone(user.getPhone());
+	            existingUser.setNewsletter(user.getNewsletter());
+	            existingUser.setAddress(user.getAddress());
+	            existingUser.setAvatar(avatar);
 
-        return "redirect:/register";
-    }
+	            userRepository.updateUser(existingUser); // Save the updated user
+	        } else {
+	            userRepository.registerUser(user); // Register a new user
+	        }
+
+	        redirectAttributes.addFlashAttribute("successMessage", "User registered successfully!");
+	    } catch (IOException e) {
+	        redirectAttributes.addFlashAttribute("errorMessage", "Failed to register user: " + e.getMessage());
+	    }
+
+	    return "redirect:/login";
+	}
 
     @PostMapping("/edit")
     public String editUser(@ModelAttribute User user,
