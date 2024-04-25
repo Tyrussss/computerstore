@@ -121,6 +121,12 @@ public class UserRepository {
     public User authenticateUser(String username, String password) {        
         return db.queryForObject(AUTHENTICATE_USER, new Object[]{username, password}, new UserRowMapper());
     }
+    
+    public int countCart(int id) { 
+    	String sql =  "SELECT COUNT(*) FROM Cart WHERE UserID = ?";
+    	int count = db.queryForObject(sql, new Object[]{id}, Integer.class);
+    	return count;    	
+    }
 
 	/***
 	 * 

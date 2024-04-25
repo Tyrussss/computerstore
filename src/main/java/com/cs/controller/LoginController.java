@@ -47,6 +47,7 @@ public class LoginController {
             int role = authenticatedUser.getRole();
 
             session.setAttribute("role", role);
+            session.setAttribute("cartQuantity", userRepository.countCart(authenticatedUser.getUserID()));
 
             return (role == 1) ? "redirect:/admin" : "redirect:/";
         } else {
