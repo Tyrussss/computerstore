@@ -55,9 +55,9 @@ public class CartRepository {
 					new Object[] { id });
 		}
 
-		public List<Cart> findByUserID(int UserID) {
+		public List<Cart> findByUserID(int userId) {
 			return db.query("SELECT c.CartID as CartID, c.ProductID  as ProductID, c.UserID as UserID, " +
-					"c.Quantity as Quantity, c.Price as Price, c.TotalPrice as TotalPrice, p.ProductName as ProductName FROM Cart c INNER JOIN Product p ON c.ProductID = p.ProductID WHERE UserID=?", new CartRowMapper(), UserID);
+					"c.Quantity as Quantity, c.Price as Price, c.TotalPrice as TotalPrice, p.ProductName as ProductName FROM Cart c INNER JOIN Product p ON c.ProductID = p.ProductID WHERE UserID=?", new CartRowMapper(), userId);
 		}
 
 
@@ -74,5 +74,13 @@ public class CartRepository {
 		public int deleteById (int id) {
 			return db.update("delete from Cart where CartID=?", new Object[] {id});
 		}
-	
+		public double getTotal(int accountId) {
+	        String query = "SELECT SUM(totalPrice) AS total " +
+	                       "FROM cart " +
+	                       "WHERE UserId = ?";
+	        return db.queryForObject(query, Double.class, accountId);
+	    }
+		
+
+		
 }

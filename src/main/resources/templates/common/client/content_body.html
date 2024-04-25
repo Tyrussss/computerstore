@@ -487,7 +487,8 @@ textarea {
 											</div>
 											<div class="product-body" >
 												<p class="product-category" th:text="'Category: ' + ${product.categoryName}" ></p>
-												<h3 class="product-name"><a href="" th:text="'Brand: ' + ${product.brandName}"></a></h3>
+												<h4 class="product-name"><a href="" th:text="'Brand: ' + ${product.brandName}"></a></h4>
+												<h3 class="product-name"><a href="/quickview" th:text="${product.ProductName}"></a></h3>
 												<h4 class="product-price" th:text="'Price: ' + ${product.price}"> <del class="product-old-price">$990.00</del></h4>
 												<div class="product-rating">
 													<i class="fa fa-star"></i>
@@ -504,7 +505,14 @@ textarea {
 												</div>
 											</div>
 											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+												<form th:action="@{/addToCart}" method="get">
+														<input type="hidden" name="productId"
+															th:value="${product.ProductID}" />
+														<button class="add-to-cart-link">
+															<i class="ti-shopping-cart"></i>add to cart
+														</button>
+													</form>
+												<!-- <a class="add-to-cart-btn" href="/addToCart"><i class="fa fa-shopping-cart"></i> add to cart</a> -->
 											</div>
 										</div>
 										<!-- /product -->

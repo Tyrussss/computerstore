@@ -1,132 +1,7 @@
-<!DOCTYPE html>
-<html class="no-js" lang="zxx">
-<head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
-    <title>Shop</title>
-    <meta name="description" content/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="shortcut icon" type="image/x-icon" th:href="@{/client_assets/img/icon/favicon.png}">
+<style th:replace="/common/client/head_tag"></style>
+<div th:replace="/common/client/content_head"></div>
+	
 
-    <link rel="stylesheet" th:href="@{/client_assets/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/client_assets/css/owl.carousel.min.css}">
-    <link rel="stylesheet" th:href="@{/client_assets/css/slicknav.css}">
-    <link rel="stylesheet" th:href="@{/client_assets/css/flaticon.css}">
-    <link rel="stylesheet" th:href="@{/client_assets/css/animate.min.css}">
-    <link rel="stylesheet" th:href="@{/client_assets/css/price_rangs.css}">
-    <link rel="stylesheet" th:href="@{/client_assets/css/magnific-popup.css}">
-    <link rel="stylesheet" th:href="@{/client_assets/css/fontawesome-all.min.css}">
-    <link rel="stylesheet" th:href="@{/client_assets/css/themify-icons.css}">
-    <link rel="stylesheet" th:href="@{/client_assets/css/slick.css}">
-    <link rel="stylesheet" th:href="@{/client_assets/css/nice-select.css}">
-    <link rel="stylesheet" th:href="@{/client_assets/css/style.css}">
-
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
-
-    <link type="text/css" rel="stylesheet" th:href="@{/clic/css/bootstrap.min.css}"/>
-    <link type="text/css" rel="stylesheet" th:href="@{/clic/css/slick.css}"/>
-    <link type="text/css" rel="stylesheet" th:href="@{/clic/css/slick-theme.css}"/>
-    <link type="text/css" rel="stylesheet" th:href="@{/clic/css/nouislider.min.css}"/>
-    <link rel="stylesheet" th:href="@{/clic/css/font-awesome.min.css}">
-    <link type="text/css" rel="stylesheet" th:href="@{/clic/css/style.css}"/>
-    <style>
-        #province,
-        #district,
-        #ward {
-            width: 428px;
-            height: 40px;
-        }
-    </style>
-</head>
-<body>
-
-<header>
-    <!-- TOP HEADER -->
-    <div id="top-header">
-        <div class="container">
-            <ul class="header-links pull-left">
-                <li><a href="#"><i class="fa fa-phone"></i> +1 (949) 666-3839</a></li>
-                <li><a href="#"><i class="fa fa-envelope-o"></i> tyrvszx@gmail.com</a></li>
-                <li><a href="#"><i class="fa fa-map-marker"></i> 1738 Remy Martin Road</a></li>
-            </ul>
-            <ul class="header-links pull-right">
-                <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
-                <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-            </ul>
-        </div>
-    </div>
-    <!-- /TOP HEADER -->
-
-    <!-- MAIN HEADER -->
-    <div id="header">
-        <!-- container -->
-        <div class="container">
-            <!-- row -->
-            <div class="row">
-                <!-- LOGO -->
-                <div class="col-md-3">
-                    <div class="header-logo">
-                        <a href="#" class="logo">
-                            <img src="./clic/img/cslogo.png" alt="" style="max-width:180px">
-                        </a>
-                    </div>
-                </div>
-                <!-- /LOGO -->
-
-                <!-- SEARCH BAR -->
-                <div class="col-md-6">
-                    <div class="header-search">
-                        <form th:action="@{/client/products/find}" method="get">
-                            <select class="form-select form-control mb-4 col-4" name="categoryId" id="categoryId" aria-label="Default select example">
-                                <option th:each="category : ${categories}" th:value="${category.CategoryID}" th:text="${category.CategoryName}"></option>
-                            </select>
-                            <input class="input" placeholder="Tìm kiếm">
-                            <button class="search-btn">Tìm kiếm</button>
-                        </form>
-                    </div>
-                </div>
-                <!-- /SEARCH BAR -->
-
-                <!-- ACCOUNT -->
-                <div class="col-md-3 clearfix">
-                    <div class="header-ctn">
-                        <!-- Wishlist -->
-                        <div>
-                            <a th:href="@{/client/products}">
-                                <i class="fa fa-heart-o"></i>
-                                <span>Xem sản phẩm</span>
-                            </a>
-                        </div>
-                        <!-- /Wishlist -->
-
-                        <!-- Cart -->
-                        <div class="dropdown">
-                            <a th:href="@{/client/cart}" aria-expanded="true">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>Giỏ hàng</span>
-                                <div class="qty">3</div>
-                            </a>
-                        </div>
-                        <!-- /Cart -->
-
-                        <!-- Menu Toogle -->
-                        <div class="menu-toggle">
-                            <a href="#">
-                                <i class="fa fa-bars"></i>
-                                <span>Menu</span>
-                            </a>
-                        </div>
-                        <!-- /Menu Toogle -->
-                    </div>
-                </div>
-                <!-- /ACCOUNT -->
-            </div>
-            <!-- row -->
-        </div>
-        <!-- container -->
-    </div>
-    <!-- /MAIN HEADER -->
-</header>
 <main>
     <div class="hero-area section-bg2">
         <div class="container">
@@ -159,6 +34,7 @@
                                     class="form-control"
                                     id="first"
                                     name="name"
+                                    th:value="${fullName}"
                                     placeholder="Họ tên đầy đủ"
                             />
                         </div>
@@ -169,6 +45,7 @@
                                     class="form-control"
                                     id="number"
                                     name="number"
+                                    th:value="${phone}"
                                     placeholder="Số điện thoại"
                             />
                         </div>
@@ -179,6 +56,7 @@
                                     class="form-control"
                                     id="email"
                                     name="email"
+                                    th:value="${email}"
                                     placeholder="Email"
                             />
                         </div>
@@ -192,52 +70,26 @@
                                 <li>
                                     <a href="#">Product<span>Total</span> </a>
                                 </li>
-                                <li>
+                                <li th:each="cart : ${carts}">
                                     <a href="#">
-                                        <span th:text="${0}"></span>
-                                        <span class="middle">x <span th:text="${0}"></span></span>
+                                        <span th:text="${cart.productName}"></span>
+                                        <span class="middle">x <span th:text="${cart.quantity}"></span></span>
                                     </a>
                                 </li>
                             </ul>
                             <ul class="list list_2">
-                                <li>
-                                    <a href="#">Subtotal <span
-                                            th:text="0"></span></a>
-                                </li>
-
                                 <li id="totalContainer">
-                                    <a href="#">Total <span id="totalText"></span></a>
+                                    <a>Total <span id="totalText" >[[${total}]]</span></a>
                                 </li>
                             </ul>
-
-                            <div class="payment_item active">
-                                <div class="radion_btn">
-                                    <input type="radio" id="f-option6" name="selector"/>
-                                    <label for="f-option6">VNPay </label>
-                                    <img src="assets/img/gallery/card.jpg" alt/>
-                                    <div class="check"></div>
-                                </div>
-                                <p>
-                                    Please send a check to Store Name, Store Street, Store
-                                    Town, Store State / County, Store Postcode.
-                                </p>
-                            </div>
-                            <div id="error-vnpay" style="color: red; display: none;">Bạn chưa bấm xác nhận thanh toán
-                                VnPay
-                            </div>
-
-                            <div class="creat_account checkout-cap">
-                                <input type="checkbox" id="f-option8" name="selector"/>
-                                <label for="f-option8"
-                                >I’ve read and accept the
-                                    <a href="#">terms & conditions*</a>
-                                </label>
-                            </div>
-                            <button class="btn w-100" id="pay-btn">Thanh toán
+						<form id="checkout_form">
+						<button class="btn w-100" id="pay-btn">Thanh toán
                                 <script th:inline="javascript">
                                     var totalValue = /*[[${total}]]*/ null;
                                 </script>
                             </button>
+						</form>
+                            
                         </div>
                     </div>
                 </div>
@@ -255,7 +107,7 @@
         </div>
     </a>
 </div>
-
+<div th:replace="/common/client/content_footer"></div>
 <script th:src="@{/client_assets/js/vendor/modernizr-3.5.0.min.js}"></script>
 <script th:src="@{/client_assets/js/vendor/jquery-1.12.4.min.js}"></script>
 <script th:src="@{/client_assets/js/popper.min.js}"></script>
@@ -304,5 +156,71 @@
         data-cf-beacon='{"rayId":"84261bbc3a85079f","version":"2023.10.0","token":"cd0b4b3a733644fc843ef0b185f98241"}'
         crossorigin="anonymous"
 ></script>
-</body>
-</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("#checkout_form").submit(function (e) {
+        e.preventDefault(); // Ngăn chặn gửi form mặc định
+        createOrderAndRedirect();
+    });
+});
+
+function createOrderAndRedirect() {
+    var formData = {
+        "PaymentStatus": 1,
+        "Created_Date": "25-4-2024",
+        "payment": "128483",
+        // Thêm các trường dữ liệu từ form vào đây
+    };
+
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/create-order", // Chỉnh sửa đường dẫn nếu cần
+        data: JSON.stringify(formData),
+        dataType: 'json',
+        success: function (response) {
+            redirectToPaymentPage();
+        },
+        error: function (e) {
+            console.log("Error creating order: " + e);
+        }
+    });
+}
+
+// Hàm chuyển hướng đến trang thanh toán
+function redirectToPaymentPage() {
+    $.ajax({
+        type: "GET",
+        url: "/api/payment/create_payment", // Chỉnh sửa đường dẫn nếu cần
+        success: function (response) {
+            console.log("Redirecting to payment page");
+            window.location.href = response;
+        },
+        error: function (e) {
+            console.log("Error redirecting to payment page: " + e);
+        }
+    });
+}
+
+
+// Hàm chuyển hướng đến trang thanh toán
+function redirectToPaymentPage() {
+    $.ajax({
+        type: "GET",
+        url: "/api/payment/create_payment",
+        success: function (response) {
+            console.log("Redirecting to payment page");
+            window.location.href = response;
+        },
+        error: function (e) {
+            console.log("Error redirecting to payment page: " + e);
+        }
+    });
+}
+</script>
+
+<script>
+	var title=ducument.getElemenById("subtitle");
+	title.innerHTML="Check out";
+	</script>

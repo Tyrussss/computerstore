@@ -1,0 +1,140 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Shop | eCommers</title>
+    <meta name="description" content>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/client_assets/img/icon/favicon.png}">
+
+    <link rel="stylesheet" th:href="@{/client_assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/slicknav.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/price_rangs.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/fontawesome-all.min.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/themify-icons.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/slick.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/nice-select.css}">
+    <link rel="stylesheet" th:href="@{/client_assets/css/style.css}">
+</head>
+<body>
+<main>
+    <section class="my-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="thankyou">
+                        <div class="logo text-center mb5">
+                            <img src="img/logo.png" alt="">
+                        </div>
+                        <div class="top-section mt-5">
+                            <div class="row ">
+                                <div class="col-lg-2">
+                                    <span class="lar la-check-circle"></span>
+                                </div>
+                                <div class="col-lg-10">
+                                    <p>Đơn hàng <span th:text="${'#' + orderId}"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="map-location mt-5 mb-5s">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7449.057577233779!2d105.52522339491696!3d21.01151768801886!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31345bb9d76a7e03%3A0x244a83c591357341!2zRlBUIFNvZnR3YXJlIEjDsmEgTOG6oWM!5e0!3m2!1svi!2s!4v1709995329174!5m2!1svi!2s"
+                                    width="600" height="300" frameborder="0" style="border: 0" allowfullscreen=""
+                                    aria-hidden="false" tabindex="0"></iframe>
+                            <h3 class="heading-3">Đơn hàng của bạn đã được tạo thành công!</h3>
+                        </div>
+
+                        <div class="map-location mt-5 mb-5s">
+                            <div class="heading-section">
+                                <h5>Thông tin khách hàng</h5>
+                            </div>
+                            <div class="row ">
+                                <div class="col-lg-6">
+                                    <h6 class="heading-3">Thông tin liên lạc</h6>
+                                    <p th:text="${user.email}"></p>
+                                    <h6 class="heading-3">Địa chỉ giao hàng</h6>
+                                    <address class="address">
+                                        <span th:text="${user.fullName}"></span><br>
+                                        <span th:text="${user.address + ','}"></span><br>
+                                        <span th:text="${user.phone}"></span>
+                                    </address>
+                                </div>
+                                <div class="col-lg-6">
+                                    <h6 class="heading-3">Phương thức trả tiền</h6>
+                                    <p>thanh toan qua vnpay - <span
+                                            th:text="${#numbers.formatDecimal(total, 0, 'POINT', 0, 'COMMA') + ' VND'}"></span></p>
+                                    <p>Ma thanh toan [[${vnpCode}]]</p>        
+                                    <h6 class="heading-3">Địa chỉ trả tiền</h6>
+                                    <address class="address">
+                                        <span th:text="${user.fullName}"></span><br>
+                                        <span th:text="${user.address + ','}"></span><br>
+                                        <span th:text="${user.phone}"></span>
+                                    </address>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="map-location mt-5 mb-5s">
+                            <div class="row ">
+                                <div class="col-lg-6 text-center">
+                                    <a th:href="@{/products}" class="btn btn-outline-primary">Tiếp tục mua hàng
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script th:src="@{/client_assets/js/vendor/modernizr-3.5.0.min.js}"></script>
+<script th:src="@{/client_assets/js/vendor/jquery-1.12.4.min.js}"></script>
+<script th:src="@{/client_assets/js/popper.min.js}"></script>
+<script th:src="@{/client_assets/js/bootstrap.min.js}"></script>
+
+<script th:src="@{/client_assets/js/owl.carousel.min.js}"></script>
+<script th:src="@{/client_assets/js/slick.min.js}"></script>
+<script th:src="@{/client_assets/js/jquery.slicknav.min.js}"></script>
+
+<script th:src="@{/client_assets/js/wow.min.js}"></script>
+<script th:src="@{/client_assets/js/jquery.magnific-popup.js}"></script>
+<script th:src="@{/client_assets/js/jquery.nice-select.min.js}"></script>
+<script th:src="@{/client_assets/js/jquery.counterup.min.js}"></script>
+<script th:src="@{/client_assets/js/waypoints.min.js}"></script>
+<script th:src="@{/client_assets/js/price_rangs.js}"></script>
+
+<script th:src="@{/client_assets/js/contact.js}"></script>
+<script th:src="@{/client_assets/js/jquery.form.js}"></script>
+<script th:src="@{/client_assets/js/jquery.validate.min.js}"></script>
+<script th:src="@{/client_assets/js/mail-script.js}"></script>
+<script th:src="@{/client_assets/js/jquery.ajaxchimp.min.js}"></script>
+
+<script th:src="@{/client_assets/js/plugins.js}"></script>
+<script th:src="@{/client_assets/js/main.js}"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23581568-13');
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317"
+        integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA=="
+        data-cf-beacon='{"rayId":"842605dd89cc1072","version":"2023.10.0","token":"cd0b4b3a733644fc843ef0b185f98241"}'
+        crossorigin="anonymous"></script>
+</body>
+</html>
