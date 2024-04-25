@@ -43,6 +43,8 @@ public class LoginController {
             session.setAttribute("username", authenticatedUser.getUsername());
             session.setAttribute("fullName", authenticatedUser.getFullName());
             session.setAttribute("avatar", authenticatedUser.getAvatar());
+            session.setAttribute("email", authenticatedUser.getEmail());
+            session.setAttribute("phone", authenticatedUser.getPhone());
             
             int role = authenticatedUser.getRole();
 
