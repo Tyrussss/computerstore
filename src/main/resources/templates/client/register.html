@@ -23,6 +23,7 @@
     <div class="form-group">
         <label for="email">Email</label>
         <input type="email" class="form-control" id="email" name="email" required>
+        <small class="text-danger" id="emailError" style="display:none;">Please enter a valid email address</small>
     </div>
 
     <!-- Full Name -->
@@ -78,6 +79,7 @@
 <div th:replace="/common/client/content_footer"></div>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
+    	const email = document.getElementById('email');
         const password = document.getElementById("password");
         const confirmPassword = document.getElementById("confirmPassword");
         const passwordError = document.getElementById("passwordError");
@@ -89,6 +91,18 @@
                 passwordError.style.display = "none";
             }
         });
+     // Validate email
+        /* const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailPattern.test(email.value)) {
+            emailError.style.display = 'block';
+            isValid = false;
+        } else {
+            emailError.style.display = 'none';
+        }
+
+        if (!isValid) {
+            event.preventDefault(); // Prevent form submission
+        } */
     });
 </script>
 <script>
