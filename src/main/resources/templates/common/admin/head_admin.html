@@ -45,3 +45,14 @@ body {
 }
 </style> -->
 </head>
+<script th:inline="javascript">
+	$(document).ready(function() {
+		var role = /*[[${session.role}]]*/ 'default';
+		if (role === '1') {
+			
+		} else {			
+			//console.log("Redirect to login page.");
+			window.location.href = '/login'; 
+		}	  
+	});
+  </script>

@@ -40,19 +40,50 @@
 <link type="text/css" rel="stylesheet" th:href="@{/clic/css/style.css}" />
 
 <style>
+/* Chỉnh kích thước ảnh */
+.properties-img img {
+    width: 100%;
+    height: auto;
+}
+
+/* Thêm hiệu ứng hover */
+.properties-caption:hover {
+    background-color: #f5f5f5;
+    transition: background-color 0.3s ease;
+}
+
+/* Đảm bảo khoảng cách nhất quán */
+.properties {
+    margin-bottom: 30px;
+}
+
+/* Định nghĩa bảng màu và kiểu chữ nhất quán */
+.properties h3 a {
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.price span {
+    color: #ff6f61;
+    font-weight: bold;
+}
+
+/* Hiệu ứng khi di chuột vào nút thêm vào giỏ hàng */
 .add-to-cart-link {
-	display: inline-block;
-	padding: 10px 15px;
-	background-color: #4CAF50; /* Green color, you can change this */
-	color: white;
-	text-decoration: none;
-	border-radius: 5px;
-	transition: background-color 0.3s;
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #4CAF50; /* Màu xanh lá cây, bạn có thể thay đổi */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
 .add-to-cart-link:hover {
-	background-color: #45a049; /* Darker green color on hover */
+    background-color: #45a049; /* Màu xanh lá cây đậm hơn khi di chuột vào */
 }
+
 </style>
 </head>
 <body>

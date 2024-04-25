@@ -1073,41 +1073,15 @@ textarea {
 							<p>Sign Up for the <strong>NEWSLETTER</strong></p>
 							<form
 								role="form"
-	              				method="post"
+	              				method="post"	              				
 	                			th:action="@{/admin/account/subscribe}"
-									
+								
 							>
-								<input class="input" type="email" name="Email" placeholder="Enter Your Email">
+								<input type="text" name="name"required>
+								<input class="input" type="email" name="email" placeholder="Enter Your Email">
 								<button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
 							</form>
-							<!-- row -->
-			<div class="row">
-				<div class="col-md-12">
-					<div class="newsletter">
-						<p>
-							Sign Up for the <strong>NEWSLETTER</strong>
-						</p>
-						<form action="https://formsubmit.co/your@email.com" method="POST" />
-						<!-- Các trường dữ liệu của form -->
-							<div class="row">
-								<div class="col-lg-4 col-md-4">
-									<input type="text" placeholder="Full Name" name="Name"
-										id="name">
-								</div>
-								<div class="col-lg-4 col-md-4">
-									<input type="text" placeholder="Your Email" name="Email"
-										id="email">
-								</div>
-								<div class="col-lg-4 col-md-4">
-									<input type="text" placeholder="Hotline"
-										name="Phone" id="phone">
-								</div>
-								<div class="col-lg-12 text-center">
-									<textarea placeholder="Send" name="Message" id="message"></textarea>
-									<button type="submit" class="site-btn">Submit</button>
-								</div>
-							</div>
-						</form>
+							<!-- row -->	
 						
 
 							<ul class="newsletter-follow">
