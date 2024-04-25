@@ -31,6 +31,7 @@ public class UserRepository {
 	private static final String SELECT_USER_BY_USERNAME_AND_PASSWORD = "SELECT * FROM User WHERE Username = ? AND Password = ?";
 	private static final String COUNT_USER_BY_EMAIL = "SELECT COUNT(*) FROM User WHERE Email = ?";
 	private static final String SELECT_USER_BY_EMAIL = "SELECT * FROM User WHERE Email = ?";
+	private static final String AUTHENTICATE_USER = "SELECT * FROM User WHERE username = ? AND password = ?";
 
 	public List<User> findAll() {
 		return db.query(SELECT_ALL_USERS, new UserRowMapper());
@@ -63,7 +64,7 @@ public class UserRepository {
 		return db.queryForObject(COUNT_USER_BY_EMAIL, Integer.class, email);
 	}
 
-	public User findIDByEmail(String email) {
+	public User findByEmail(String email) {
 		return db.queryForObject(SELECT_USER_BY_EMAIL, new UserRowMapper(), email);
 	}
 	
@@ -84,7 +85,7 @@ public class UserRepository {
 			user.setPhone(rs.getString("Phone"));
 			user.setAddress(rs.getString("Address"));
 			user.setRole(rs.getInt("Role"));
-			user.setNewsletter(rs.getInt("Newsletter"));
+			user.setNewsletter(rs.getBoolean("Newsletter"));
 			user.setAvatar(rs.getString("Avatar"));
 			return user;
 		}
@@ -106,24 +107,19 @@ public class UserRepository {
         return Avatar; // Return file name or any other identifier
     }
 
-	public void registerUser(User user) {
-        String sql = "INSERT INTO User (username, password, email, fullname, phone, address, role, newsletter, avatar) " +
-                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        db.update(sql, user.getUsername(), user.getPassword(), user.getEmail(), user.getFullName(),
+	public void registerUser(User user) {        
+        db.update(INSERT_USER, user.getUsername(), user.getPassword(), user.getEmail(), user.getFullName(),
                 user.getPhone(), user.getAddress(), 0, user.getNewsletter(), user.getAvatar());
     }
 
-    public void updateUser(User user) {
-        String sql = "UPDATE User SET username = ?, password = ?, email = ?, fullname = ?, phone = ?, address = ?, " +
-                     "role = ?, newsletter = ?, avatar = ? WHERE userID = ?";
-        db.update(sql, user.getUsername(), user.getPassword(), user.getEmail(), user.getFullName(),
-                user.getPhone(), user.getAddress(), user.getRole(), user.getNewsletter(), user.getAvatar(),
+    public void updateUser(User user) {        
+        db.update(UPDATE_USER, user.getUsername(), user.getPassword(), user.getEmail(), user.getFullName(),
+                user.getPhone(), user.getAddress(), 0, user.getNewsletter(), user.getAvatar(),
                 user.getUserID());
     }
     
-    public User authenticateUser(String username, String password) {
-        String sql = "SELECT * FROM User WHERE username = ? AND password = ?";
-        return db.queryForObject(sql, new Object[]{username, password}, new UserRowMapper());
+    public User authenticateUser(String username, String password) {        
+        return db.queryForObject(AUTHENTICATE_USER, new Object[]{username, password}, new UserRowMapper());
     }
 
 	/***

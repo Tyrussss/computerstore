@@ -9,7 +9,7 @@ public class User {
 	private String Phone;
 	private String Address;
 	private int Role;
-	private int Newsletter;
+	private boolean Newsletter;
 	private String Avatar;
 	
 	
@@ -93,12 +93,12 @@ public class User {
 	}
 
 
-	public int getNewsletter() {
+	public boolean getNewsletter() {
 		return Newsletter;
 	}
 
 
-	public void setNewsletter(int newsletter) {
+	public void setNewsletter(boolean newsletter) {
 		Newsletter = newsletter;
 	}
 
