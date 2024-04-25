@@ -123,8 +123,8 @@ public class ProductRepository {
 	                 "FROM product p " +
 	                 "INNER JOIN brand b ON p.BrandID = b.BrandID " +
 	                 "INNER JOIN category c ON p.CategoryID = c.CategoryID " +	                 
-	                 "where b.BrandName = ? or p.ProductName = ? or p.ProductDetails = ? ";
-	    return db.query(sql,new Object[] {searchText, searchText, searchText}, new ProductDTORowMapper());
+	                 "where b.BrandName LIKE ? or p.ProductName LIKE ? or p.ProductDetails LIKE ? ";
+	    return db.query(sql,new Object[] {"%" + searchText + "%", "%" + searchText + "%", "%" + searchText + "%"}, new ProductDTORowMapper());
 		}
 
 		
