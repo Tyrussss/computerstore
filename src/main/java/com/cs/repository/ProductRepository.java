@@ -118,5 +118,14 @@ public class ProductRepository {
 		    return db.query(sql, new ProductDTORowMapper());
 		}
 
+		public List<ProductDTO> search(String searchText) {
+			String sql = "SELECT p.*, b.BrandName, c.CategoryName " +
+	                 "FROM product p " +
+	                 "INNER JOIN brand b ON p.BrandID = b.BrandID " +
+	                 "INNER JOIN category c ON p.CategoryID = c.CategoryID " +	                 
+	                 "where b.BrandName LIKE ? or p.ProductName LIKE ? or p.ProductDetails LIKE ? ";
+	    return db.query(sql,new Object[] {"%" + searchText + "%", "%" + searchText + "%", "%" + searchText + "%"}, new ProductDTORowMapper());
+		}
+
 		
 }

@@ -1,13 +1,12 @@
-<style th:replace="common/client/head_tag"></style>
-<div th:replace="common/client/content_head"></div>
-<div th:replace="common/client/content_body"></div>
-<div th:replace="common/client/logged_head"></div>
-
+<style th:replace="/common/client/head_tag"></style>
+<div th:replace="/common/client/content_head"></div>
+<div class="container">
 	<form action="/edit " th:object= "${user}" method="post" enctype="multipart/form-data">
 	    <!-- UserID -->
 	    <input type="hidden" name="userID" th:value="*{userID}">
 	    <input type="hidden" name="password" th:value="*{password}">
 	    <input type="hidden" name="avatar" th:value="*{avatar}">
+	    
 	
 	    <!-- Username -->
 	    <div class="form-group">
@@ -33,7 +32,7 @@
 	        <input type="text" class="form-control" id="editFullName" name="fullName" th:value="*{fullName}" required>
 	    </div>
 	
-	    Phone
+	    <!-- Phone -->
 	    <div class="form-group">
 	        <label for="editPhone">Phone</label>
 	        <input type="text" class="form-control" id="editPhone" name="phone" th:value="*{phone}">
@@ -54,27 +53,91 @@
 	        </select>
 	    </div> -->
 	
-	    Newsletter
-	    <div class="form-group">
-	        <label for="editNewsletter">Newsletter</label>
-	        <select class="form-control" id="editNewsletter" name="newsletter" disable>
-	            <option value="1" th:selected="*{newsletter == 1}">Subscribe</option>
-	            <option value="0" th:selected="*{newsletter == 0}">Unsubscribe</option>
-	        </select>
-	    </div>
+	    <!-- Newsletter -->
+		<div class="form-group">
+		    <label>Newsletter</label>
+		    <div class="form-check">
+		        <input class="form-check-input" type="checkbox" id="editNewsletter" name="newsletter"
+		               th:checked="*{newsletter}">
+		        <label class="form-check-label" for="editNewsletter">
+		            Subscribe
+		        </label>
+		    </div>
+		</div>
+
 	
-	    Avatar
-	    <div class="form-group">
-	        <label for="editAvatar">Avatar</label>
-	        <input type="file" class="form-control-file" id="editAvatar" name="editAvatar" accept="image/*">
-	    </div>
+	    <!-- Avatar -->
+		<div class="form-group">
+		    <label for="avatar">Avatar</label>
+		    <input type="file" class="form-control-file" id="avatar" name="editAvatar" accept="image/*">
+		    <img id="avatarPreview" src="#" alt="Avatar Preview" style="display:none; max-width: 100px; margin-top: 10px;">
+		</div>
 	
-	    Submit Button
+	    <!-- Submit Button -->
 	    <button type="submit" class="btn btn-primary">Update</button>
 	</form>
+</div>
+<div th:replace="/common/client/content_footer"></div>
+<!-- <script th:inline="javascript">
+    /*<![CDATA[*/
+    const existingAvatar = /*[[${password}]]*/ '';
+    if (existingAvatar) {
+        const avatarPreview = document.getElementById("avatarPreview");
+        avatarPreview.setAttribute("src", "/clic/img/" + existingAvatar);
+        avatarPreview.style.display = "block";
+    }
+    /*]]>*/
+</script> -->
 
-<div th:replace="common/client/content_footer"></div>
+<!-- <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const avatarInput = document.getElementById("avatar");
+        const avatarPreview = document.getElementById("avatarPreview");
 
+        avatarInput.addEventListener("change", function() {
+            const file = this.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.addEventListener("load", function() {
+                    avatarPreview.setAttribute("src", this.result);
+                    avatarPreview.style.display = "block";
+                });
+
+                reader.readAsDataURL(file);
+            } else {
+                avatarPreview.setAttribute("/clic/img/", "#");
+                avatarPreview.style.display = "none";
+            }
+        }); 
+        
+    });
+</script> -->
+<!-- <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const avatarInput = document.getElementById("avatar");
+        const avatarPreview = document.getElementById("avatarPreview");
+
+        avatarInput.addEventListener("change", function() {
+            const file = this.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.addEventListener("load", function() {
+                    avatarPreview.setAttribute("src", this.result);
+                    avatarPreview.style.display = "block";
+                });
+
+                reader.readAsDataURL(file);
+            } else {
+                avatarPreview.setAttribute("src", "#");
+                avatarPreview.style.display = "none";
+            }
+        });
+    });
+</script> -->
 <script>
 	var title=ducument.getElemenById("subtitle");
 	title.innerHTML="Edit my profile";

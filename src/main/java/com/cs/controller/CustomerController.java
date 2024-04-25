@@ -17,12 +17,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cs.model.Product;
 import com.cs.model.ProductDTO;
-import com.cs.model.Review;
 import com.cs.model.User;
 import com.cs.repository.BrandRepository;
 import com.cs.repository.CategoryRepository;
 import com.cs.repository.ProductRepository;
-import com.cs.repository.ReviewService;
 import com.cs.repository.UserRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -33,21 +31,31 @@ public class CustomerController {
 	@Autowired
     private UserRepository userRepository;
 	@Autowired
-    private ReviewService reviewService;
+	ProductRepository rep;
+	@Autowired
+	CategoryRepository carep;
+	@Autowired
+	BrandRepository brcep;
 	
 	@RequestMapping("")
 	public String index(HttpSession session, Model model, User user) {
 		
-		System.out.println(session.getAttribute("userID"));
+		
 		List<ProductDTO> top5Products = rep.findTop5Products();
         model.addAttribute("top5Products", top5Products);
 		return "client/indexclient";
 	}
 	
+	@PostMapping("/search")
+	public String searchResults(HttpSession session, Model model, User user,
+            @RequestParam("searchText") String searchText) {		
+		List<ProductDTO> search = rep.search(searchText);
+        model.addAttribute("search", search);
+		return "client/searchResults";
+	}
+	
 	@GetMapping("/quickview")
-	public String quickview(Model model) {	
-		List<Review> reviews = reviewService.getAllReviews();
-        model.addAttribute("reviews", reviews);
+	public String quickview() {		
 		return "client/productdetail";
 	}	
 	
@@ -59,28 +67,45 @@ public class CustomerController {
 	public String editU(@PathVariable("id") int id, Model model) {	
 		User user = userRepository.findByID(id);
 		model.addAttribute("user",user);
-		return "client/edituser";
-	}	
-	
+		return "/client/edituser";
+	}		
 	
 	@PostMapping("/register")
-    public String registerUser(@ModelAttribute User user,
-                               @RequestParam("regAvatar") MultipartFile avatarFile,
-                               RedirectAttributes redirectAttributes) {
+	public String registerUser(@ModelAttribute User user,
+	                           @RequestParam("regAvatar") MultipartFile avatarFile,
+	                           @RequestParam("email") String email,
+	                           RedirectAttributes redirectAttributes) {
 
-        try {
-            String avatar = userRepository.saveAvatar(avatarFile);
-            user.setAvatar(avatar);
+	    try {
+	        String avatar = userRepository.saveAvatar(avatarFile);
+	        user.setAvatar(avatar);
 
-            userRepository.registerUser(user);
+	        // Check if the email exists in the database
+	        int isPresent = userRepository.findEmail(email);
 
-            redirectAttributes.addFlashAttribute("successMessage", "User registered successfully!");
-        } catch (IOException e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Failed to register user: " + e.getMessage());
-        }
+	        if (isPresent != 0) {
+	        	 User existingUser = userRepository.findByEmail(email);
+	            // Update the existing user entity with new details
+	            existingUser.setUsername(user.getUsername());
+	            existingUser.setPassword(user.getPassword());
+	            existingUser.setFullName(user.getFullName());
+	            existingUser.setPhone(user.getPhone());
+	            existingUser.setNewsletter(user.getNewsletter());
+	            existingUser.setAddress(user.getAddress());
+	            existingUser.setAvatar(avatar);
 
-        return "redirect:/register";
-    }
+	            userRepository.updateUser(existingUser); // Save the updated user
+	        } else {
+	            userRepository.registerUser(user); // Register a new user
+	        }
+
+	        redirectAttributes.addFlashAttribute("successMessage", "User registered successfully!");
+	    } catch (IOException e) {
+	        redirectAttributes.addFlashAttribute("errorMessage", "Failed to register user: " + e.getMessage());
+	    }
+
+	    return "redirect:/login";
+	}
 
     @PostMapping("/edit")
     public String editUser(@ModelAttribute User user,
@@ -102,12 +127,7 @@ public class CustomerController {
 
         return "redirect:/";
     }
-    @Autowired
-	ProductRepository rep;
-	@Autowired
-	CategoryRepository carep;
-	@Autowired
-	BrandRepository brcep;
+    
 	@GetMapping("/top")
 	
 		public String home(Model model) {
