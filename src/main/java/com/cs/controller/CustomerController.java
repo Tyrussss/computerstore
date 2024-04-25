@@ -30,14 +30,28 @@ import jakarta.servlet.http.HttpSession;
 public class CustomerController {
 	@Autowired
     private UserRepository userRepository;
+	@Autowired
+	ProductRepository rep;
+	@Autowired
+	CategoryRepository carep;
+	@Autowired
+	BrandRepository brcep;
 	
 	@RequestMapping("")
 	public String index(HttpSession session, Model model, User user) {
 		
-		System.out.println(session.getAttribute("userID"));
+		
 		List<ProductDTO> top5Products = rep.findTop5Products();
         model.addAttribute("top5Products", top5Products);
 		return "client/indexclient";
+	}
+	
+	@PostMapping("/search")
+	public String searchResults(HttpSession session, Model model, User user,
+            @RequestParam("searchText") String searchText) {		
+		List<ProductDTO> search = rep.search(searchText);
+        model.addAttribute("search", search);
+		return "client/searchResults";
 	}
 	
 	@GetMapping("/quickview")
@@ -113,12 +127,7 @@ public class CustomerController {
 
         return "redirect:/";
     }
-    @Autowired
-	ProductRepository rep;
-	@Autowired
-	CategoryRepository carep;
-	@Autowired
-	BrandRepository brcep;
+    
 	@GetMapping("/top")
 	
 		public String home(Model model) {
