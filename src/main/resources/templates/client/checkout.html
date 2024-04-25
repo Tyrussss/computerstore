@@ -34,9 +34,9 @@
                                     class="form-control"
                                     id="first"
                                     name="name"
-                                    th:value="${fullName}"
-                                    placeholder="Họ tên đầy đủ"
-                            />
+                                    th:value="${session.fullName}"                                    
+                            >
+                            </input>
                         </div>
 
                         <div class="col-md-6 form-group p_star">
@@ -45,8 +45,8 @@
                                     class="form-control"
                                     id="number"
                                     name="number"
-                                    th:value="${phone}"
-                                    placeholder="Số điện thoại"
+                                    th:value="${session.phone}"
+                                    
                             />
                         </div>
 
@@ -56,8 +56,8 @@
                                     class="form-control"
                                     id="email"
                                     name="email"
-                                    th:value="${email}"
-                                    placeholder="Email"
+                                    th:value="${session.email}"
+                                    
                             />
                         </div>
 
