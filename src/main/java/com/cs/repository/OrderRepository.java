@@ -37,15 +37,23 @@ public class OrderRepository {
 
 		db.update(connection -> {
 			PreparedStatement ps = connection.prepareStatement(
-					"INSERT INTO `Orders` (UserID, PaymentStatus, Created_Date) VALUES (?, ?, ?)",
+					"INSERT INTO `Orders` (UserID, PaymentStatus, Created_Date, payment) VALUES (?, ?, NOW(),?)",
 					Statement.RETURN_GENERATED_KEYS);
 			ps.setObject(1, order.getUserID());
 			ps.setObject(2, order.getPaymentStatus());
-			ps.setObject(3, order.getCreated_Date());
+			ps.setObject(3, order.getPayment());
 			return ps;
 		}, keyHolder);
 
 		return keyHolder.getKey().intValue();
 	}
+	
+	public int updatePaymentOrder(int orderId, String payment) {
+        return db.update(
+                "update orders set payment = ?, PaymentStatus = true where OrderId = ?", new Object[] {  payment, orderId });
+    }    
+	public Order findById(int id) {
+        return db.queryForObject("select * from orders where OrderId=?", new OrderRowMapper(), new Object[] { id });
+    }
 
 }

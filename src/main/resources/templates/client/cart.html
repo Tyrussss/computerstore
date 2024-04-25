@@ -1,344 +1,393 @@
 <!DOCTYPE html>
+<!-- Mở thẻ html và khai báo ngôn ngữ là zxx (tiêu chuẩn không biết ngôn ngữ) -->
 <html class="no-js" lang="zxx">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Shop</title>
-    <meta name="description" content />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" type="image/x-icon" th:href="@{/client_assets/img/icon/favicon.png}">
+<!-- Mở thẻ head -->
 
-    <link rel="stylesheet" th:href="@{/client_assets/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/client_assets/css/owl.carousel.min.css}">
-    <link rel="stylesheet" th:href="@{/client_assets/css/slicknav.css}">
-    <link rel="stylesheet" th:href="@{/client_assets/css/flaticon.css}">
-    <link rel="stylesheet" th:href="@{/client_assets/css/animate.min.css}">
-    <link rel="stylesheet" th:href="@{/client_assets/css/price_rangs.css}">
-    <link rel="stylesheet" th:href="@{/client_assets/css/magnific-popup.css}">
-    <link rel="stylesheet" th:href="@{/client_assets/css/fontawesome-all.min.css}">
-    <link rel="stylesheet" th:href="@{/client_assets/css/themify-icons.css}">
-    <link rel="stylesheet" th:href="@{/client_assets/css/slick.css}">
-    <link rel="stylesheet" th:href="@{/client_assets/css/nice-select.css}">
-    <link rel="stylesheet" th:href="@{/client_assets/css/style.css}">
+<!-- Thiết lập bộ ký tự UTF-8 và tương thích với IE -->
+<meta charset="utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge" />
+<!-- Đặt tiêu đề của trang -->
+<title>Shop</title>
+<!-- Mô tả trang -->
+<meta name="description" content />
+<!-- Thiết lập viewport -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Đường dẫn đến favicon -->
+<link rel="shortcut icon" type="image/x-icon"
+	th:href="@{/client_assets/img/icon/favicon.png}">
 
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+<!-- Đường dẫn đến các file CSS -->
+<link rel="stylesheet" th:href="@{/client_assets/css/bootstrap.min.css}">
+<link rel="stylesheet"
+	th:href="@{/client_assets/css/owl.carousel.min.css}">
+<link rel="stylesheet" th:href="@{/client_assets/css/slicknav.css}">
+<link rel="stylesheet" th:href="@{/client_assets/css/flaticon.css}">
+<link rel="stylesheet" th:href="@{/client_assets/css/animate.min.css}">
+<link rel="stylesheet" th:href="@{/client_assets/css/price_rangs.css}">
+<link rel="stylesheet"
+	th:href="@{/client_assets/css/magnific-popup.css}">
+<link rel="stylesheet"
+	th:href="@{/client_assets/css/fontawesome-all.min.css}">
+<link rel="stylesheet" th:href="@{/client_assets/css/themify-icons.css}">
+<link rel="stylesheet" th:href="@{/client_assets/css/slick.css}">
+<link rel="stylesheet" th:href="@{/client_assets/css/nice-select.css}">
+<link rel="stylesheet" th:href="@{/client_assets/css/style.css}">
+<!-- Đường dẫn đến font Montserrat -->
+<link
+	href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700"
+	rel="stylesheet">
 
-    <link type="text/css" rel="stylesheet" th:href="@{/clic/css/bootstrap.min.css}"/>
-    <link type="text/css" rel="stylesheet" th:href="@{/clic/css/slick.css}"/>
-    <link type="text/css" rel="stylesheet" th:href="@{/clic/css/slick-theme.css}"/>
-    <link type="text/css" rel="stylesheet" th:href="@{/clic/css/nouislider.min.css}"/>
-    <link rel="stylesheet" th:href="@{/clic/css/font-awesome.min.css}">
-    <link type="text/css" rel="stylesheet" th:href="@{/clic/css/style.css}"/>
+<!-- Đường dẫn đến các file CSS khác -->
+<link type="text/css" rel="stylesheet"
+	th:href="@{/clic/css/bootstrap.min.css}" />
+<link type="text/css" rel="stylesheet" th:href="@{/clic/css/slick.css}" />
+<link type="text/css" rel="stylesheet"
+	th:href="@{/clic/css/slick-theme.css}" />
+<link type="text/css" rel="stylesheet"
+	th:href="@{/clic/css/nouislider.min.css}" />
+<link rel="stylesheet" th:href="@{/clic/css/font-awesome.min.css}">
+<link type="text/css" rel="stylesheet" th:href="@{/clic/css/style.css}" />
 
+<!-- CSS tùy chỉnh -->
+<style>
+.quantity-container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
 
-    <style>
-        .quantity-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .quantity-container .tru,
-        .quantity-container .cong {
-            flex: 0 0 auto;
-        }
-        .quantity-container .quantity-amount {
-            flex: 0 0 60px;
-        }
-    </style>
+.quantity-container .tru, .quantity-container .cong {
+	flex: 0 0 auto;
+}
+
+.quantity-container .quantity-amount {
+	flex: 0 0 60px;
+}
+</style>
 
 </head>
 <body>
-<header>
-    <!-- <header th:replace = "common/client/content_head" ></header> -->
+	<!-- Bắt đầu thẻ body -->
 
-                <!-- SEARCH BAR -->
-                <div class="col-md-6">
-                    <div class="header-search">
-                        <form th:action="@{/client/products/find}" method="get">
-                            <select class="form-select form-control mb-4 col-4" name="categoryId" id="categoryId" aria-label="Default select example">
-                                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.categoryName}"></option>
-                            </select>
-                            <input class="input" placeholder="Tìm kiếm">
-                            <button class="search-btn">Tìm kiếm</button>
-                        </form>
-                    </div>
-                </div>
-                <!-- /SEARCH BAR -->
+	<header>
+		<!-- Header của trang -->
 
-                <!-- ACCOUNT -->
-                <div class="col-md-3 clearfix">
-                    <div class="header-ctn">
-                        <!-- Wishlist -->
-                        <div>
-                            <a th:href="@{/client/products}">
-                                <i class="fa fa-heart-o"></i>
-                                <span>Xem sản phẩm</span>
-                            </a>
-                        </div>
-                        <!-- /Wishlist -->
+		<!-- Dòng comment cho phần SEARCH BAR -->
+		<!-- Bắt đầu SEARCH BAR -->
+		<div class="col-md-6">
+			<div class="header-search">
+				<!-- Form tìm kiếm -->
+				<form th:action="@{/client/products/find}" method="get">
+					<!-- Dropdown chọn danh mục -->
+					<select class="form-select form-control mb-4 col-4"
+						name="categoryId" id="categoryId"
+						aria-label="Default select example">
+						<option th:each="category : ${categories}"
+							th:value="${category.CategoryID}"
+							th:text="${category.categoryName}"></option>
+					</select>
+					<!-- Ô nhập từ khóa tìm kiếm -->
+					<input class="input" placeholder="Tìm kiếm">
+					<!-- Nút tìm kiếm -->
+					<button class="search-btn">Tìm kiếm</button>
+				</form>
+			</div>
+		</div>
+		<!-- Kết thúc SEARCH BAR -->
 
-                        <!-- Cart -->
-                        <div class="dropdown">
-                            <a th:href="@{/client/cart}" aria-expanded="true">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>Giỏ hàng</span>
-                                <div class="qty">3</div>
-                            </a>
-                        </div>
-                        <!-- /Cart -->
+		<!-- ACCOUNT -->
+		<!-- Phần tài khoản -->
+		<div class="col-md-3 clearfix">
+			<div class="header-ctn">
+				<!-- Liên kết xem sản phẩm -->
+				<div>
+					<a th:href="@{/client/products}"> <i class="fa fa-heart-o"></i>
+						<span>Xem sản phẩm</span>
+					</a>
+				</div>
+				<!-- /Wishlist -->
 
-                        <!-- Menu Toogle -->
-                        <div class="menu-toggle">
-                            <a href="#">
-                                <i class="fa fa-bars"></i>
-                                <span>Menu</span>
-                            </a>
-                        </div>
-                        <!-- /Menu Toogle -->
-                    </div>
-                </div>
-                <!-- /ACCOUNT -->
-            </div>
-            <!-- row -->
-        </div>
-        <!-- container -->
-    </div>
-    <!-- /MAIN HEADER -->
-</header>
-<main>
-    <div class="hero-area section-bg2">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="slider-area">
-                        <div
-                                class="slider-height2 slider-bg4 d-flex align-items-center justify-content-center"
-                        >
-                            <div class="hero-caption hero-caption2">
-                                <h2>Cart</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+				<!-- Giỏ hàng -->
+				<div class="dropdown">
+					<a th:href="@{/client/cart}" aria-expanded="true"> <i
+						class="fa fa-shopping-cart"></i> <span>Giỏ hàng</span>
+						<div class="qty">3</div>
+					</a>
+				</div>
+				<!-- /Cart -->
 
-    <section class="cart_area">
-        <div class="container">
-            <div class="cart_inner">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                        <tr>
+				<!-- Toggle menu -->
+				<!-- Nút mở menu -->
+				<div class="menu-toggle">
+					<a href="#"> <i class="fa fa-bars"></i> <span>Menu</span>
+					</a>
+				</div>
+				<!-- /Menu Toogle -->
+			</div>
+		</div>
+		<!-- /ACCOUNT -->
+	</header>
+	<!-- /HEADER -->
+	<main>
+		<!-- Phần chính của trang -->
 
-                            <th scope="col">
-                                <div class="form-check">
-                                    <input class="form-check-input" id="selectAllCheckbox" onclick="toggleCheckboxes(this)" type="checkbox"
-                                           value="" >
-                                </div>
-                            </th>
-                            <th scope="col">Ảnh</th>
-                            <th scope="col">Sản phẩm</th>
-                            <th scope="col">Giá</th>
-                            <th scope="col">Số lượng</th>
-                            <th scope="col">Thành tiền</th>
-                            <th scope="col">Xoá</th>
-                        </tr>
-                        </thead>
-                        <!-- Trong thẻ <tbody> của bảng -->
-                        <tbody th:each="product : ${products}">
-                        <input type="hidden" name="idGioHangChiTiet" th:value="${product.CartID}">
-                        <tr>
-                            <td>
-                                <div class="form-check">
-                                    <span class="id" hidden th:data-id="${product.CartID}"></span>
-                                    <span class="id-cart" hidden th:data-id="${product.CartID}"></span>
-                                    <input class="form-check-input" name="options[]" id="checkboxID" th:value="${product.CartID}" onchange="updatePrice(this)" type="checkbox">
-                                </div>
-                            </td>
-                            <td>
-                                <div class="media product-thumbnail">
-                                    <div class="d-flex">
-                                        <!-- Thêm Thymeleaf để lấy đường dẫn hình ảnh từ sản phẩm -->
-                                        <img th:src="@{${product.thumbnail}}" alt="Product Image" />
-                                    </div>
-                                    <div class="media-body">
-                                        <!-- Hiển thị tên sản phẩm -->
+		<!-- Hero area -->
+		<!-- Phần hero của trang -->
+		<div class="hero-area section-bg2">
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-12">
+						<div class="slider-area">
+							<div
+								class="slider-height2 slider-bg4 d-flex align-items-center justify-content-center">
+								<div class="hero-caption hero-caption2">
+									<h2>Cart</h2>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="product-name">
-                                <p th:text="${product.ProductName}"></p>
-                            </td>
-                            <td class="price" th:text="${#numbers.formatDecimal(product.priceOfOne, 0, 'POINT', 0, 'COMMA') + ' VND'}">
-                            </td>
-                            <input type="hidden" class="priceValue" th:value="${product.Price}">
-                            <td>
-                                <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px">
-                                    <div class="tru" onclick="handlerChange(this)">
-                                        <button class="btn btn-outline-black" type="button">&minus;</button>
-                                    </div>
+		<!-- Phần giỏ hàng -->
+		<section class="cart_area">
+			<!-- Phần hiển thị giỏ hàng -->
+			<div class="container">
+				<div class="cart_inner">
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<!-- Tiêu đề bảng -->
+								<tr>
+									<!-- Cột tên sản phẩm -->
+									<th scope="col">Sản phẩm</th>
+									<!-- Cột giá -->
+									<th scope="col">Giá</th>
+									<!-- Cột số lượng -->
+									<th scope="col">Số lượng</th>
+									<!-- Cột thành tiền -->
+									<th scope="col">Thành tiền</th>
 
-                                    <input
-                                            aria-describedby="button-addon1"
-                                            aria-label="Example text with button addon"
-                                            class="form-control text-center quantity-amount"
-                                            placeholder=""
-                                            th:value="${product.Quantity}"
-                                            type="text"
-                                            name="soLuong"
-                                            onchange="handleChangeOfInput(this)"
-                                            style="width: 60px; margin: 0 5px; text-align: center; margin-top: 30px; margin-right: 50px; margin-bottom: 30px"
-                                    />
+								</tr>
+							</thead>
+							<!-- Dữ liệu của bảng -->
+							<tbody th:each="cart : ${carts}">
+								<!-- Dòng dữ liệu của sản phẩm -->
+								<tr>
+									<!-- Cột tên sản phẩm -->
+									<td class="product-name">
+										<p th:text="${cart.productName}"></p>
+									</td>
+									<!-- Cột giá -->
+									<td class="price"
+										th:text="${#numbers.formatDecimal(cart.price, 0, 'POINT', 0, 'COMMA') + ' VND'}">
+									</td>
+									<!-- Cột số lượng -->
+									<td><input aria-describedby="button-addon1"
+										aria-label="Example text with button addon"
+										class="form-control text-center quantity-amount"
+										placeholder="" th:value="${cart.quantity}" type="text"
+										name="soLuong"
+										style="width: 60px; margin: 0 5px; text-align: center; margin-top: 30px; margin-right: 50px; margin-bottom: 30px" />
+									</td>
 
-                                    <div class="cong" onclick="handlerChange(this)">
-                                        <button class="btn btn-outline-black" type="button">&plus;</button>
-                                    </div>
-                                </div>
+									<!-- Cột thành tiền -->
+									<td>
+										<!-- Hiển thị tổng giá của sản phẩm (số lượng * giá) -->
+										<h5 class="thanhtien"
+											th:text="${#numbers.formatDecimal(cart.TotalPrice, 0, 'POINT', 0, 'COMMA') + ' VND'}"></h5>
+									</td>
 
+									<!-- Trong mỗi hàng dữ liệu của bảng -->
+									<td>
+										<!-- Nút Xóa -->
+										<a th:href="@{/cart/delete/{id} (id = ${cart.CartID})}">Xóa</a>
+										
+										<!-- <button class="btn btn-danger"
+											onclick="removeItem('${cart.ProductId}')">Xóa</button> -->
+									</td>
+									<script>
+										function removeItem(productId) {
+											// Lấy danh sách giỏ hàng từ Local Storage
+											var cartItems = JSON
+													.parse(localStorage
+															.getItem('cartItems'));
 
-                            </td>
+											// Loại bỏ sản phẩm có productId tương ứng khỏi danh sách giỏ hàng
+											var updatedCartItems = cartItems
+													.filter(function(item) {
+														return item.productId !== productId;
+													});
 
-                            <td>
-                                <!-- Hiển thị tổng giá của sản phẩm (số lượng * giá) -->
-                                <h5 class="thanhtien" th:text="${#numbers.formatDecimal(product.TotalPrice, 0, 'POINT', 0, 'COMMA') + ' VND'}"></h5>
-                            </td>
-                            <input type="hidden" class="thanhtienValue" th:value="${product.TotalPrice}">
-                            <td>
-                                <button class="btn btn-black btn-sm delete-button confirmDelete" th:attr="data-id=${product.CartID}">
-                                    X
-                                </button>
-                            </td>
+											// Lưu lại danh sách giỏ hàng mới vào Local Storage
+											localStorage
+													.setItem(
+															'cartItems',
+															JSON
+																	.stringify(updatedCartItems));
 
-                        </tr>
-                        </tbody>
+											// Cập nhật hiển thị giỏ hàng (ví dụ: reload lại trang hoặc sử dụng AJAX để cập nhật nội dung giỏ hàng)
+											location.reload(); // Ví dụ: Reload lại trang sau khi xóa sản phẩm
+										}
+									</script>
 
-                    </table>
-                    <div class="checkout_btn_inner float-right">
-                        <a class="btn" th:href="@{/products}">Continue Shopping</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+									<!-- Hàm JavaScript xử lý xóa sản phẩm -->
+									<script>
+										function removeItem(productId) {
+											// Xóa sản phẩm khỏi giỏ hàng (ở phía client)
+											var cartItems = JSON
+													.parse(localStorage
+															.getItem('cartItems'));
+											var updatedCartItems = cartItems
+													.filter(function(item) {
+														return item.productId !== productId;
+													});
+											localStorage
+													.setItem(
+															'cartItems',
+															JSON
+																	.stringify(updatedCartItems));
 
-        <br>
-        <br>
-        <br>
-        <div class="col-md-6 pl-5" style="margin-left: 330px;">
-            <div class="row justify-content-end">
-                <div class="col-md-7">
-                    <div class="row mb-5">
-                        <div class="col-md-6">
-                            <span class="text-black">Tổng tiền</span>
-                        </div>
-                        <div class="col-md-6 text-right">
-                            <strong class="text-black total">0</strong>
-                        </div>
-                    </div>
+											// Cập nhật hiển thị giỏ hàng
+											// Code cập nhật hiển thị giỏ hàng của bạn ở đây, có thể reload lại trang hoặc sử dụng AJAX để cập nhật nội dung của giỏ hàng mà không cần reload trang.
+										}
+									</script>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button class="btn btn-black btn-lg py-3 btn-block" onclick="checkOut()">
-                                Mua hàng
-                            </button>
+								</tr>
+							</tbody>
 
-                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel1">Thông báo</h5>
-                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Vui lòng chọn ít nhất một mục để tiếp tục.
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+						</table>
+						<!-- Nút tiếp tục mua hàng -->
+						<div class="checkout_btn_inner float-right">
+							<a class="btn" th:href="@{/products}">Continue Shopping</a>
+						</div>
+					</div>
+				</div>
+			</div>
 
-                            <div class="modal fade" id="quantityExceedErrorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel2">Lỗi Số Lượng</h5>
-                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p id="quantityExceedErrorMessage">Số lượng sản phẩm trong giỏ hàng đang vượt quá số lượng tồn kho.</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+			<!-- Phần thanh toán -->
+			<br> <br> <br>
+			<div class="col-md-6 pl-5" style="margin-left: 330px;">
+				<div class="row justify-content-end">
+					<div class="col-md-7">
+						<div class="row">
+							<div class="col-md-12">
+								<!-- Nút mua hàng -->
+								<button class="btn btn-black btn-lg py-3 btn-block"
+									onclick="checkOut()">Mua hàng</button>
 
+								<!-- Modal thông báo -->
+								<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+									aria-labelledby="exampleModalLabel1" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel1">Thông
+													báo</h5>
+												<button type="button" class="close" data-bs-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">Vui lòng chọn ít nhất một mục
+												để tiếp tục.</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-bs-dismiss="modal">Đóng</button>
+											</div>
+										</div>
+									</div>
+								</div>
 
-<!-- <footer th:replace = "common/client/content_footer" ></footer> -->
-    </section>
-</main>
+								<!-- Modal lỗi vượt quá số lượng -->
+								<div class="modal fade" id="quantityExceedErrorModal"
+									tabindex="-1" role="dialog"
+									aria-labelledby="exampleModalLabel2" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel2">Lỗi Số
+													Lượng</h5>
+												<button type="button" class="close" data-bs-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<p id="quantityExceedErrorMessage">Số lượng sản phẩm
+													trong giỏ hàng đang vượt quá số lượng tồn kho.</p>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-bs-dismiss="modal">Đóng</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
+		</section>
+	</main>
 
+	<!-- Script thư viện -->
+	<script th:src="@{/client_assets/js/vendor/modernizr-3.5.0.min.js}"></script>
+	<script th:src="@{/client_assets/js/vendor/jquery-1.12.4.min.js}"></script>
+	<script th:src="@{/client_assets/js/popper.min.js}"></script>
+	<script th:src="@{/client_assets/js/bootstrap.min.js}"></script>
 
+	<script th:src="@{/client_assets/js/owl.carousel.min.js}"></script>
+	<script th:src="@{/client_assets/js/slick.min.js}"></script>
+	<script th:src="@{/client_assets/js/jquery.slicknav.min.js}"></script>
 
-<script th:src="@{/client_assets/js/vendor/modernizr-3.5.0.min.js}"></script>
-<script th:src="@{/client_assets/js/vendor/jquery-1.12.4.min.js}"></script>
-<script th:src="@{/client_assets/js/popper.min.js}"></script>
-<script th:src="@{/client_assets/js/bootstrap.min.js}"></script>
+	<script th:src="@{/client_assets/js/wow.min.js}"></script>
+	<script th:src="@{/client_assets/js/jquery.magnific-popup.js}"></script>
+	<script th:src="@{/client_assets/js/jquery.nice-select.min.js}"></script>
+	<script th:src="@{/client_assets/js/jquery.counterup.min.js}"></script>
+	<script th:src="@{/client_assets/js/waypoints.min.js}"></script>
+	<script th:src="@{/client_assets/js/price_rangs.js}"></script>
 
-<script th:src="@{/client_assets/js/owl.carousel.min.js}"></script>
-<script th:src="@{/client_assets/js/slick.min.js}"></script>
-<script th:src="@{/client_assets/js/jquery.slicknav.min.js}"></script>
+	<script th:src="@{/client_assets/js/contact.js}"></script>
+	<script th:src="@{/client_assets/js/jquery.form.js}"></script>
+	<script th:src="@{/client_assets/js/jquery.validate.min.js}"></script>
+	<script th:src="@{/client_assets/js/mail-script.js}"></script>
+	<script th:src="@{/client_assets/js/jquery.ajaxchimp.min.js}"></script>
 
-<script th:src="@{/client_assets/js/wow.min.js}"></script>
-<script th:src="@{/client_assets/js/jquery.magnific-popup.js}"></script>
-<script th:src="@{/client_assets/js/jquery.nice-select.min.js}"></script>
-<script th:src="@{/client_assets/js/jquery.counterup.min.js}"></script>
-<script th:src="@{/client_assets/js/waypoints.min.js}"></script>
-<script th:src="@{/client_assets/js/price_rangs.js}"></script>
+	<script th:src="@{/client_assets/js/plugins.js}"></script>
+	<script th:src="@{/client_assets/js/main.js}"></script>
+	<script>
+		function checkOut() {
+			window.location.href = "http://localhost:8080/checkout";
+		}
+	</script>
+	<!-- Script Google Analytics -->
+	<script async
+		src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
 
-<script th:src="@{/client_assets/js/contact.js}"></script>
-<script th:src="@{/client_assets/js/jquery.form.js}"></script>
-<script th:src="@{/client_assets/js/jquery.validate.min.js}"></script>
-<script th:src="@{/client_assets/js/mail-script.js}"></script>
-<script th:src="@{/client_assets/js/jquery.ajaxchimp.min.js}"></script>
+		function gtag() {
+			dataLayer.push(arguments);
+		}
 
-<script th:src="@{/client_assets/js/plugins.js}"></script>
-<script th:src="@{/client_assets/js/main.js}"></script>
+		gtag("js", new Date());
 
-<script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"
-></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-        dataLayer.push(arguments);
-    }
-    gtag("js", new Date());
-
-    gtag("config", "UA-23581568-13");
-</script>
-<script
-        defer
-        src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317"
-        integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA=="
-        data-cf-beacon='{"rayId":"84261ac02d5d079f","version":"2023.10.0","token":"cd0b4b3a733644fc843ef0b185f98241"}'
-        crossorigin="anonymous"
-></script>
+		gtag("config", "UA-23581568-13");
+	</script>
+	<!-- Script Cloudflare Beacon -->
+	<script defer
+		src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317"
+		integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA=="
+		data-cf-beacon='{"rayId":"84261ac02d5d079f","version":"2023.10.0","token":"cd0b4b3a733644fc843ef0b185f98241"}'
+		crossorigin="anonymous"></script>
 </body>
+<!-- Kết thúc thẻ body -->
 </html>
+<!-- Kết thúc trang HTML -->
+
+

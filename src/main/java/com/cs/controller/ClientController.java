@@ -83,31 +83,7 @@ public class ClientController {
 
         return "redirect:/login";
     }
-	/*
-	 * public String registerUser(@Valid @ModelAttribute User user, BindingResult
-	 * bindingResult, @RequestParam("avatar") MultipartFile avatarFile, Model model)
-	 * {
-	 * 
-	 * if (bindingResult.hasErrors()) { System.out.println("Binding Errors: " +
-	 * bindingResult.getAllErrors()); return "register"; // Return to the
-	 * registration page with an error message } String fileName =
-	 * avatarFile.getOriginalFilename();
-	 * 
-	 * try { String uploadDir = "src/main/resources/static/clic/img/"; String
-	 * savedFileName = FileUploadUtil.saveFile(Paths.get(uploadDir), fileName,
-	 * file);
-	 * 
-	 * // Set the avatar file name in the user object user.setAvatar(savedFileName);
-	 * 
-	 * // Save user details in database userRepository.insert(user);
-	 * 
-	 * model.addAttribute("message", "User registered successfully."); } catch
-	 * (IOException e) { model.addAttribute("message", "Error registering user: " +
-	 * e.getMessage()); e.printStackTrace(); return "admin/register"; // Return to
-	 * the registration page with an error message }
-	 * 
-	 * return "redirect:/login"; }
-	 */
+	
     
     @GetMapping("/products") // Ánh xạ yêu cầu GET đến "/products" đến phương thức xử lý products
     public String products(Model model) { // Phương thức xử lý cho "/products"
@@ -147,20 +123,36 @@ public class ClientController {
 
     @GetMapping("/checkout") // Ánh xạ yêu cầu GET đến "/checkout" đến phương thức xử lý checkout
     public String checkout(HttpSession session, Model model) { // Phương thức xử lý cho "/checkout"
-        model.addAttribute("categories", cate.findAll()); // Thêm danh sách danh mục vào model
-        Integer userId = (Integer) session.getAttribute("userId");
+    	model.addAttribute("categories", cate.findAll()); // Thêm danh sách danh mục vào model
+        Integer userId = (Integer) session.getAttribute("UserID");
         List<Cart> carts = cartRepository.findByUserID(userId);
 
-        Float total = 0f;
-        for(Cart cart : carts) {
-            total += cart.getTotalPrice();
-        }
-        this.totalResult = total;
+        double total = cartRepository.getTotal(userId);
         model.addAttribute("total", total);
+        session.setAttribute("totalOrder", total);
         model.addAttribute("carts", carts); // Thêm danh sách cart vào model
         return "client/checkout"; // Trả về view "checkout" trong thư mục client
     }
 
+    @PostMapping("/create-order")
+    @ResponseBody
+    public Map<String, Object> createOrder(@RequestBody Order orderRequest, HttpSession session) {
+        Integer accountId = 1;
+        // Thực hiện tạo đơn hàng
+        Order newOrder = new Order();
+        newOrder.setUserID(accountId);
+        newOrder.setPaymentStatus(true);
+        newOrder.setPayment("4");
+        int orderId = orderRepository.insert(newOrder);
+
+        session.setAttribute("orderId", orderId);
+        
+        // Trả về ID của đơn hàng
+        Map<String, Object> response = new HashMap<>();
+        response.put("orderId", orderId);
+        return response;
+    }
+    
     @GetMapping("/addToCart")
     public String addToCart(HttpSession session,  @ModelAttribute("productId") Integer productId) {
         Integer userId = (Integer) session.getAttribute("UserID");
@@ -173,79 +165,14 @@ public class ClientController {
         cartRepository.insert(cart);
         return "redirect:/cart";
     }
-
-
-    @GetMapping("/checkoutFinal")
-    public String checkoutFinal(HttpSession session) throws UnsupportedEncodingException {
-
-        String vnp_Version = "2.1.0";
-        String vnp_Command = "pay";
-        String orderType = "other";
-        String bankCode = "NCB";
-
-        String vnp_TxnRef = VNPayConfig.getRandomNumber(8);
-        String vnp_IpAddr = "127.0.0.1";
-
-        String vnp_TmnCode = VNPayConfig.vnp_TmnCode;
-
-        Map<String, String> vnp_Params = new HashMap<>();
-        vnp_Params.put("vnp_Version", vnp_Version);
-        vnp_Params.put("vnp_Command", vnp_Command);
-        vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
-        long fix = (long) Math.round(this.totalResult * 100);
-        long fix2 = (long) Math.round(this.totalResult);
-        this.totalText = String.valueOf(fix2);
-        vnp_Params.put("vnp_Amount", String.valueOf(fix));
-        System.out.println(fix);
-        vnp_Params.put("vnp_CurrCode", "VND");
-
-        vnp_Params.put("vnp_BankCode", bankCode);
-        vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
-        vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + vnp_TxnRef);
-        vnp_Params.put("vnp_OrderType", orderType);
-
-        vnp_Params.put("vnp_Locale", "vn");
-        vnp_Params.put("vnp_ReturnUrl", VNPayConfig.vnp_ReturnUrl);
-        vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
-
-        Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
-        String vnp_CreateDate = formatter.format(cld.getTime());
-        vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
-
-        cld.add(Calendar.MINUTE, 15);
-        String vnp_ExpireDate = formatter.format(cld.getTime());
-        vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
-
-        List fieldNames = new ArrayList(vnp_Params.keySet());
-        Collections.sort(fieldNames);
-        StringBuilder hashData = new StringBuilder();
-        StringBuilder query = new StringBuilder();
-        Iterator itr = fieldNames.iterator();
-        while (itr.hasNext()) {
-            String fieldName = (String) itr.next();
-            String fieldValue = (String) vnp_Params.get(fieldName);
-            if ((fieldValue != null) && (fieldValue.length() > 0)) {
-                //Build hash data
-                hashData.append(fieldName);
-                hashData.append('=');
-                hashData.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
-                //Build query
-                query.append(URLEncoder.encode(fieldName, StandardCharsets.US_ASCII.toString()));
-                query.append('=');
-                query.append(URLEncoder.encode(fieldValue, StandardCharsets.US_ASCII.toString()));
-                if (itr.hasNext()) {
-                    query.append('&');
-                    hashData.append('&');
-                }
-            }
-        }
-        String queryUrl = query.toString();
-        String vnp_SecureHash = VNPayConfig.hmacSHA512(VNPayConfig.secretKey, hashData.toString());
-        queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
-        String paymentUrl = VNPayConfig.vnp_PayUrl + "?" + queryUrl;
-        return "redirect:" + paymentUrl;
+    
+    @GetMapping("/cart/delete/{id}") // Ánh xạ yêu cầu POST đến "/cart/delete" đến phương thức xử lý xóa cart
+    public String deleteCart(@PathVariable int id) { // Phương thức xử lý cho yêu cầu xóa cart
+        cartRepository.deleteById(id); // Xóa cart từ ID được cung cấp
+        return "redirect:/cart"; // Chuyển hướng trở lại trang giỏ hàng sau khi xóa
     }
+    
+    
 
     @GetMapping("/after-checkout")
     public String after(Model model, HttpSession session) {
@@ -257,42 +184,28 @@ public class ClientController {
         return "client/after-checkout";
     }
 
-    @GetMapping("/getPaymentInfo")
-    public String getInfo(@RequestParam("vnp_TransactionNo") String transactionNo,
-                          @RequestParam("vnp_OrderInfo") String orderInfo,
-                          @RequestParam("vnp_TransactionStatus") String transactionStatus, HttpSession session) {
-        if(!Objects.equals(transactionNo, "0")) {
-            Integer userId = (Integer) session.getAttribute("userId");
-            List<Cart> carts = cartRepository.findByUserID(userId);
-            Order order = new Order();
-            order.setPaymentStatus(true);
-            order.setCreated_Date(Date.valueOf(LocalDate.now()));
-            order.setUserID(userId);
-            int orderId = orderRepository.insert(order);
-            this.orderId = orderId;
-            for(Cart cart : carts) {
-                OrderDetail orderDetail = new OrderDetail();
-                orderDetail.setProductID(cart.getProductID());
-                orderDetail.setTotal(cart.getTotalPrice());
-                orderDetail.setSubTotal(cart.getPrice());
-                orderDetail.setQuantity(cart.getQuantity());
-                orderDetail.setOrderID(orderId);
-                orderDetailRepository.insert(orderDetail);
-                cartRepository.deleteById(cart.getCartID());
-            }
-        }
-        return "redirect:/after-checkout";
-    }
+
+    @GetMapping("/vnpay_return")
+    public String getVnpay(@RequestParam(value = "vnp_BankCode") String bankCode,
+		            @RequestParam(value = "vnp_TxnRef") String vnpCode,
+		            @RequestParam(value = "vnp_Amount") String amount, Model model, HttpSession session
+		){
+		Integer orderId = (Integer) session.getAttribute("orderId");
+    	//Integer orderId = 36;
+		orderRepository.updatePaymentOrder(orderId, vnpCode);
+		Order order = orderRepository.findById(orderId);
+        Integer userId = (Integer) session.getAttribute("UserID");
+		//Integer userId = 1;
+        User user = userRepository.findByID(userId);
+        model.addAttribute("user", user);
+        model.addAttribute("orderId", orderId);
+		model.addAttribute("order", order);
+		model.addAttribute("bankCode", bankCode);
+		model.addAttribute("vnpCode", vnpCode);
+		model.addAttribute("amount", amount);
+		model.addAttribute("total", amount);
+		return "client/vnpay_return";
+		}
     
-	/*
-	 * @GetMapping("/register") // Ánh xạ yêu cầu GET đến "/register" đến phương
-	 * thức xử lý clientReg public String clientReg(Model model, UserReg userReg) {
-	 * // Phương thức xử lý cho "/register" model.addAttribute("userReg",
-	 * userRep.findAll()); // Lấy danh sách người dùng đã đăng ký và thêm vào model
-	 * 
-	 * List<String> listRole = Arrays.asList("Admin", "Customer", "Subscriber"); //
-	 * Tạo danh sách vai trò model.addAttribute("listRole", listRole); // Thêm danh
-	 * sách vai trò vào model return "client/register"; // Trả về view "register"
-	 * trong thư mục client }
-	 */
+	
 }
