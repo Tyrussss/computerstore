@@ -17,10 +17,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.cs.model.Product;
 import com.cs.model.ProductDTO;
+import com.cs.model.Review;
 import com.cs.model.User;
 import com.cs.repository.BrandRepository;
 import com.cs.repository.CategoryRepository;
 import com.cs.repository.ProductRepository;
+import com.cs.repository.ReviewService;
 import com.cs.repository.UserRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -30,6 +32,8 @@ import jakarta.servlet.http.HttpSession;
 public class CustomerController {
 	@Autowired
     private UserRepository userRepository;
+	@Autowired
+    private ReviewService reviewService;
 	
 	@RequestMapping("")
 	public String index(HttpSession session, Model model, User user) {
@@ -41,7 +45,9 @@ public class CustomerController {
 	}
 	
 	@GetMapping("/quickview")
-	public String quickview() {		
+	public String quickview(Model model) {	
+		List<Review> reviews = reviewService.getAllReviews();
+        model.addAttribute("reviews", reviews);
 		return "client/productdetail";
 	}	
 	

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.cs.model.Review;
 
@@ -41,6 +42,8 @@ public class ReviewRepository {
 		}
 	}
 	
+	
+	
 	/***
 	 * 
 	 * @return select 1
@@ -64,3 +67,5 @@ public class ReviewRepository {
 				new Object[] {Review.getReviewID(), Review.getUserID()});
 	}
 }
+
+

@@ -21,10 +21,10 @@
         </style>
         <div id="container">
             <div id="editor">
-            <p>Test</p>
+            <p>Please enter the product review content here...</p>
             </div>
             <input type="hidden" value="" id="mydata" name="mydata" />
-            <div> <input type="submit" value="Save" id="btnSave" /></div>
+            <div> <input type="submit" value="Comment" id="btnSave" /></div>
         </div>
         
         <!--
@@ -43,10 +43,9 @@
                 // https://ckeditor.com/docs/ckeditor5/latest/features/toolbar/toolbar.html#extended-toolbar-configuration-format
                 toolbar: {
                     items: [
-                        'exportPDF','exportWord', '|',
+                        /* 'exportPDF','exportWord', '|',
                         'findAndReplace', 'selectAll', '|',
-                        'heading', '|',
-                        'bold', 'italic', 'strikethrough', 'underline', 'code', 'subscript', 'superscript', 'removeFormat', '|',
+                        'heading', '|', , 'code', 'subscript', 'superscript', 'removeFormat', '|',
                         'bulletedList', 'numberedList', 'todoList', '|',
                         'outdent', 'indent', '|',
                         'undo', 'redo',
@@ -55,8 +54,9 @@
                         'alignment', '|',
                         'link', 'uploadImage', 'blockQuote', 'insertTable', 'mediaEmbed', 'codeBlock', 'htmlEmbed', '|',
                         'specialCharacters', 'horizontalLine', 'pageBreak', '|',
-                        'textPartLanguage', '|',
-                        'sourceEditing'
+                        'textPartLanguage', '|',, 'strikethrough', 'sourceEditing' */
+                       
+                        'bold', 'italic', 'underline'
                     ],
                     shouldNotGroupWhenFull: true
                 },
