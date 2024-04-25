@@ -51,19 +51,63 @@
 
 <!-- CSS tùy chỉnh -->
 <style>
-.quantity-container {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+/* Chỉnh màu nền cho header */
+header {
+	background-color: #f8f9fa; /* Chọn màu nền phù hợp */
+	padding: 20px 0; /* Tăng khoảng cách giữa header và nội dung */
 }
 
-.quantity-container .tru, .quantity-container .cong {
-	flex: 0 0 auto;
+/* Chỉnh màu và font chữ cho tiêu đề sản phẩm */
+.product-name p {
+	color: #333; /* Chọn màu chữ phù hợp */
+	font-size: 16px; /* Đặt kích thước font chữ */
+	font-weight: bold; /* Đặt đậm cho font chữ */
 }
 
-.quantity-container .quantity-amount {
-	flex: 0 0 60px;
+/* Chỉnh màu và font chữ cho giá sản phẩm */
+.price {
+	color: #ff6f61; /* Chọn màu chữ phù hợp */
+	font-weight: bold; /* Đặt đậm cho font chữ */
 }
+
+/* Chỉnh màu và font chữ cho nút mua hàng */
+.btn-black {
+	background-color: #000; /* Chọn màu nền cho nút */
+	color: #fff; /* Chọn màu chữ phù hợp */
+	font-weight: bold; /* Đặt đậm cho font chữ */
+}
+
+/* Chỉnh khoảng cách và font chữ cho các phần modal */
+.modal-body, .modal-footer {
+	padding: 20px; /* Tăng khoảng cách giữa nội dung và viền modal */
+	text-align: center; /* Căn giữa nội dung trong modal */
+}
+
+.modal-title {
+	color: #333; /* Chọn màu chữ phù hợp */
+	font-size: 20px; /* Đặt kích thước font chữ */
+	font-weight: bold; /* Đặt đậm cho font chữ */
+}
+
+/* Chỉnh màu và font chữ cho nội dung thông báo modal */
+#quantityExceedErrorMessage {
+	color: #ff6f61; /* Chọn màu chữ phù hợp */
+	font-weight: bold; /* Đặt đậm cho font chữ */
+}
+/* CSS cho nút button trong phần DELETE */
+.delete-btn button {
+    background-color: #dc3545; /* Màu đỏ */
+    color: #fff; /* Màu chữ trắng */
+    border: none; /* Xóa viền */
+    padding: 5px 10px; /* Khoảng cách giữa nội dung và viền */
+    border-radius: 5px; /* Bo tròn viền */
+    cursor: pointer; /* Đổi con trỏ khi di chuyển vào nút */
+}
+
+.delete-btn button:hover {
+    background-color: #c82333; /* Màu đỏ khi hover */
+}
+
 </style>
 
 </head>
@@ -75,57 +119,7 @@
 
 		<!-- Dòng comment cho phần SEARCH BAR -->
 		<!-- Bắt đầu SEARCH BAR -->
-		<div class="col-md-6">
-			<div class="header-search">
-				<!-- Form tìm kiếm -->
-				<form th:action="@{/client/products/find}" method="get">
-					<!-- Dropdown chọn danh mục -->
-					<select class="form-select form-control mb-4 col-4"
-						name="categoryId" id="categoryId"
-						aria-label="Default select example">
-						<option th:each="category : ${categories}"
-							th:value="${category.CategoryID}"
-							th:text="${category.categoryName}"></option>
-					</select>
-					<!-- Ô nhập từ khóa tìm kiếm -->
-					<input class="input" placeholder="Tìm kiếm">
-					<!-- Nút tìm kiếm -->
-					<button class="search-btn">Tìm kiếm</button>
-				</form>
-			</div>
-		</div>
-		<!-- Kết thúc SEARCH BAR -->
 
-		<!-- ACCOUNT -->
-		<!-- Phần tài khoản -->
-		<div class="col-md-3 clearfix">
-			<div class="header-ctn">
-				<!-- Liên kết xem sản phẩm -->
-				<div>
-					<a th:href="@{/client/products}"> <i class="fa fa-heart-o"></i>
-						<span>Xem sản phẩm</span>
-					</a>
-				</div>
-				<!-- /Wishlist -->
-
-				<!-- Giỏ hàng -->
-				<div class="dropdown">
-					<a th:href="@{/client/cart}" aria-expanded="true"> <i
-						class="fa fa-shopping-cart"></i> <span>Giỏ hàng</span>
-						<div class="qty">3</div>
-					</a>
-				</div>
-				<!-- /Cart -->
-
-				<!-- Toggle menu -->
-				<!-- Nút mở menu -->
-				<div class="menu-toggle">
-					<a href="#"> <i class="fa fa-bars"></i> <span>Menu</span>
-					</a>
-				</div>
-				<!-- /Menu Toogle -->
-			</div>
-		</div>
 		<!-- /ACCOUNT -->
 	</header>
 	<!-- /HEADER -->
@@ -162,13 +156,13 @@
 								<!-- Tiêu đề bảng -->
 								<tr>
 									<!-- Cột tên sản phẩm -->
-									<th scope="col">Sản phẩm</th>
+									<th scope="col">Product</th>
 									<!-- Cột giá -->
-									<th scope="col">Giá</th>
+									<th scope="col">Price</th>
 									<!-- Cột số lượng -->
-									<th scope="col">Số lượng</th>
+									<th scope="col">Quanlity</th>
 									<!-- Cột thành tiền -->
-									<th scope="col">Thành tiền</th>
+									<th scope="col">Total</th>
 
 								</tr>
 							</thead>
@@ -203,11 +197,18 @@
 									<!-- Trong mỗi hàng dữ liệu của bảng -->
 									<td>
 										<!-- Nút Xóa -->
-										<a th:href="@{/cart/delete/{id} (id = ${cart.CartID})}">Xóa</a>
-										
-										<!-- <button class="btn btn-danger"
+									<td>
+										<!-- Thêm nút button và màu đỏ --> <a
+										th:href="@{/cart/delete/{id} (id = ${cart.CartID})}"
+										class="delete-btn">
+											<button>Delete</button>
+									</a>
+									</td>
+
+									<!-- <button class="btn btn-danger"
 											onclick="removeItem('${cart.ProductId}')">Xóa</button> -->
 									</td>
+
 									<script>
 										function removeItem(productId) {
 											// Lấy danh sách giỏ hàng từ Local Storage
@@ -276,7 +277,7 @@
 							<div class="col-md-12">
 								<!-- Nút mua hàng -->
 								<button class="btn btn-black btn-lg py-3 btn-block"
-									onclick="checkOut()">Mua hàng</button>
+									onclick="checkOut()">Checkout</button>
 
 								<!-- Modal thông báo -->
 								<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -284,18 +285,16 @@
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel1">Thông
-													báo</h5>
+												<h5 class="modal-title" id="exampleModalLabel1">Announcement</h5>
 												<button type="button" class="close" data-bs-dismiss="modal"
 													aria-label="Close">
 													<span aria-hidden="true">&times;</span>
 												</button>
 											</div>
-											<div class="modal-body">Vui lòng chọn ít nhất một mục
-												để tiếp tục.</div>
+											<div class="modal-body">Please select at least one item to continue.</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"
-													data-bs-dismiss="modal">Đóng</button>
+													data-bs-dismiss="modal">Close</button>
 											</div>
 										</div>
 									</div>
@@ -308,20 +307,18 @@
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel2">Lỗi Số
-													Lượng</h5>
+												<h5 class="modal-title" id="exampleModalLabel2">Quantity error</h5>
 												<button type="button" class="close" data-bs-dismiss="modal"
 													aria-label="Close">
 													<span aria-hidden="true">&times;</span>
 												</button>
 											</div>
 											<div class="modal-body">
-												<p id="quantityExceedErrorMessage">Số lượng sản phẩm
-													trong giỏ hàng đang vượt quá số lượng tồn kho.</p>
+												<p id="quantityExceedErrorMessage">The number of products in the cart is exceeding the inventory quantity.</p>
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"
-													data-bs-dismiss="modal">Đóng</button>
+													data-bs-dismiss="modal">Close</button>
 											</div>
 										</div>
 									</div>

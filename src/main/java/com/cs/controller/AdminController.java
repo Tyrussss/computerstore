@@ -206,8 +206,7 @@ public class AdminController {
 	
 	/* <--- user subscribe---> */
 	@PostMapping("/account/subscribe")
-	public String subscribe(Model model, User user, HttpServletRequest request) {
-        
+	public String subscribe(Model model, User user, HttpServletRequest request) {		
 		userRepository.subscribe(user);        
         
 		return "redirect:/";
