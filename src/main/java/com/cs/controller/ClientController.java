@@ -115,7 +115,8 @@ public class ClientController {
     public String cart(HttpSession session, Model model) { // Phương thức xử lý cho "/cart"
     	
         Integer UserID = (Integer) session.getAttribute("UserID");
-        
+        double total = cartRepository.getTotal(UserID);
+        model.addAttribute("total", total);
         List<Cart> carts = cartRepository.findByUserID(UserID);
         model.addAttribute("carts", carts); // Thêm danh sách cart vào model
         return "client/cart"; // Trả về view "cart" trong thư mục client
@@ -163,12 +164,16 @@ public class ClientController {
         cart.setPrice(product.getPrice());
         cart.setQuantity(1);
         cartRepository.insert(cart);
+        
+        session.setAttribute("cartQuantity", userRepository.countCart(userId));
         return "redirect:/cart";
     }
     
     @GetMapping("/cart/delete/{id}") // Ánh xạ yêu cầu POST đến "/cart/delete" đến phương thức xử lý xóa cart
-    public String deleteCart(@PathVariable int id) { // Phương thức xử lý cho yêu cầu xóa cart
-        cartRepository.deleteById(id); // Xóa cart từ ID được cung cấp
+    public String deleteCart(@PathVariable int id, HttpSession session) { // Phương thức xử lý cho yêu cầu xóa cart
+        cartRepository.deleteById(id);
+        Integer userId = (Integer) session.getAttribute("UserID");
+        session.setAttribute("cartQuantity", userRepository.countCart(userId));// Xóa cart từ ID được cung cấp
         return "redirect:/cart"; // Chuyển hướng trở lại trang giỏ hàng sau khi xóa
     }
     
