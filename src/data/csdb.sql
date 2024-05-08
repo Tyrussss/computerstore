@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: computerstore
+-- Host: 127.0.0.1    Database: cs
 -- ------------------------------------------------------
 -- Server version	8.0.34
 
@@ -41,6 +41,34 @@ INSERT INTO `brand` VALUES (1,'Dell',1),(2,'Apple',1),(3,'HP',1),(4,'Google',1);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `cart`
+--
+
+DROP TABLE IF EXISTS `cart`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `cart` (
+  `CartID` int NOT NULL AUTO_INCREMENT,
+  `ProductID` int DEFAULT NULL,
+  `UserID` int DEFAULT NULL,
+  `Quantity` int DEFAULT NULL,
+  `Price` float DEFAULT NULL,
+  `TotalPrice` float DEFAULT NULL,
+  PRIMARY KEY (`CartID`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cart`
+--
+
+LOCK TABLES `cart` WRITE;
+/*!40000 ALTER TABLE `cart` DISABLE KEYS */;
+INSERT INTO `cart` VALUES (5,3,36,1,1188,1188),(6,1,36,1,1499,1499),(18,6,47,1,1188,1188),(19,5,47,1,1249,1249),(23,6,11,1,1188,1188),(24,5,11,1,1249,1249);
+/*!40000 ALTER TABLE `cart` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `category`
 --
 
@@ -52,7 +80,7 @@ CREATE TABLE `category` (
   `CategoryName` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `DelStatus` tinyint(1) NOT NULL,
   PRIMARY KEY (`CategoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -61,7 +89,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'Laptops',1),(2,'Desktops',1),(3,'Accessories',1);
+INSERT INTO `category` VALUES (1,'Laptops',1),(2,'Desktops',1),(3,'Accessories',1),(4,'Test1',1),(5,'Test',1),(6,'Tesst 3',1),(7,'abc',1);
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,12 +187,12 @@ DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
   `OrderID` int NOT NULL AUTO_INCREMENT,
   `UserID` int NOT NULL,
-  `PaymentStatus` smallint NOT NULL,
+  `OrderStatus` smallint NOT NULL,
   `Created_Date` date NOT NULL,
-  `PaymentID` int DEFAULT NULL,
+  `payment` varchar(15) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`OrderID`),
   KEY `UserID` (`UserID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -173,8 +201,28 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES (1,1,1,'2024-04-25','4'),(2,1,1,'2024-04-25','4'),(3,1,1,'2024-04-25','78329270'),(4,1,1,'2024-04-25','4'),(5,1,1,'2024-04-25','74745464'),(6,1,1,'2024-04-25','41146597'),(7,1,1,'2024-04-25','87501573');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`csdb`@`localhost`*/ /*!50003 TRIGGER `orders_BEFORE_INSERT` BEFORE INSERT ON `orders` FOR EACH ROW BEGIN
+	IF NEW.Created_Date IS NULL THEN
+        SET NEW.Created_Date = CURDATE();
+    END IF;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `product`
@@ -187,9 +235,11 @@ CREATE TABLE `product` (
   `ProductID` int NOT NULL AUTO_INCREMENT,
   `ProductName` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `ProductDetails` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `ReleasedDate` date NOT NULL,
   `Stock` int NOT NULL,
   `Warranty` int DEFAULT NULL,
   `Price` decimal(10,2) NOT NULL,
+  `DelStatus` tinyint(1) NOT NULL,
   `BrandID` int NOT NULL,
   `CategoryID` int NOT NULL,
   PRIMARY KEY (`ProductID`),
@@ -198,7 +248,7 @@ CREATE TABLE `product` (
   KEY `CategoryID` (`CategoryID`),
   CONSTRAINT `product_ibfk_1` FOREIGN KEY (`BrandID`) REFERENCES `brand` (`BrandID`),
   CONSTRAINT `product_ibfk_2` FOREIGN KEY (`CategoryID`) REFERENCES `category` (`CategoryID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -207,9 +257,28 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'Dell XPS 13 Laptop','Latest 12th Gen Intel Core i7 processor, 16GB RAM, 512GB SSD',10,12,1499.99,1,1),(2,'Apple MacBook Air','M2 chip, 8GB RAM, 256GB SSD',15,24,1249.00,2,1),(3,'Samsung Galaxy S23 Ultra','1TB storage, 120Hz display, Quad camera system',20,12,1188.88,3,2);
+INSERT INTO `product` VALUES (1,'Dell XPS 13 Laptop','Latest 12th Gen Intel Core i7 processor, 16GB RAM, 512GB SSD','2023-05-03',10,12,1499.99,1,1,1),(2,'Apple MacBook Air','M2 chip, 8GB RAM, 256GB SSD','2023-05-03',15,24,1249.00,1,2,1),(3,'Samsung Galaxy S23 Ultra','1TB storage, 120Hz display, Quad camera system','2023-05-03',20,12,1188.88,1,3,2),(4,'Dell XPS 13 Laptop','Latest 12th Gen Intel Core i7 processor, 16GB RAM, 512GB SSD','2023-05-03',10,12,1499.00,1,1,1),(5,'Apple MacBook Air','M2 chip, 8GB RAM, 256GB SSD','2023-05-03',15,24,1249.00,1,2,1),(6,'Samsung Galaxy S23 Ultra','1TB storage, 120Hz display, Quad camera system','2023-05-03',20,12,1188.88,1,3,2);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`csdb`@`localhost`*/ /*!50003 TRIGGER `product_BEFORE_INSERT` BEFORE INSERT ON `product` FOR EACH ROW BEGIN
+	IF NEW.ReleasedDate IS NULL THEN
+        SET NEW.ReleasedDate = CURDATE();
+    END IF;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `productimage`
@@ -310,10 +379,10 @@ CREATE TABLE `user` (
   `Address` varchar(125) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `Role` tinyint(1) DEFAULT NULL,
   `Newsletter` smallint DEFAULT NULL,
-  `Avatar` varchar(255) DEFAULT NULL,
+  `Avatar` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`UserID`),
   UNIQUE KEY `Username_UNIQUE` (`Username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -322,9 +391,17 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'user1','password123','user1@example.com','John Doe',NULL,NULL,NULL,NULL,NULL),(2,'user2','password456','user2@example.com','Jane Smith',NULL,NULL,NULL,NULL,NULL),(3,'ty','123','tyrvszx@gamil.com','Tyrus Ng','9496663839','1738 RemyMartin',1,0,NULL);
+INSERT INTO `user` VALUES (1,'phong','','user1@example.com','Phong Cry','987654321','',0,0,'Phong1.png'),(2,'user2','','user2@example.com','Jane Smith','111 111 1111','',0,0,'avatar.png'),(3,'teotony','','tyrvszx@gamil.com','Tony Teo','111 222 3456','1738 RemyMartin',0,0,'avatar.png'),(11,'pepsi','123','pepsi@dog.cat','Lionel Pepsi','1111112345','Buenos Aires',0,0,'logo1.png'),(12,'coke','12345','coke@dog.cat','Coca Cola','999 666 6789','111 Senter Road',1,1,'logo1.png'),(13,NULL,NULL,NULL,NULL,NULL,NULL,2,1,'avatar.png'),(14,'test5','kocopass','test5@cat.dog',NULL,NULL,NULL,2,1,'avatar.png'),(15,NULL,NULL,'test5@cat.dog6',NULL,NULL,NULL,2,1,'avatar.png'),(17,NULL,'123','test10@cat.dog','Lionel Pep','123456789','HCM',0,0,'logo3.png'),(18,'cris','','test7@cat.dog',NULL,'0987654321,HCM',NULL,0,0,''),(19,'cr7','123','test8@cat.dog',NULL,'0987654321,Lisbon',NULL,0,0,'logo1.png'),(20,'cris9','123','test9@cat.dog','Cris Ronaldo','1111111111','HCM',0,0,NULL),(21,NULL,NULL,'test11@cat.dog',NULL,NULL,NULL,2,1,NULL),(22,'test12','123','test12@cat.dog','Lionel Pep','123456789','HCM',0,1,'e8174dc7-f129-4d70-becc-7c2286c7c5a8_logo1.png'),(23,'cris10',NULL,NULL,'Cris Ronaldo',NULL,NULL,0,0,NULL),(24,'test13','123','test13@cat.dog','Cris Ronaldo','1111111111',NULL,0,0,'logo3.png'),(25,'test14','123','test14@cat.dog','Cris Ronaldo','1111111111',NULL,0,0,'logo1.png'),(26,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'logo1.png'),(27,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'logo1.png'),(28,'test16','123','test16@cat.dog','Lionel Pep','123456789','HCM',1,1,'logo1.png'),(29,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'logo3.png'),(30,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'logo2.png'),(31,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'logo2.png'),(32,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'logo2.png'),(33,'test15','123','test15@cat.dog','Lionel Pep','123456789','HCM',0,1,'logo2.png'),(34,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'e8174dc7-f129-4d70-becc-7c2286c7c5a8_logo1.png'),(35,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'avatar.png'),(36,'coca','123','coca@pepsi.inn','Cris Ronaldo','66666666','Pensylvania',0,1,'e8174dc7-f129-4d70-becc-7c2286c7c5a8_logo1.png'),(41,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'avatar.png'),(42,'cocacola','123','coca@pepsi','Cris Ronaldo','1111111111','Arab Saudia',0,1,'avatar.png'),(43,NULL,NULL,'tyrus.la@outlook.com',NULL,NULL,NULL,2,1,NULL),(44,NULL,NULL,'tyrvszx@gmail.com',NULL,NULL,NULL,2,1,NULL),(45,NULL,NULL,'tyrvszx@gmail.com',NULL,NULL,NULL,2,1,NULL),(46,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'_380918ac-9d18-47b8-81f8-72d31c74941a.jpeg'),(47,'Phong Cris','123','tanphong06072001@gmail.com','Phong Cris','0842980607','606 Nguyễn Văn Quá - Đông Hưng Thuận - Quận 12',0,1,'_380918ac-9d18-47b8-81f8-72d31c74941a.jpeg'),(48,NULL,NULL,'test16@cat.dog',NULL,NULL,NULL,2,1,NULL),(49,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'Phong1.png');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'cs'
+--
+
+--
+-- Dumping routines for database 'cs'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -335,4 +412,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-01 20:40:58
+-- Dump completed on 2024-05-08 18:58:17
