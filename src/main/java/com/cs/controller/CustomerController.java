@@ -2,6 +2,9 @@ package com.cs.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,10 +40,28 @@ public class CustomerController {
 	@Autowired
 	BrandRepository brcep;
 	
+	// Method to save the uploaded avatar file
+    private String saveAvatar(MultipartFile avatarFile) throws IOException {
+        // Define the directory where you want to save the avatar files
+        String uploadDirectory = "/src/static/clic/img";
+
+        // Generate a unique file name for the avatar
+        String fileName = System.currentTimeMillis() + "_" + avatarFile.getOriginalFilename();
+
+        // Create the directory if it doesn't exist
+        Path directoryPath = Paths.get(uploadDirectory);
+        Files.createDirectories(directoryPath);
+
+        // Save the avatar file to the directory
+        Path filePath = Paths.get(uploadDirectory + fileName);
+        Files.write(filePath, avatarFile.getBytes());
+
+        // Return the path or identifier of the saved avatar file
+        return fileName;
+    }
+	
 	@RequestMapping("")
 	public String index(HttpSession session, Model model, User user) {
-		
-		
 		List<ProductDTO> top5Products = rep.findTop5Products();
         model.addAttribute("top5Products", top5Products);
 		return "client/indexclient";
@@ -77,8 +98,12 @@ public class CustomerController {
 	                           RedirectAttributes redirectAttributes) {
 
 	    try {
-	        String avatar = userRepository.saveAvatar(avatarFile);
-	        user.setAvatar(avatar);
+	    	// Check if the avatar file is not empty
+	        if (!avatarFile.isEmpty()) {
+	            // Process the avatar file here
+	            String avatar = saveAvatar(avatarFile); // You need to implement this method
+	            user.setAvatar(avatar);
+	        }
 
 	        // Check if the email exists in the database
 	        int isPresent = userRepository.findEmail(email);
@@ -92,7 +117,7 @@ public class CustomerController {
 	            existingUser.setPhone(user.getPhone());
 	            existingUser.setNewsletter(user.getNewsletter());
 	            existingUser.setAddress(user.getAddress());
-	            existingUser.setAvatar(avatar);
+	            existingUser.setAvatar(saveAvatar(avatarFile));
 
 	            userRepository.updateUser(existingUser); // Save the updated user
 	        } else {
