@@ -79,7 +79,6 @@
 <div th:replace="/common/client/content_footer"></div>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-    	const email = document.getElementById('email');
         const password = document.getElementById("password");
         const confirmPassword = document.getElementById("confirmPassword");
         const passwordError = document.getElementById("passwordError");
@@ -91,20 +90,68 @@
                 passwordError.style.display = "none";
             }
         });
-     // Validate email
-        /* const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!emailPattern.test(email.value)) {
-            emailError.style.display = 'block';
-            isValid = false;
-        } else {
-            emailError.style.display = 'none';
-        }
 
-        if (!isValid) {
-            event.preventDefault(); // Prevent form submission
-        } */
+        const email = document.getElementById('email');
+        const emailError = document.getElementById("emailError");
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        email.addEventListener("input", function() {
+            if (!emailPattern.test(email.value)) {
+                emailError.style.display = 'block';
+            } else {
+                emailError.style.display = 'none';
+            }
+        });
+
+        const avatarInput = document.getElementById("avatar");
+        const avatarPreview = document.getElementById("avatarPreview");
+
+        avatarInput.addEventListener("change", function() {
+            const file = this.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.addEventListener("load", function() {
+                    avatarPreview.setAttribute("src", this.result);
+                    avatarPreview.style.display = "block";
+                });
+
+                reader.readAsDataURL(file);
+            } else {
+                avatarPreview.setAttribute("src", "#");
+                avatarPreview.style.display = "none";
+            }
+        });
+
+        const form = document.querySelector("form");
+
+        form.addEventListener("submit", function(event) {
+            let isValid = true;
+
+            // Password matching
+            if (password.value !== confirmPassword.value) {
+                passwordError.style.display = "block";
+                isValid = false;
+            } else {
+                passwordError.style.display = "none";
+            }
+
+            // Email validation
+            if (!emailPattern.test(email.value)) {
+                emailError.style.display = 'block';
+                isValid = false;
+            } else {
+                emailError.style.display = 'none';
+            }
+
+            if (!isValid) {
+                event.preventDefault(); // Prevent form submission
+            }
+        });
     });
 </script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const avatarInput = document.getElementById("avatar");
