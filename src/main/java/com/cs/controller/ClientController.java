@@ -92,10 +92,10 @@ public class ClientController {
         for (Product product : products) {
             ProductImage productImage = productImageRepository.findFirstImageByProductID(product.getProductID());
             if(productImage == null) {
-                product.setImage("");
+                //product.setImage("");
             }
             else {
-                product.setImage(productImage.getImage());
+                //product.setImage(productImage.getImage());
             }
             newProducts.add(product);
         }
@@ -161,7 +161,7 @@ public class ClientController {
         Product product = productRepository.findByID(productId);
         cart.setProductID(productId);
         cart.setUserID(userId);
-        cart.setPrice(product.getPrice());
+        cart.setPrice((float) product.getPrice());
         cart.setQuantity(1);
         cartRepository.insert(cart);
         

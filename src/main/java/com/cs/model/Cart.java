@@ -53,8 +53,8 @@ public class Cart {
 		return Price;
 	}
 
-	public void setPrice(float price) {
-		Price = price;
+	public void setPrice(float d) {
+		Price = d;
 	}
 
 	public float getTotalPrice() {
