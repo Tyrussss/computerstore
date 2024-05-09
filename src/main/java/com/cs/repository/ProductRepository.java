@@ -79,10 +79,22 @@ public class ProductRepository {
 		  ProductRowMapper(), new Object[] { id }); }
 		 
 		
-		public int insert (Product Product) {
-			return db.update("insert into Product ( ProductID,ProductName,ProductDetails,Stock,Warranty,Price,BrandID,CategoryID)" + "values( ?,?,?,?,?,?,?,?)",
-					new Object[] {Product.getProductID(),Product.getProductName(), Product.getProductDetails(),Product.getStock(), Product.getWarranty(), Product.getPrice(), Product.getBrandID(), Product.getCategoryID()  });
-		}
+		  public int insert(Product product) {
+			    return db.update("INSERT INTO product (ProductName, ProductDetails, ReleasedDate, Stock, Warranty, Price, DelStatus, BrandID, CategoryID, DiscountID) " +
+			            "VALUES (?, ?, ?, ?, ?, ?, 1, ?, ?, ?)",
+			            new Object[] {
+			                    product.getProductName(),
+			                    product.getProductDetails(),
+			                    product.getReleasedDate(),
+			                    product.getStock(),
+			                    product.getWarranty(),
+			                    product.getPrice(),
+			                    
+			                    product.getBrandID(),
+			                    product.getCategoryID(),
+			                    product.getDiscountID()
+			            });
+			}
 		
 		public int update (Product Product) {
 			return db.update("update Product "+"set ProductName = ?, ProductDetails = ?, Stock = ?, Warranty = ?, Price = ? " + "where ProductID = ?",

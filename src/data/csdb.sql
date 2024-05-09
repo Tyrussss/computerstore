@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: cs
+-- Host: localhost    Database: computerstore
 -- ------------------------------------------------------
 -- Server version	8.0.34
 
@@ -55,7 +55,7 @@ CREATE TABLE `cart` (
   `Price` float DEFAULT NULL,
   `TotalPrice` float DEFAULT NULL,
   PRIMARY KEY (`CartID`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,7 +64,7 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` VALUES (5,3,36,1,1188,1188),(6,1,36,1,1499,1499),(18,6,47,1,1188,1188),(19,5,47,1,1249,1249),(23,6,11,1,1188,1188),(24,5,11,1,1249,1249);
+INSERT INTO `cart` VALUES (5,3,36,1,1188,1188),(6,1,36,1,1499,1499),(18,6,47,1,1188,1188),(19,5,47,1,1249,1249),(23,6,11,1,1188,1188),(24,5,11,1,1249,1249),(32,3,12,1,1188,1188),(33,5,12,1,1249,1249);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -242,6 +242,7 @@ CREATE TABLE `product` (
   `DelStatus` tinyint(1) NOT NULL,
   `BrandID` int NOT NULL,
   `CategoryID` int NOT NULL,
+  `DiscountID` int DEFAULT NULL,
   PRIMARY KEY (`ProductID`),
   KEY `product_name_index` (`ProductName`),
   KEY `BrandID` (`BrandID`),
@@ -257,7 +258,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'Dell XPS 13 Laptop','Latest 12th Gen Intel Core i7 processor, 16GB RAM, 512GB SSD','2023-05-03',10,12,1499.99,1,1,1),(2,'Apple MacBook Air','M2 chip, 8GB RAM, 256GB SSD','2023-05-03',15,24,1249.00,1,2,1),(3,'Samsung Galaxy S23 Ultra','1TB storage, 120Hz display, Quad camera system','2023-05-03',20,12,1188.88,1,3,2),(4,'Dell XPS 13 Laptop','Latest 12th Gen Intel Core i7 processor, 16GB RAM, 512GB SSD','2023-05-03',10,12,1499.00,1,1,1),(5,'Apple MacBook Air','M2 chip, 8GB RAM, 256GB SSD','2023-05-03',15,24,1249.00,1,2,1),(6,'Samsung Galaxy S23 Ultra','1TB storage, 120Hz display, Quad camera system','2023-05-03',20,12,1188.88,1,3,2);
+INSERT INTO `product` VALUES (1,'Dell XPS 13 Laptop','Latest 12th Gen Intel Core i7 processor, 16GB RAM, 512GB SSD','2023-05-03',10,12,1499.99,1,1,1,NULL),(2,'Apple MacBook Air','M2 chip, 8GB RAM, 256GB SSD','2023-05-03',15,24,1249.00,1,2,1,NULL),(3,'Samsung Galaxy S23 Ultra','1TB storage, 120Hz display, Quad camera system','2023-05-03',20,12,1188.88,1,3,2,NULL),(4,'Dell XPS 13 Laptop','Latest 12th Gen Intel Core i7 processor, 16GB RAM, 512GB SSD','2023-05-03',10,12,1499.00,1,1,1,NULL),(5,'Apple MacBook Air','M2 chip, 8GB RAM, 256GB SSD','2023-05-03',15,24,1249.00,1,2,1,NULL),(6,'Samsung Galaxy S23 Ultra','1TB storage, 120Hz display, Quad camera system','2023-05-03',20,12,1188.88,1,3,2,NULL);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -396,11 +397,11 @@ INSERT INTO `user` VALUES (1,'phong','','user1@example.com','Phong Cry','9876543
 UNLOCK TABLES;
 
 --
--- Dumping events for database 'cs'
+-- Dumping events for database 'computerstore'
 --
 
 --
--- Dumping routines for database 'cs'
+-- Dumping routines for database 'computerstore'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -412,4 +413,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-08 18:58:17
+-- Dump completed on 2024-05-08 22:22:41

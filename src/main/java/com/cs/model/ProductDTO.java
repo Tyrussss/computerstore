@@ -6,7 +6,7 @@ public class ProductDTO {
 	    private String productDetails;
 	    private int stock;
 	    private int warranty;
-	    private int price;
+	    private float price;
 	    private String brandName;
 	    private String categoryName;
 	    // Getters and setters
@@ -40,10 +40,10 @@ public class ProductDTO {
 		public void setWarranty(int warranty) {
 			this.warranty = warranty;
 		}
-		public int getPrice() {
+		public float getPrice() {
 			return price;
 		}
-		public void setPrice(int price) {
+		public void setPrice(float price) {
 			this.price = price;
 		}
 		public String getBrandName() {
