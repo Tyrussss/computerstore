@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public class Order {
 	private int OrderID;
-	private Boolean PaymentStatus;
+	private Boolean OrderStatus;
 	private int UserID;
 	private String payment;
 	private Date Created_Date;
@@ -18,12 +18,12 @@ public class Order {
 		OrderID = orderID;
 	}
 
-	public Boolean getPaymentStatus() {
-		return PaymentStatus;
+	public Boolean getOrderStatus() {
+		return OrderStatus;
 	}
 
-	public void setPaymentStatus(Boolean paymentStatus) {
-		PaymentStatus = paymentStatus;
+	public void setOrderStatus(Boolean orderStatus) {
+		OrderStatus = orderStatus;
 	}
 
 	public int getUserID() {
@@ -52,7 +52,7 @@ public class Order {
 	public Order(int orderID, Boolean paymentStatus, int userID, String payment, Date created_Date) {
 		super();
 		OrderID = orderID;
-		PaymentStatus = paymentStatus;
+		OrderStatus = paymentStatus;
 		UserID = userID;
 		this.payment = payment;
 		Created_Date = created_Date;
@@ -65,7 +65,7 @@ public class Order {
 	public String toString() {
 		return "Order{" +
 				"OrderID=" + OrderID +
-				", PaymentStatus=" + PaymentStatus +
+				", PaymentStatus=" + OrderStatus +
 				", UserID=" + UserID +
 				", Created_Date=" + Created_Date +
 				'}';
