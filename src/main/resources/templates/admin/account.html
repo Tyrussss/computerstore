@@ -32,11 +32,13 @@
 					</thead>
 					<tbody>
 						<tr th:if="${user.empty}">
-							<td colspan="2">No Account Available</td>
+							<td colspan="2">No Account Available</td> 
 						</tr>
 						<tr th:each="user : ${user}">
-							<td><img th:src="@{'/clic/img/'+${(user.Avatar)}}"
-								alt="${user.Avatar}" width="100px"></td>
+							<td><img th:src="@{'../../../../../static/clic/img/'+${(user.Avatar)}}" alt="${user.Avatar}"
+								 width="100px"></td>
+								
+								<!-- th:src="@{'/static/clic/img/'+${(user.Avatar)}}" alt="${user.Avatar}"-->
 							<td th:text="${user.Username}"></td>
 							<td th:text="${user.Email}"></td>
 							<td th:text="${user.FullName}"></td>

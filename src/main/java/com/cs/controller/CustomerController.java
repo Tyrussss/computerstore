@@ -1,5 +1,6 @@
 package com.cs.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.nio.file.Files;
@@ -25,6 +26,9 @@ import com.cs.repository.BrandRepository;
 import com.cs.repository.CategoryRepository;
 import com.cs.repository.ProductRepository;
 import com.cs.repository.UserRepository;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+
 
 import jakarta.servlet.http.HttpSession;
 
@@ -39,22 +43,25 @@ public class CustomerController {
 	CategoryRepository carep;
 	@Autowired
 	BrandRepository brcep;
+	@Autowired
+    private ResourceLoader resourceLoader;
 	
 	// Method to save the uploaded avatar file
     private String saveAvatar(MultipartFile avatarFile) throws IOException {
         // Define the directory where you want to save the avatar files
-        String uploadDirectory = "/src/static/clic/img";
+        String uploadDirectory = "static/clic/img/";
 
-        // Generate a unique file name for the avatar
+     // Generate a unique file name for the avatar
         String fileName = System.currentTimeMillis() + "_" + avatarFile.getOriginalFilename();
 
-        // Create the directory if it doesn't exist
-        Path directoryPath = Paths.get(uploadDirectory);
-        Files.createDirectories(directoryPath);
+        // Obtain a Resource representing the upload directory within the classpath
+        Resource resource = resourceLoader.getResource("classpath:/" + uploadDirectory);
+
+        // Get the file path within the upload directory
+        String filePath = resource.getFile().getAbsolutePath() + File.separator + fileName;
 
         // Save the avatar file to the directory
-        Path filePath = Paths.get(uploadDirectory + fileName);
-        Files.write(filePath, avatarFile.getBytes());
+        Files.write(Paths.get(filePath), avatarFile.getBytes());
 
         // Return the path or identifier of the saved avatar file
         return fileName;

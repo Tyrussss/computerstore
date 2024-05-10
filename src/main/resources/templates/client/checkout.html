@@ -82,7 +82,7 @@
                                     <a>Total <span id="totalText" >[[${total}]]</span></a>
                                 </li>
                             </ul>
-						<form id="checkout_form">
+						<form id="checkout_form" >
 						<button class="btn w-100" id="pay-btn">Thanh toán
                                 <script th:inline="javascript">
                                     var totalValue = /*[[${total}]]*/ null;
@@ -167,8 +167,8 @@ $(document).ready(function(){
 
 function createOrderAndRedirect() {
     var formData = {
-        "PaymentStatus": 1,
-        "Created_Date": "25-4-2024",
+        "OrderStatus": 1,
+        "Created_Date": "11-5-2024",
         "payment": "128483",
         // Thêm các trường dữ liệu từ form vào đây
     };
@@ -204,20 +204,6 @@ function redirectToPaymentPage() {
 }
 
 
-// Hàm chuyển hướng đến trang thanh toán
-function redirectToPaymentPage() {
-    $.ajax({
-        type: "GET",
-        url: "/api/payment/create_payment",
-        success: function (response) {
-            console.log("Redirecting to payment page");
-            window.location.href = response;
-        },
-        error: function (e) {
-            console.log("Error redirecting to payment page: " + e);
-        }
-    });
-}
 </script>
 
 <script>

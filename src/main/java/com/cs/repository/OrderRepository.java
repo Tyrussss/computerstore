@@ -26,7 +26,7 @@ public class OrderRepository {
 			Order item = new Order();
 			item.setOrderID (rs.getInt("OrderID"));
 			item.setUserID (rs.getInt("UserID"));
-			item.setPaymentStatus (rs.getBoolean("PaymentStatus"));
+			item.setOrderStatus (rs.getBoolean("OrderStatus"));
 			item.setCreated_Date (rs.getDate("Created_Date"));
 			return item;
 		}
@@ -37,10 +37,10 @@ public class OrderRepository {
 
 		db.update(connection -> {
 			PreparedStatement ps = connection.prepareStatement(
-					"INSERT INTO `Orders` (UserID, PaymentStatus, Created_Date, payment) VALUES (?, ?, NOW(),?)",
+					"INSERT INTO `Orders` (UserID, OrderStatus, Created_Date, payment) VALUES (?, ?, NOW(),?)",
 					Statement.RETURN_GENERATED_KEYS);
 			ps.setObject(1, order.getUserID());
-			ps.setObject(2, order.getPaymentStatus());
+			ps.setObject(2, order.getOrderStatus());
 			ps.setObject(3, order.getPayment());
 			return ps;
 		}, keyHolder);
@@ -50,7 +50,7 @@ public class OrderRepository {
 	
 	public int updatePaymentOrder(int orderId, String payment) {
         return db.update(
-                "update orders set payment = ?, PaymentStatus = true where OrderId = ?", new Object[] {  payment, orderId });
+                "update orders set payment = ?, OrderStatus = true where OrderId = ?", new Object[] {  payment, orderId });
     }    
 	public Order findById(int id) {
         return db.queryForObject("select * from orders where OrderId=?", new OrderRowMapper(), new Object[] { id });

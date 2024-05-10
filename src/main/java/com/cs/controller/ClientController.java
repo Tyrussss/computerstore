@@ -142,7 +142,7 @@ public class ClientController {
         // Thực hiện tạo đơn hàng
         Order newOrder = new Order();
         newOrder.setUserID(accountId);
-        newOrder.setPaymentStatus(true);
+        newOrder.setOrderStatus(true);
         newOrder.setPayment("4");
         int orderId = orderRepository.insert(newOrder);
 
@@ -156,17 +156,23 @@ public class ClientController {
     
     @GetMapping("/addToCart")
     public String addToCart(HttpSession session,  @ModelAttribute("productId") Integer productId) {
+    	
         Integer userId = (Integer) session.getAttribute("UserID");
-        Cart cart = new Cart();
-        Product product = productRepository.findByID(productId);
-        cart.setProductID(productId);
-        cart.setUserID(userId);
-        cart.setPrice((float) product.getPrice());
-        cart.setQuantity(1);
-        cartRepository.insert(cart);
-        
-        session.setAttribute("cartQuantity", userRepository.countCart(userId));
-        return "redirect:/cart";
+        if(userId != null) {
+	        Cart cart = new Cart();
+	        Product product = productRepository.findByID(productId);
+	        cart.setProductID(productId);
+	        cart.setUserID(userId);
+	        cart.setPrice((float) product.getPrice());
+	        cart.setQuantity(1);
+	        cartRepository.insert(cart);
+	        
+	        session.setAttribute("cartQuantity", userRepository.countCart(userId));
+	        return "redirect:/cart";
+        }
+        else {        	
+            return "/client/login";
+        }
     }
     
     @GetMapping("/cart/delete/{id}") // Ánh xạ yêu cầu POST đến "/cart/delete" đến phương thức xử lý xóa cart
