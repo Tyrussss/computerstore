@@ -32,7 +32,8 @@ public class ProductRepository {
 			item.setPrice(rs.getInt("Price"));
 			item.setBrandID(rs.getInt("BrandID"));
 			item.setCategoryID(rs.getInt("CategoryID"));
-			
+			item.setDelStatus(rs.getBoolean("DelStatus"));
+			item.setReleasedDate(rs.getDate("ReleasedDate"));
 			
 			return item;
 		}
@@ -43,7 +44,7 @@ public class ProductRepository {
 		 */
 		public List<Product> findAll(){
 			try {
-				return db.query("select * from product", new ProductRowMapper());
+				return db.query("select * from product where DelStatus=1", new ProductRowMapper());
 				
 			}catch (Exception ec) {
 				ec.printStackTrace();
@@ -88,7 +89,8 @@ public class ProductRepository {
 			                    product.getReleasedDate(),
 			                    product.getStock(),
 			                    product.getWarranty(),
-			                    product.getPrice(),
+			                    product.getPrice(),			    
+
 			                    product.getBrandID(),
 			                    product.getCategoryID(),
 			                    product.getDiscountID()
@@ -101,7 +103,7 @@ public class ProductRepository {
 		}
 		
 		public int deleteById(int id) {
-		return db.update("delete from Product where ProductID = ?", new Object[] { id });
+		return db.update("update Product set DelStatus=0 where ProductID = ?", new Object[] { id });
 		}
 		public class ProductDTORowMapper implements RowMapper<ProductDTO> {
 			 @Override
@@ -137,6 +139,12 @@ public class ProductRepository {
 	                 "where b.BrandName LIKE ? or p.ProductName LIKE ? or p.ProductDetails LIKE ? ";
 	    return db.query(sql,new Object[] {"%" + searchText + "%", "%" + searchText + "%", "%" + searchText + "%"}, new ProductDTORowMapper());
 		}
+		
+		public boolean hasPurchasedProduct(int userID, int productID) {
+	        String query = "SELECT COUNT(*) FROM Purchase WHERE UserID = ? AND ProductID = ?";
+	        int count = db.queryForObject(query, Integer.class, userID, productID);
+	        return count > 0;
+	    }
 
 		
 }

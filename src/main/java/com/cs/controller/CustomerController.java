@@ -85,8 +85,10 @@ public class CustomerController {
 		return "client/searchResults";
 	}
 	
-	@GetMapping("/quickview")
-	public String quickview() {		
+	@GetMapping("/quickview/{id}")
+	public String quickview(@PathVariable("id") int id, Model model) {	
+		Product product = rep.findByID(id);
+		model.addAttribute("product", product);
 		return "client/productdetail";
 	}	
 	

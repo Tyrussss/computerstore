@@ -21,6 +21,7 @@
                     <th scope="col">PRICE</th>
                     <th scope="col">BRAND ID</th>
                     <th scope="col">CATEGORY ID</th>
+                    <th scope="col">RELEASE DATE</th>
                     <th scope="col">&nbsp;</th>
                     <th scope="col">&nbsp;</th>
                   </tr>
@@ -35,8 +36,9 @@
                     <td th:text="${product.Stock}" ></td>
                     <td th:text="${product.Warranty}" ></td>
                     <td th:text="${product.Price}" ></td>
-                    <!-- <td th:text="${product.BrandID}}" ></td>
-                    <td th:text="${product.CategoryID}" ></td>  -->
+                    <td th:text="${product.BrandID}" ></td>
+                    <td th:text="${product.CategoryID}" ></td> 
+                    <td th:text="${product.ReleasedDate}" ></td>
 	                <td>
 		                <a th:href="@{/admin/product/edit/{id}(id=${product.ProductID})}" >
 		                     <i class="fa fa-user-edit"></i>
