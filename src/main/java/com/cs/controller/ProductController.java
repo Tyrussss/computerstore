@@ -43,6 +43,7 @@ public class ProductController {
 		model.addAttribute("brand", brcep.findAll());
 		return "/admin/product";
 	}
+	
 	@GetMapping("/product/new")
     public String newProduct(Model model) {
 		
@@ -89,7 +90,7 @@ public class ProductController {
 		  rep.deleteById( id); 
 		  return "redirect:/admin/product"; }
 	 
-    
+   
 	
     @GetMapping("/brand/new")
     	public String newBrand (Model model) {

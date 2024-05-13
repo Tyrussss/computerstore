@@ -9,6 +9,7 @@ public class ProductDTO {
 	    private float price;
 	    private String brandName;
 	    private String categoryName;
+	    
 	    // Getters and setters
 		public int getProductID() {
 			return productID;

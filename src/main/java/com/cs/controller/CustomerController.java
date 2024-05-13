@@ -3,6 +3,7 @@ package com.cs.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -74,6 +75,8 @@ public class CustomerController {
 		return "client/indexclient";
 	}
 	
+
+	
 	@PostMapping("/search")
 	public String searchResults(HttpSession session, Model model, User user,
             @RequestParam("searchText") String searchText) {		
@@ -85,7 +88,13 @@ public class CustomerController {
 	@GetMapping("/quickview/{id}")
 	public String quickview(@PathVariable("id") int id, Model model) {	
 		Product product = rep.findByID(id);
+		/* Map<String, Object> product = rep.findByID(id); */
+		List<Map<String, Object>> productImage = rep.findDetailProductImage(id);
+		List<Map<String, Object>> productContent = rep.findDetailProductContent(id);
+		
 		model.addAttribute("product", product);
+		model.addAttribute("productImage", productImage);
+		model.addAttribute("productContent", productContent);
 		return "client/productdetail";
 	}	
 	

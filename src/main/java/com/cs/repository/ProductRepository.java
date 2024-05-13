@@ -3,7 +3,7 @@ package com.cs.repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -145,5 +145,57 @@ public class ProductRepository {
 	        return count > 0;
 	    }
 
+		public Map<String, Object> findDetailProduct(int productID) {
+		    String sql =  "SELECT " +
+		            "p.productID, " +
+		            "p.productName, " +
+		            "p.productDetails, " +
+		            "p.releasedDate, " +
+		            "p.stock, " +
+		            "p.warranty, " +
+		            "p.price, " +
+		            "p.delStatus, " +
+		            "p.brandID, " +
+		            "p.categoryID, " +
+		            "p.discountID, " +
+		            "b.BrandName, " +
+		            "c.CategoryName " +
+		        "FROM " +
+		            "Product p " +
+		        "JOIN " +
+		            "Brand b ON p.brandID = b.BrandID " +
+		        "JOIN " +
+		            "Category c ON p.categoryID = c.CategoryID " +
+		        "WHERE " +
+		            "p.productID = ?";
+
+		    return db.queryForMap(sql, new Object[] {productID});
+		}
+		public List<Map<String, Object>> findDetailProductImage(int productID) {
+		    String sql =  "SELECT " +
+		            "ProductImageID, " +
+		            "Image, " +
+		            "Main " +
+		        "FROM " +
+		            "ProductImage " +
+		        "WHERE " +
+		            "ProductID = ?";
+
+		    return db.queryForList(sql, new Object[] {productID});
+		}
+		public List<Map<String, Object>> findDetailProductContent(int productID) {
+		    String sql =  "SELECT " +
+		            "ProductInfoID, " +
+		            "Name, " +
+		            "Content " +
+		        "FROM " +
+		            "ProductInfo " +
+		        "WHERE " +
+		            "ProductID = ?";
+
+		    return db.queryForList(sql, new Object[] {productID});
+		}
+
+			
 		
 }

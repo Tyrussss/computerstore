@@ -489,7 +489,7 @@ textarea {
 												<p class="product-category" th:text="'Category: ' + ${product.categoryName}" ></p>
 												<h4 class="product-name"><a href="" th:text="'Brand: ' + ${product.brandName}"></a></h4>
 												<h3 class="product-name"><a href="/quickview" th:text="${product.ProductName}"></a></h3>
-												<h4 class="product-price" th:text="'Price: ' + ${product.price}"> <del class="product-old-price">$990.00</del></h4>
+												<h4 class="product-price" th:text="'Price: ' + ${product.price}"> <del class="product-old-price"></del></h4>
 												<div class="product-rating">
 													<i class="fa fa-star"></i>
 													<i class="fa fa-star"></i>
@@ -1107,31 +1107,20 @@ textarea {
 		</div>
 		<!-- /NEWSLETTER -->
 
-<div class="fab-wrapper">
-   <input id="fabCheckbox" type="checkbox" class="fab-checkbox">
-   <label class="fab" for="fabCheckbox">
-      <i class="icon-cps-fab-menu"></i>
-      <!-- <i class="icon-cps-close"></i> -->
-   </label>
-   <div class="fab-wheel">
-      <a class="fab-action fab-action-1" href="https://maps.app.goo.gl/vupUSdY6jFwBwtok9">
-         <span class="fab-title">Tìm công ty</span>
-         <div class="fab-button fab-button-1"><i class="icon-cps-local"></i></div>
-      </a>
-      <a class="fab-action fab-action-2" href="tel:0842980607" rel="nofollow">
-         <span class="fab-title">Gọi trực tiếp</span>
-         <div class="fab-button fab-button-2"><i class="icon-cps-phone"></i></div>
-      </a>
-      <a class="fab-action fab-action-3" href="https://www.facebook.com/profile.php?id=100082316745728" target="_blank" rel="nofollow">
-         <span class="fab-title">Chat ngay</span>
-         <div class="fab-button fab-button-3"><i class="icon-cps-chat"></i></div>
-      </a>
-      <a class="fab-action fab-action-4" href="https://zalo.me/0842980607" target="_blank" rel="nofollow">
-         <span class="fab-title">Chat trên Zalo</span>
-         <div class="fab-button fab-button-4"><i class="icon-cps-chat-zalo"></i>
-      </a>
-      </div>
-      </div>
+<div class="echbay-sms-messenger style-for-position-br">
+	<div class="phonering-alo-alo">
+		<a href="tel:0842980607" rel="nofollow" class="echbay-phonering-alo-event">.</a>
+	</div>
+	<div class="phonering-alo-sms">
+		<a href="mailto:tanphong06072001@gmail.com" class="echbay-phonering-sms-event">.</a>
+	</div>
+	<div class="phonering-alo-zalo">
+		<a href="https://zalo.me/0842980607" target="_blank" rel="nofollow" class="echbay-phonering-zalo-event">.</a>
+	</div>
+	<div class="phonering-alo-messenger">
+		<a href="https://www.facebôk.com" target="_blank" rel="nofollow" class="echbay-phonering-messenger-event">.</a>
+	</div>
+</div>
       
    <div class="suggestions-chat-box hidden" style="display: none;">
       <div class="box-content d-flex justify-content-around align-items-center">
@@ -1142,5 +1131,63 @@ textarea {
    </div>
    <div class="devvn_bg"></div>
 </div>
+<<style>
+.echbay-sms-messenger div.phonering-alo-zalo, 
+.echbay-sms-messenger div.phonering-alo-alo {
+	background-color:#0084ff
+}
+.echbay-sms-messenger div.phonering-alo-sms {
+	background-color:#f60
+}
+.echbay-sms-messenger div.phonering-alo-messenger {
+	background-color:#e60f1e
+}
+ 
+.echbay-sms-messenger {
+	width:45px
+}
+.echbay-sms-messenger a {
+	line-height:45px;
+        color: transparent;
+display:block;
+}
+.echbay-sms-messenger {
+	display:block
+}
+.echbay-sms-messenger div.phonering-alo-zalo {
+	display: block
+}
+ 
+.echbay-sms-messenger div.phonering-alo-alo {
+    background-image: url(http://codfe.com/wp-content/uploads/2020/08/call.png);
+}
+.echbay-sms-messenger div.phonering-alo-sms {
+    background-image: url(http://codfe.com/wp-content/uploads/2020/08/mail.png);
+    background-color: #f60;
+    background-size: 60%;
+}
+.echbay-sms-messenger div.phonering-alo-zalo {
+    background-image: url(http://codfe.com/wp-content/uploads/2020/08/zalo.png);
+}
+.echbay-sms-messenger div.phonering-alo-messenger {
+    background-image: url(http://codfe.com/wp-content/uploads/2020/08/messenger.png);
+    background-color: #e60f1e;
+}
+.echbay-sms-messenger div {
+    margin: 14px 0;
+    background: #0084FF center no-repeat;
+    background-size: 70%;
+    border-radius: 50%;
+    box-shadow: 0 3px 10px #888;
+}
+ 
+.echbay-sms-messenger {
+    text-align: center;
+    right:20px;
+    position: fixed;
+    bottom: 20px;
+    z-index: 999;
+}
+</style>
 <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 
