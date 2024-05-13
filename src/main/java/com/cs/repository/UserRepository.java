@@ -127,6 +127,11 @@ public class UserRepository {
     	int count = db.queryForObject(sql, new Object[]{id}, Integer.class);
     	return count;    	
     }
+    public boolean existsByUsername(String username) {
+        String query = "SELECT COUNT(*) FROM users WHERE username = ?";
+        int count = db.queryForObject(query, Integer.class, username);
+        return count > 0;
+    }
 
 	/***
 	 * 

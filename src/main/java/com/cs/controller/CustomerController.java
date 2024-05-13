@@ -2,7 +2,9 @@ package com.cs.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -49,7 +52,7 @@ public class CustomerController {
 	// Method to save the uploaded avatar file
     private String saveAvatar(MultipartFile avatarFile) throws IOException {
         // Define the directory where you want to save the avatar files
-        String uploadDirectory = "static/clic/img/";
+        String uploadDirectory = "/clic/img/";
 
      // Generate a unique file name for the avatar
         String fileName = System.currentTimeMillis() + "_" + avatarFile.getOriginalFilename();
@@ -166,6 +169,16 @@ public class CustomerController {
 	        
 	        return "client/indexclient";
 	    }
+	
+	@PostMapping("/checkUsername")
+    public Map<String, Boolean> checkUsernameAvailability(@RequestBody Map<String, String> requestData) {
+        String username = requestData.get("username");
+        boolean exists = userRepository.existsByUsername(username);
+        
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("exists", exists);
+        return response;
+    }
 		
 }
 
