@@ -90,6 +90,7 @@ public class ProductRepository {
 			                    product.getStock(),
 			                    product.getWarranty(),
 			                    product.getPrice(),			    
+
 			                    product.getBrandID(),
 			                    product.getCategoryID(),
 			                    product.getDiscountID()
