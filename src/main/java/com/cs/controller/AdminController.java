@@ -41,6 +41,8 @@ public class AdminController {
 	
 	@GetMapping("")
 	public String adindex() {
+		
+		
 		return "admin/ad_index";
 	}
 	
