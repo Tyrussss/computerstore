@@ -20,12 +20,22 @@
             }
         </style>
         <div id="container">
-            <div id="editor">
-            <p></p>
-            </div>
-            <input type="hidden" value="" id="mydata" name="mydata" />
+
+        <div id="editor"></div>
+        <form id="commentForm" action="/saveComment" method="post">
+            
+           
+            <input type="text" name="userName" id="userName" placeholder="User Name"><br>
+            <!-- Input hidden để lưu nội dung của CKEditor -->
+            <input type="hidden" name="commentContent" id="commentContent" value="">
+          	<input type="hidden" value="" id="mydata" name="mydata" />
+
             <div> <input type="submit" value="Comment" id="btnSave" /></div>
-        </div>
+            
+        </form>
+    </div>
+            
+        
         
         <!--
             The "superbuild" of CKEditor&nbsp;5 served via CDN contains a large set of plugins and multiple editor types.

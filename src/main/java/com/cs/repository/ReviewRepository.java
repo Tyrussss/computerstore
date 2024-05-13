@@ -54,7 +54,7 @@ public class ReviewRepository {
 	}
 	
 	public int insert (Review Review) {
-		return db.update("insert into Review(UserID, ProductID, ReviewContent,Repy)" + "values (?,?,?,?)",
+		return db.update("insert into Review(UserID, ProductID, ReviewContent,Reply)" + "values (?,?,?,?)",
 				new Object[] {Review.getUserID(), 1});
 				
 	}
@@ -66,6 +66,13 @@ public class ReviewRepository {
 		return db.update("delete from Review where ReviewID = ?, UserID = ?",
 				new Object[] {Review.getReviewID(), Review.getUserID()});
 	}
+	
+	/*
+	 * public void save (Review review) { String sql =
+	 * "INSERT INTO review (UserID, ProductID, ReviewContent, Reply) VALUES (?,?,?,?)"
+	 * ; return db.update(sql, review.getUserID(), review.getProductID(),
+	 * review.getReviewContent(),review.getReply()); }
+	 */
 }
 
 
